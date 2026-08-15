@@ -1,0 +1,2821 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "health_1",
+      "title": "Vitality I",
+      "description": [
+        "+2 hearts — +4 HP total"
+      ],
+      "icon": "minecraft:golden_apple",
+      "weight": 4,
+      "category": "health",
+      "slot": 20,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:max_health",
+          "operation": "add_value",
+          "amount": 4,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "health_2",
+      "title": "Vitality II",
+      "description": [
+        "+2 hearts — +8 HP total"
+      ],
+      "icon": "minecraft:golden_apple",
+      "weight": 4,
+      "requires": [
+        "health_1"
+      ],
+      "category": "health",
+      "slot": 21,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:max_health",
+          "operation": "add_value",
+          "amount": 4,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "health_3",
+      "title": "Vitality III",
+      "description": [
+        "+2 hearts — +12 HP total"
+      ],
+      "icon": "minecraft:golden_apple",
+      "weight": 6,
+      "requires": [
+        "health_2"
+      ],
+      "category": "health",
+      "slot": 22,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:max_health",
+          "operation": "add_value",
+          "amount": 4,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "health_4",
+      "title": "Vitality IV",
+      "description": [
+        "+2 hearts — +16 HP total"
+      ],
+      "icon": "minecraft:golden_apple",
+      "weight": 8,
+      "requires": [
+        "health_3"
+      ],
+      "category": "health",
+      "slot": 23,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:max_health",
+          "operation": "add_value",
+          "amount": 4,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "health_5",
+      "title": "Vitality V",
+      "description": [
+        "+2 hearts — +20 HP total"
+      ],
+      "icon": "minecraft:golden_apple",
+      "weight": 10,
+      "requires": [
+        "health_4"
+      ],
+      "category": "health",
+      "slot": 24,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:max_health",
+          "operation": "add_value",
+          "amount": 4,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "health_6",
+      "title": "Vitality VI",
+      "description": [
+        "+2 hearts — +24 HP total"
+      ],
+      "icon": "minecraft:golden_apple",
+      "weight": 14,
+      "requires": [
+        "health_5"
+      ],
+      "category": "health",
+      "slot": 29,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:max_health",
+          "operation": "add_value",
+          "amount": 4,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "health_7",
+      "title": "Vitality VII",
+      "description": [
+        "+2 hearts — +28 HP total"
+      ],
+      "icon": "minecraft:golden_apple",
+      "weight": 20,
+      "requires": [
+        "health_6"
+      ],
+      "category": "health",
+      "slot": 30,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:max_health",
+          "operation": "add_value",
+          "amount": 4,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "health_8",
+      "title": "Vitality VIII",
+      "description": [
+        "+2 hearts — +32 HP total"
+      ],
+      "icon": "minecraft:golden_apple",
+      "weight": 28,
+      "requires": [
+        "health_7"
+      ],
+      "category": "health",
+      "slot": 31,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:max_health",
+          "operation": "add_value",
+          "amount": 4,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "health_9",
+      "title": "Vitality IX",
+      "description": [
+        "+2 hearts — +36 HP total"
+      ],
+      "icon": "minecraft:golden_apple",
+      "weight": 46,
+      "requires": [
+        "health_8"
+      ],
+      "category": "health",
+      "slot": 32,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:max_health",
+          "operation": "add_value",
+          "amount": 4,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "health_10",
+      "title": "Vitality X",
+      "description": [
+        "+2 hearts — +40 HP total"
+      ],
+      "icon": "minecraft:golden_apple",
+      "weight": 61,
+      "requires": [
+        "health_9"
+      ],
+      "category": "health",
+      "slot": 33,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:max_health",
+          "operation": "add_value",
+          "amount": 4,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "speed_1",
+      "title": "Fleet Foot I",
+      "description": [
+        "+2% movement speed — +2% total"
+      ],
+      "icon": "minecraft:feather",
+      "weight": 2,
+      "category": "speed",
+      "slot": 20,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:movement_speed",
+          "operation": "add_multiplied_base",
+          "amount": 0.02,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "speed_2",
+      "title": "Fleet Foot II",
+      "description": [
+        "+2% movement speed — +4% total"
+      ],
+      "icon": "minecraft:feather",
+      "weight": 2,
+      "requires": [
+        "speed_1"
+      ],
+      "category": "speed",
+      "slot": 21,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:movement_speed",
+          "operation": "add_multiplied_base",
+          "amount": 0.02,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "speed_3",
+      "title": "Fleet Foot III",
+      "description": [
+        "+2% movement speed — +6% total"
+      ],
+      "icon": "minecraft:feather",
+      "weight": 2,
+      "requires": [
+        "speed_2"
+      ],
+      "category": "speed",
+      "slot": 22,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:movement_speed",
+          "operation": "add_multiplied_base",
+          "amount": 0.02,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "speed_4",
+      "title": "Fleet Foot IV",
+      "description": [
+        "+2% movement speed — +8% total"
+      ],
+      "icon": "minecraft:feather",
+      "weight": 4,
+      "requires": [
+        "speed_3"
+      ],
+      "category": "speed",
+      "slot": 23,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:movement_speed",
+          "operation": "add_multiplied_base",
+          "amount": 0.02,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "speed_5",
+      "title": "Fleet Foot V",
+      "description": [
+        "+2% movement speed — +10% total"
+      ],
+      "icon": "minecraft:feather",
+      "weight": 4,
+      "requires": [
+        "speed_4"
+      ],
+      "category": "speed",
+      "slot": 24,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:movement_speed",
+          "operation": "add_multiplied_base",
+          "amount": 0.02,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "speed_6",
+      "title": "Fleet Foot VI",
+      "description": [
+        "+2% movement speed — +12% total"
+      ],
+      "icon": "minecraft:feather",
+      "weight": 6,
+      "requires": [
+        "speed_5"
+      ],
+      "category": "speed",
+      "slot": 29,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:movement_speed",
+          "operation": "add_multiplied_base",
+          "amount": 0.02,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "speed_7",
+      "title": "Fleet Foot VII",
+      "description": [
+        "+2% movement speed — +14% total"
+      ],
+      "icon": "minecraft:feather",
+      "weight": 6,
+      "requires": [
+        "speed_6"
+      ],
+      "category": "speed",
+      "slot": 30,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:movement_speed",
+          "operation": "add_multiplied_base",
+          "amount": 0.02,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "speed_8",
+      "title": "Fleet Foot VIII",
+      "description": [
+        "+2% movement speed — +16% total"
+      ],
+      "icon": "minecraft:feather",
+      "weight": 8,
+      "requires": [
+        "speed_7"
+      ],
+      "category": "speed",
+      "slot": 31,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:movement_speed",
+          "operation": "add_multiplied_base",
+          "amount": 0.02,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "speed_9",
+      "title": "Fleet Foot IX",
+      "description": [
+        "+2% movement speed — +18% total"
+      ],
+      "icon": "minecraft:feather",
+      "weight": 10,
+      "requires": [
+        "speed_8"
+      ],
+      "category": "speed",
+      "slot": 32,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:movement_speed",
+          "operation": "add_multiplied_base",
+          "amount": 0.02,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "speed_10",
+      "title": "Fleet Foot X",
+      "description": [
+        "+2% movement speed — +20% total"
+      ],
+      "icon": "minecraft:feather",
+      "weight": 12,
+      "requires": [
+        "speed_9"
+      ],
+      "category": "speed",
+      "slot": 33,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:movement_speed",
+          "operation": "add_multiplied_base",
+          "amount": 0.02,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "speed_11",
+      "title": "Fleet Foot XI",
+      "description": [
+        "+2% movement speed — +22% total"
+      ],
+      "icon": "minecraft:feather",
+      "weight": 16,
+      "requires": [
+        "speed_10"
+      ],
+      "category": "speed",
+      "slot": 38,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:movement_speed",
+          "operation": "add_multiplied_base",
+          "amount": 0.02,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "speed_12",
+      "title": "Fleet Foot XII",
+      "description": [
+        "+2% movement speed — +24% total"
+      ],
+      "icon": "minecraft:feather",
+      "weight": 22,
+      "requires": [
+        "speed_11"
+      ],
+      "category": "speed",
+      "slot": 39,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:movement_speed",
+          "operation": "add_multiplied_base",
+          "amount": 0.02,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "speed_13",
+      "title": "Fleet Foot XIII",
+      "description": [
+        "+2% movement speed — +26% total"
+      ],
+      "icon": "minecraft:feather",
+      "weight": 30,
+      "requires": [
+        "speed_12"
+      ],
+      "category": "speed",
+      "slot": 40,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:movement_speed",
+          "operation": "add_multiplied_base",
+          "amount": 0.02,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "speed_14",
+      "title": "Fleet Foot XIV",
+      "description": [
+        "+2% movement speed — +28% total"
+      ],
+      "icon": "minecraft:feather",
+      "weight": 36,
+      "requires": [
+        "speed_13"
+      ],
+      "category": "speed",
+      "slot": 41,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:movement_speed",
+          "operation": "add_multiplied_base",
+          "amount": 0.02,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "speed_15",
+      "title": "Fleet Foot XV",
+      "description": [
+        "+2% movement speed — +30% total"
+      ],
+      "icon": "minecraft:feather",
+      "weight": 40,
+      "requires": [
+        "speed_14"
+      ],
+      "category": "speed",
+      "slot": 42,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:movement_speed",
+          "operation": "add_multiplied_base",
+          "amount": 0.02,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "mining_1",
+      "title": "Prospector I",
+      "description": [
+        "+2 mining efficiency"
+      ],
+      "icon": "minecraft:diamond_pickaxe",
+      "weight": 6,
+      "category": "mining",
+      "slot": 20,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:mining_efficiency",
+          "operation": "add_value",
+          "amount": 2,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "mining_2",
+      "title": "Prospector II",
+      "description": [
+        "+2 (4 total)"
+      ],
+      "icon": "minecraft:diamond_pickaxe",
+      "weight": 12,
+      "requires": [
+        "mining_1"
+      ],
+      "category": "mining",
+      "slot": 21,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:mining_efficiency",
+          "operation": "add_value",
+          "amount": 2,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "mining_3",
+      "title": "Prospector III",
+      "description": [
+        "+2 (6 total)"
+      ],
+      "icon": "minecraft:diamond_pickaxe",
+      "weight": 18,
+      "requires": [
+        "mining_2"
+      ],
+      "category": "mining",
+      "slot": 22,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:mining_efficiency",
+          "operation": "add_value",
+          "amount": 2,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "mining_4",
+      "title": "Prospector IV",
+      "description": [
+        "+3 (9 total)"
+      ],
+      "icon": "minecraft:diamond_pickaxe",
+      "weight": 28,
+      "requires": [
+        "mining_3"
+      ],
+      "category": "mining",
+      "slot": 23,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:mining_efficiency",
+          "operation": "add_value",
+          "amount": 3,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "mining_5",
+      "title": "Prospector V",
+      "description": [
+        "+3 (12 total) — instamine stone with an Efficiency V diamond pickaxe"
+      ],
+      "icon": "minecraft:diamond_pickaxe",
+      "weight": 36,
+      "requires": [
+        "mining_4"
+      ],
+      "category": "mining",
+      "slot": 24,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:mining_efficiency",
+          "operation": "add_value",
+          "amount": 3,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "luck_1",
+      "title": "Fortune Finder I",
+      "description": [
+        "+0.5 luck — +0.5 total"
+      ],
+      "icon": "minecraft:rabbit_foot",
+      "weight": 2,
+      "category": "luck",
+      "slot": 20,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:luck",
+          "operation": "add_value",
+          "amount": 0.5,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "luck_2",
+      "title": "Fortune Finder II",
+      "description": [
+        "+0.5 luck — +1 total"
+      ],
+      "icon": "minecraft:rabbit_foot",
+      "weight": 2,
+      "requires": [
+        "luck_1"
+      ],
+      "category": "luck",
+      "slot": 21,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:luck",
+          "operation": "add_value",
+          "amount": 0.5,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "luck_3",
+      "title": "Fortune Finder III",
+      "description": [
+        "+0.5 luck — +1.5 total"
+      ],
+      "icon": "minecraft:rabbit_foot",
+      "weight": 4,
+      "requires": [
+        "luck_2"
+      ],
+      "category": "luck",
+      "slot": 22,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:luck",
+          "operation": "add_value",
+          "amount": 0.5,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "luck_4",
+      "title": "Fortune Finder IV",
+      "description": [
+        "+0.5 luck — +2 total"
+      ],
+      "icon": "minecraft:rabbit_foot",
+      "weight": 4,
+      "requires": [
+        "luck_3"
+      ],
+      "category": "luck",
+      "slot": 23,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:luck",
+          "operation": "add_value",
+          "amount": 0.5,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "luck_5",
+      "title": "Fortune Finder V",
+      "description": [
+        "+0.5 luck — +2.5 total"
+      ],
+      "icon": "minecraft:rabbit_foot",
+      "weight": 6,
+      "requires": [
+        "luck_4"
+      ],
+      "category": "luck",
+      "slot": 24,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:luck",
+          "operation": "add_value",
+          "amount": 0.5,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "luck_6",
+      "title": "Fortune Finder VI",
+      "description": [
+        "+0.5 luck — +3 total"
+      ],
+      "icon": "minecraft:rabbit_foot",
+      "weight": 8,
+      "requires": [
+        "luck_5"
+      ],
+      "category": "luck",
+      "slot": 29,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:luck",
+          "operation": "add_value",
+          "amount": 0.5,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "luck_7",
+      "title": "Fortune Finder VII",
+      "description": [
+        "+0.5 luck — +3.5 total"
+      ],
+      "icon": "minecraft:rabbit_foot",
+      "weight": 10,
+      "requires": [
+        "luck_6"
+      ],
+      "category": "luck",
+      "slot": 30,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:luck",
+          "operation": "add_value",
+          "amount": 0.5,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "luck_8",
+      "title": "Fortune Finder VIII",
+      "description": [
+        "+0.5 luck — +4 total"
+      ],
+      "icon": "minecraft:rabbit_foot",
+      "weight": 14,
+      "requires": [
+        "luck_7"
+      ],
+      "category": "luck",
+      "slot": 31,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:luck",
+          "operation": "add_value",
+          "amount": 0.5,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "luck_9",
+      "title": "Fortune Finder IX",
+      "description": [
+        "+0.5 luck — +4.5 total"
+      ],
+      "icon": "minecraft:rabbit_foot",
+      "weight": 22,
+      "requires": [
+        "luck_8"
+      ],
+      "category": "luck",
+      "slot": 32,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:luck",
+          "operation": "add_value",
+          "amount": 0.5,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "luck_10",
+      "title": "Fortune Finder X",
+      "description": [
+        "+0.5 luck — +5 total"
+      ],
+      "icon": "minecraft:rabbit_foot",
+      "weight": 28,
+      "requires": [
+        "luck_9"
+      ],
+      "category": "luck",
+      "slot": 33,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:luck",
+          "operation": "add_value",
+          "amount": 0.5,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "damage_1",
+      "title": "Warrior I",
+      "description": [
+        "+0.5 dmg & +3% weapon damage — +0.5 flat, +3%"
+      ],
+      "icon": "minecraft:iron_sword",
+      "weight": 4,
+      "category": "damage",
+      "slot": 20,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:attack_damage",
+          "operation": "add_value",
+          "amount": 0.5,
+          "amplifier": 0
+        },
+        {
+          "type": "attribute",
+          "attribute": "minecraft:attack_damage",
+          "operation": "add_multiplied_total",
+          "amount": 0.03,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "damage_2",
+      "title": "Warrior II",
+      "description": [
+        "+0.5 dmg & +3% weapon damage — +1 flat, +6%"
+      ],
+      "icon": "minecraft:iron_sword",
+      "weight": 4,
+      "requires": [
+        "damage_1"
+      ],
+      "category": "damage",
+      "slot": 21,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:attack_damage",
+          "operation": "add_value",
+          "amount": 0.5,
+          "amplifier": 0
+        },
+        {
+          "type": "attribute",
+          "attribute": "minecraft:attack_damage",
+          "operation": "add_multiplied_total",
+          "amount": 0.03,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "damage_3",
+      "title": "Warrior III",
+      "description": [
+        "+0.5 dmg & +3% weapon damage — +1.5 flat, +9%"
+      ],
+      "icon": "minecraft:iron_sword",
+      "weight": 6,
+      "requires": [
+        "damage_2"
+      ],
+      "category": "damage",
+      "slot": 22,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:attack_damage",
+          "operation": "add_value",
+          "amount": 0.5,
+          "amplifier": 0
+        },
+        {
+          "type": "attribute",
+          "attribute": "minecraft:attack_damage",
+          "operation": "add_multiplied_total",
+          "amount": 0.03,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "damage_4",
+      "title": "Warrior IV",
+      "description": [
+        "+0.5 dmg & +3% weapon damage — +2 flat, +12%"
+      ],
+      "icon": "minecraft:iron_sword",
+      "weight": 8,
+      "requires": [
+        "damage_3"
+      ],
+      "category": "damage",
+      "slot": 23,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:attack_damage",
+          "operation": "add_value",
+          "amount": 0.5,
+          "amplifier": 0
+        },
+        {
+          "type": "attribute",
+          "attribute": "minecraft:attack_damage",
+          "operation": "add_multiplied_total",
+          "amount": 0.03,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "damage_5",
+      "title": "Warrior V",
+      "description": [
+        "+0.5 dmg & +3% weapon damage — +2.5 flat, +15%"
+      ],
+      "icon": "minecraft:iron_sword",
+      "weight": 10,
+      "requires": [
+        "damage_4"
+      ],
+      "category": "damage",
+      "slot": 24,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:attack_damage",
+          "operation": "add_value",
+          "amount": 0.5,
+          "amplifier": 0
+        },
+        {
+          "type": "attribute",
+          "attribute": "minecraft:attack_damage",
+          "operation": "add_multiplied_total",
+          "amount": 0.03,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "damage_6",
+      "title": "Warrior VI",
+      "description": [
+        "+0.5 dmg & +3% weapon damage — +3 flat, +18%"
+      ],
+      "icon": "minecraft:iron_sword",
+      "weight": 14,
+      "requires": [
+        "damage_5"
+      ],
+      "category": "damage",
+      "slot": 29,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:attack_damage",
+          "operation": "add_value",
+          "amount": 0.5,
+          "amplifier": 0
+        },
+        {
+          "type": "attribute",
+          "attribute": "minecraft:attack_damage",
+          "operation": "add_multiplied_total",
+          "amount": 0.03,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "damage_7",
+      "title": "Warrior VII",
+      "description": [
+        "+0.5 dmg & +3% weapon damage — +3.5 flat, +21%"
+      ],
+      "icon": "minecraft:iron_sword",
+      "weight": 20,
+      "requires": [
+        "damage_6"
+      ],
+      "category": "damage",
+      "slot": 30,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:attack_damage",
+          "operation": "add_value",
+          "amount": 0.5,
+          "amplifier": 0
+        },
+        {
+          "type": "attribute",
+          "attribute": "minecraft:attack_damage",
+          "operation": "add_multiplied_total",
+          "amount": 0.03,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "damage_8",
+      "title": "Warrior VIII",
+      "description": [
+        "+0.5 dmg & +3% weapon damage — +4 flat, +24%"
+      ],
+      "icon": "minecraft:iron_sword",
+      "weight": 28,
+      "requires": [
+        "damage_7"
+      ],
+      "category": "damage",
+      "slot": 31,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:attack_damage",
+          "operation": "add_value",
+          "amount": 0.5,
+          "amplifier": 0
+        },
+        {
+          "type": "attribute",
+          "attribute": "minecraft:attack_damage",
+          "operation": "add_multiplied_total",
+          "amount": 0.03,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "damage_9",
+      "title": "Warrior IX",
+      "description": [
+        "+0.5 dmg & +3% weapon damage — +4.5 flat, +27%"
+      ],
+      "icon": "minecraft:iron_sword",
+      "weight": 46,
+      "requires": [
+        "damage_8"
+      ],
+      "category": "damage",
+      "slot": 32,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:attack_damage",
+          "operation": "add_value",
+          "amount": 0.5,
+          "amplifier": 0
+        },
+        {
+          "type": "attribute",
+          "attribute": "minecraft:attack_damage",
+          "operation": "add_multiplied_total",
+          "amount": 0.03,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "damage_10",
+      "title": "Warrior X",
+      "description": [
+        "+0.5 dmg & +3% weapon damage — +5 flat, +30%"
+      ],
+      "icon": "minecraft:iron_sword",
+      "weight": 61,
+      "requires": [
+        "damage_9"
+      ],
+      "category": "damage",
+      "slot": 33,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:attack_damage",
+          "operation": "add_value",
+          "amount": 0.5,
+          "amplifier": 0
+        },
+        {
+          "type": "attribute",
+          "attribute": "minecraft:attack_damage",
+          "operation": "add_multiplied_total",
+          "amount": 0.03,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "guardian_1",
+      "title": "Guardian I",
+      "description": [
+        "+1 armor — +1 total"
+      ],
+      "icon": "minecraft:iron_chestplate",
+      "weight": 4,
+      "category": "guardian",
+      "slot": 20,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:armor",
+          "operation": "add_value",
+          "amount": 1,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "guardian_2",
+      "title": "Guardian II",
+      "description": [
+        "+1 armor — +2 total"
+      ],
+      "icon": "minecraft:iron_chestplate",
+      "weight": 4,
+      "requires": [
+        "guardian_1"
+      ],
+      "category": "guardian",
+      "slot": 21,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:armor",
+          "operation": "add_value",
+          "amount": 1,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "guardian_3",
+      "title": "Guardian III",
+      "description": [
+        "+1 armor — +3 total"
+      ],
+      "icon": "minecraft:iron_chestplate",
+      "weight": 6,
+      "requires": [
+        "guardian_2"
+      ],
+      "category": "guardian",
+      "slot": 22,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:armor",
+          "operation": "add_value",
+          "amount": 1,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "guardian_4",
+      "title": "Guardian IV",
+      "description": [
+        "+1 armor — +4 total"
+      ],
+      "icon": "minecraft:iron_chestplate",
+      "weight": 8,
+      "requires": [
+        "guardian_3"
+      ],
+      "category": "guardian",
+      "slot": 23,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:armor",
+          "operation": "add_value",
+          "amount": 1,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "guardian_5",
+      "title": "Guardian V",
+      "description": [
+        "+1 armor — +5 total"
+      ],
+      "icon": "minecraft:iron_chestplate",
+      "weight": 10,
+      "requires": [
+        "guardian_4"
+      ],
+      "category": "guardian",
+      "slot": 24,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:armor",
+          "operation": "add_value",
+          "amount": 1,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "guardian_6",
+      "title": "Guardian VI",
+      "description": [
+        "+1 armor — +6 total"
+      ],
+      "icon": "minecraft:iron_chestplate",
+      "weight": 14,
+      "requires": [
+        "guardian_5"
+      ],
+      "category": "guardian",
+      "slot": 29,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:armor",
+          "operation": "add_value",
+          "amount": 1,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "guardian_7",
+      "title": "Guardian VII",
+      "description": [
+        "+1 armor — +7 total"
+      ],
+      "icon": "minecraft:iron_chestplate",
+      "weight": 20,
+      "requires": [
+        "guardian_6"
+      ],
+      "category": "guardian",
+      "slot": 30,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:armor",
+          "operation": "add_value",
+          "amount": 1,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "guardian_8",
+      "title": "Guardian VIII",
+      "description": [
+        "+1 armor — +8 total"
+      ],
+      "icon": "minecraft:iron_chestplate",
+      "weight": 28,
+      "requires": [
+        "guardian_7"
+      ],
+      "category": "guardian",
+      "slot": 31,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:armor",
+          "operation": "add_value",
+          "amount": 1,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "guardian_9",
+      "title": "Guardian IX",
+      "description": [
+        "+1 armor — +9 total"
+      ],
+      "icon": "minecraft:iron_chestplate",
+      "weight": 46,
+      "requires": [
+        "guardian_8"
+      ],
+      "category": "guardian",
+      "slot": 32,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:armor",
+          "operation": "add_value",
+          "amount": 1,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "guardian_10",
+      "title": "Guardian X",
+      "description": [
+        "+1 armor — +10 total"
+      ],
+      "icon": "minecraft:iron_chestplate",
+      "weight": 61,
+      "requires": [
+        "guardian_9"
+      ],
+      "category": "guardian",
+      "slot": 33,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:armor",
+          "operation": "add_value",
+          "amount": 1,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "reach_1",
+      "title": "Reach I",
+      "description": [
+        "+0.5 block & entity reach — +0.5 total"
+      ],
+      "icon": "minecraft:spyglass",
+      "weight": 10,
+      "category": "reach",
+      "slot": 20,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:block_interaction_range",
+          "operation": "add_value",
+          "amount": 0.5,
+          "amplifier": 0
+        },
+        {
+          "type": "attribute",
+          "attribute": "minecraft:entity_interaction_range",
+          "operation": "add_value",
+          "amount": 0.5,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "reach_2",
+      "title": "Reach II",
+      "description": [
+        "+0.5 block & entity reach — +1 total"
+      ],
+      "icon": "minecraft:spyglass",
+      "weight": 24,
+      "requires": [
+        "reach_1"
+      ],
+      "category": "reach",
+      "slot": 21,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:block_interaction_range",
+          "operation": "add_value",
+          "amount": 0.5,
+          "amplifier": 0
+        },
+        {
+          "type": "attribute",
+          "attribute": "minecraft:entity_interaction_range",
+          "operation": "add_value",
+          "amount": 0.5,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "reach_3",
+      "title": "Reach III",
+      "description": [
+        "+0.5 block & entity reach — +1.5 total"
+      ],
+      "icon": "minecraft:spyglass",
+      "weight": 44,
+      "requires": [
+        "reach_2"
+      ],
+      "category": "reach",
+      "slot": 22,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:block_interaction_range",
+          "operation": "add_value",
+          "amount": 0.5,
+          "amplifier": 0
+        },
+        {
+          "type": "attribute",
+          "attribute": "minecraft:entity_interaction_range",
+          "operation": "add_value",
+          "amount": 0.5,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "reach_4",
+      "title": "Reach IV",
+      "description": [
+        "+0.5 block & entity reach — +2 total"
+      ],
+      "icon": "minecraft:spyglass",
+      "weight": 69,
+      "requires": [
+        "reach_3"
+      ],
+      "category": "reach",
+      "slot": 23,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:block_interaction_range",
+          "operation": "add_value",
+          "amount": 0.5,
+          "amplifier": 0
+        },
+        {
+          "type": "attribute",
+          "attribute": "minecraft:entity_interaction_range",
+          "operation": "add_value",
+          "amount": 0.5,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "reach_5",
+      "title": "Reach V",
+      "description": [
+        "+0.5 block & entity reach — +2.5 total"
+      ],
+      "icon": "minecraft:spyglass",
+      "weight": 85,
+      "requires": [
+        "reach_4"
+      ],
+      "category": "reach",
+      "slot": 24,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:block_interaction_range",
+          "operation": "add_value",
+          "amount": 0.5,
+          "amplifier": 0
+        },
+        {
+          "type": "attribute",
+          "attribute": "minecraft:entity_interaction_range",
+          "operation": "add_value",
+          "amount": 0.5,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "mountaineer_1",
+      "title": "Mountaineer I",
+      "description": [
+        "Step up taller ledges (sneak to walk normally)"
+      ],
+      "icon": "minecraft:ladder",
+      "weight": 8,
+      "category": "mountaineer",
+      "slot": 21,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:step_height",
+          "operation": "add_value",
+          "amount": 0.2,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "mountaineer_2",
+      "title": "Mountaineer II",
+      "description": [
+        "Step up a full block"
+      ],
+      "icon": "minecraft:ladder",
+      "weight": 16,
+      "requires": [
+        "mountaineer_1"
+      ],
+      "category": "mountaineer",
+      "slot": 22,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:step_height",
+          "operation": "add_value",
+          "amount": 0.2,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "mountaineer_3",
+      "title": "Mountaineer III",
+      "description": [
+        "Step up 1.1 blocks — /skill toggle stepup"
+      ],
+      "icon": "minecraft:ladder",
+      "weight": 26,
+      "requires": [
+        "mountaineer_2"
+      ],
+      "category": "mountaineer",
+      "slot": 23,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:step_height",
+          "operation": "add_value",
+          "amount": 0.1,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "aquatic_1",
+      "title": "Aquatic I",
+      "description": [
+        "+1 breath"
+      ],
+      "icon": "minecraft:heart_of_the_sea",
+      "weight": 6,
+      "category": "aquatic",
+      "slot": 21,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:oxygen_bonus",
+          "operation": "add_value",
+          "amount": 1,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "aquatic_2",
+      "title": "Aquatic II",
+      "description": [
+        "+1 breath (+2)"
+      ],
+      "icon": "minecraft:heart_of_the_sea",
+      "weight": 10,
+      "requires": [
+        "aquatic_1"
+      ],
+      "category": "aquatic",
+      "slot": 22,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:oxygen_bonus",
+          "operation": "add_value",
+          "amount": 1,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "aquatic_3",
+      "title": "Aquatic III",
+      "description": [
+        "+1 breath (+3)"
+      ],
+      "icon": "minecraft:heart_of_the_sea",
+      "weight": 14,
+      "requires": [
+        "aquatic_2"
+      ],
+      "category": "aquatic",
+      "slot": 23,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:oxygen_bonus",
+          "operation": "add_value",
+          "amount": 1,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "aquatic_4",
+      "title": "Aquatic IV",
+      "description": [
+        "Faster swimming — Dolphin's Grace, stacks with Depth Strider"
+      ],
+      "icon": "minecraft:heart_of_the_sea",
+      "weight": 18,
+      "requires": [
+        "aquatic_3"
+      ],
+      "category": "aquatic",
+      "slot": 30,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:water_movement_efficiency",
+          "operation": "add_value",
+          "amount": 0.34,
+          "amplifier": 0
+        },
+        {
+          "type": "status_effect",
+          "operation": "add_value",
+          "amount": 0,
+          "effect": "minecraft:dolphins_grace",
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "aquatic_5",
+      "title": "Aquatic V",
+      "description": [
+        "Faster swimming + walk through water at land speed"
+      ],
+      "icon": "minecraft:heart_of_the_sea",
+      "weight": 24,
+      "requires": [
+        "aquatic_4"
+      ],
+      "category": "aquatic",
+      "slot": 31,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:water_movement_efficiency",
+          "operation": "add_value",
+          "amount": 0.33,
+          "amplifier": 0
+        },
+        {
+          "type": "status_effect",
+          "operation": "add_value",
+          "amount": 0,
+          "effect": "minecraft:dolphins_grace",
+          "amplifier": 1
+        }
+      ]
+    },
+    {
+      "id": "aquatic_6",
+      "title": "Aquatic VI",
+      "description": [
+        "Full swim speed & water movement"
+      ],
+      "icon": "minecraft:heart_of_the_sea",
+      "weight": 30,
+      "requires": [
+        "aquatic_5"
+      ],
+      "category": "aquatic",
+      "slot": 32,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:water_movement_efficiency",
+          "operation": "add_value",
+          "amount": 0.33,
+          "amplifier": 0
+        },
+        {
+          "type": "status_effect",
+          "operation": "add_value",
+          "amount": 0,
+          "effect": "minecraft:dolphins_grace",
+          "amplifier": 2
+        }
+      ]
+    },
+    {
+      "id": "aquatic_7",
+      "title": "Aquatic VII",
+      "description": [
+        "+27% underwater mining"
+      ],
+      "icon": "minecraft:heart_of_the_sea",
+      "weight": 38,
+      "requires": [
+        "aquatic_6"
+      ],
+      "category": "aquatic",
+      "slot": 39,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:submerged_mining_speed",
+          "operation": "add_value",
+          "amount": 0.27,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "aquatic_8",
+      "title": "Aquatic VIII",
+      "description": [
+        "+54% underwater mining"
+      ],
+      "icon": "minecraft:heart_of_the_sea",
+      "weight": 51,
+      "requires": [
+        "aquatic_7"
+      ],
+      "category": "aquatic",
+      "slot": 40,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:submerged_mining_speed",
+          "operation": "add_value",
+          "amount": 0.27,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "aquatic_9",
+      "title": "Aquatic IX",
+      "description": [
+        "Full underwater mining"
+      ],
+      "icon": "minecraft:heart_of_the_sea",
+      "weight": 61,
+      "requires": [
+        "aquatic_8"
+      ],
+      "category": "aquatic",
+      "slot": 41,
+      "effects": [
+        {
+          "type": "attribute",
+          "attribute": "minecraft:submerged_mining_speed",
+          "operation": "add_value",
+          "amount": 0.26,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "armorsmith_1",
+      "title": "Armorsmith I",
+      "description": [
+        "Craft Hardwood armor"
+      ],
+      "icon": "minecraft:leather_chestplate",
+      "weight": 1,
+      "currency": "quest",
+      "category": "armorsmith",
+      "slot": 20,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "craft_armor_hardwood"
+        }
+      ]
+    },
+    {
+      "id": "armorsmith_2",
+      "title": "Armorsmith II",
+      "description": [
+        "Craft Copper armor"
+      ],
+      "icon": "minecraft:copper_chestplate",
+      "weight": 2,
+      "currency": "quest",
+      "requires": [
+        "armorsmith_1"
+      ],
+      "category": "armorsmith",
+      "slot": 21,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "craft_armor_copper"
+        }
+      ]
+    },
+    {
+      "id": "armorsmith_3",
+      "title": "Armorsmith III",
+      "description": [
+        "Craft Gold armor"
+      ],
+      "icon": "minecraft:golden_chestplate",
+      "weight": 3,
+      "currency": "quest",
+      "requires": [
+        "armorsmith_2"
+      ],
+      "category": "armorsmith",
+      "slot": 22,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "craft_armor_gold"
+        }
+      ]
+    },
+    {
+      "id": "armorsmith_4",
+      "title": "Armorsmith IV",
+      "description": [
+        "Craft Rose Gold armor"
+      ],
+      "icon": "minecraft:golden_chestplate",
+      "weight": 5,
+      "currency": "quest",
+      "requires": [
+        "armorsmith_3"
+      ],
+      "category": "armorsmith",
+      "slot": 23,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "craft_armor_rose_gold"
+        }
+      ]
+    },
+    {
+      "id": "armorsmith_5",
+      "title": "Armorsmith V",
+      "description": [
+        "Craft Iron armor"
+      ],
+      "icon": "minecraft:iron_chestplate",
+      "weight": 8,
+      "currency": "quest",
+      "requires": [
+        "armorsmith_4"
+      ],
+      "category": "armorsmith",
+      "slot": 24,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "craft_armor_iron"
+        }
+      ]
+    },
+    {
+      "id": "armorsmith_6",
+      "title": "Armorsmith VI",
+      "description": [
+        "Craft Steel armor"
+      ],
+      "icon": "minecraft:iron_chestplate",
+      "weight": 12,
+      "currency": "quest",
+      "requires": [
+        "armorsmith_5"
+      ],
+      "category": "armorsmith",
+      "slot": 29,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "craft_armor_steel"
+        }
+      ]
+    },
+    {
+      "id": "armorsmith_7",
+      "title": "Armorsmith VII",
+      "description": [
+        "Craft Diamond armor"
+      ],
+      "icon": "minecraft:diamond_chestplate",
+      "weight": 20,
+      "currency": "quest",
+      "requires": [
+        "armorsmith_6"
+      ],
+      "category": "armorsmith",
+      "slot": 30,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "craft_armor_diamond"
+        }
+      ]
+    },
+    {
+      "id": "armorsmith_8",
+      "title": "Armorsmith VIII",
+      "description": [
+        "Craft Crystalline armor"
+      ],
+      "icon": "minecraft:diamond_chestplate",
+      "weight": 35,
+      "currency": "quest",
+      "requires": [
+        "armorsmith_7"
+      ],
+      "category": "armorsmith",
+      "slot": 31,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "craft_armor_crystal"
+        }
+      ]
+    },
+    {
+      "id": "armorsmith_9",
+      "title": "Armorsmith IX",
+      "description": [
+        "Craft Netherite armor"
+      ],
+      "icon": "minecraft:netherite_chestplate",
+      "weight": 60,
+      "currency": "quest",
+      "requires": [
+        "armorsmith_8"
+      ],
+      "category": "armorsmith",
+      "slot": 32,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "craft_armor_netherite"
+        }
+      ]
+    },
+    {
+      "id": "armorsmith_10",
+      "title": "Armorsmith X",
+      "description": [
+        "Craft Dragon armor"
+      ],
+      "icon": "minecraft:netherite_chestplate",
+      "weight": 100,
+      "currency": "quest",
+      "requires": [
+        "armorsmith_9"
+      ],
+      "category": "armorsmith",
+      "slot": 33,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "craft_armor_dragon"
+        }
+      ]
+    },
+    {
+      "id": "toolsmith_1",
+      "title": "Toolsmith I",
+      "description": [
+        "Craft Hardwood tools"
+      ],
+      "icon": "minecraft:stone_pickaxe",
+      "weight": 1,
+      "currency": "quest",
+      "category": "toolsmith",
+      "slot": 20,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "craft_tool_hardwood"
+        }
+      ]
+    },
+    {
+      "id": "toolsmith_2",
+      "title": "Toolsmith II",
+      "description": [
+        "Craft Copper tools"
+      ],
+      "icon": "minecraft:copper_pickaxe",
+      "weight": 2,
+      "currency": "quest",
+      "requires": [
+        "toolsmith_1"
+      ],
+      "category": "toolsmith",
+      "slot": 21,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "craft_tool_copper"
+        }
+      ]
+    },
+    {
+      "id": "toolsmith_3",
+      "title": "Toolsmith III",
+      "description": [
+        "Craft Gold tools"
+      ],
+      "icon": "minecraft:golden_pickaxe",
+      "weight": 3,
+      "currency": "quest",
+      "requires": [
+        "toolsmith_2"
+      ],
+      "category": "toolsmith",
+      "slot": 22,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "craft_tool_gold"
+        }
+      ]
+    },
+    {
+      "id": "toolsmith_4",
+      "title": "Toolsmith IV",
+      "description": [
+        "Craft Rose Gold tools"
+      ],
+      "icon": "minecraft:golden_pickaxe",
+      "weight": 5,
+      "currency": "quest",
+      "requires": [
+        "toolsmith_3"
+      ],
+      "category": "toolsmith",
+      "slot": 23,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "craft_tool_rose_gold"
+        }
+      ]
+    },
+    {
+      "id": "toolsmith_5",
+      "title": "Toolsmith V",
+      "description": [
+        "Craft Iron tools"
+      ],
+      "icon": "minecraft:iron_pickaxe",
+      "weight": 8,
+      "currency": "quest",
+      "requires": [
+        "toolsmith_4"
+      ],
+      "category": "toolsmith",
+      "slot": 24,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "craft_tool_iron"
+        }
+      ]
+    },
+    {
+      "id": "toolsmith_6",
+      "title": "Toolsmith VI",
+      "description": [
+        "Craft Steel tools"
+      ],
+      "icon": "minecraft:iron_pickaxe",
+      "weight": 12,
+      "currency": "quest",
+      "requires": [
+        "toolsmith_5"
+      ],
+      "category": "toolsmith",
+      "slot": 29,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "craft_tool_steel"
+        }
+      ]
+    },
+    {
+      "id": "toolsmith_7",
+      "title": "Toolsmith VII",
+      "description": [
+        "Craft Diamond tools"
+      ],
+      "icon": "minecraft:diamond_pickaxe",
+      "weight": 20,
+      "currency": "quest",
+      "requires": [
+        "toolsmith_6"
+      ],
+      "category": "toolsmith",
+      "slot": 30,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "craft_tool_diamond"
+        }
+      ]
+    },
+    {
+      "id": "toolsmith_8",
+      "title": "Toolsmith VIII",
+      "description": [
+        "Craft Crystalline tools"
+      ],
+      "icon": "minecraft:diamond_pickaxe",
+      "weight": 35,
+      "currency": "quest",
+      "requires": [
+        "toolsmith_7"
+      ],
+      "category": "toolsmith",
+      "slot": 31,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "craft_tool_crystal"
+        }
+      ]
+    },
+    {
+      "id": "toolsmith_9",
+      "title": "Toolsmith IX",
+      "description": [
+        "Craft Netherite tools"
+      ],
+      "icon": "minecraft:netherite_pickaxe",
+      "weight": 60,
+      "currency": "quest",
+      "requires": [
+        "toolsmith_8"
+      ],
+      "category": "toolsmith",
+      "slot": 32,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "craft_tool_netherite"
+        }
+      ]
+    },
+    {
+      "id": "toolsmith_10",
+      "title": "Toolsmith X",
+      "description": [
+        "Craft Dragon tools"
+      ],
+      "icon": "minecraft:netherite_pickaxe",
+      "weight": 100,
+      "currency": "quest",
+      "requires": [
+        "toolsmith_9"
+      ],
+      "category": "toolsmith",
+      "slot": 33,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "craft_tool_dragon"
+        }
+      ]
+    },
+    {
+      "id": "brewmaster_1",
+      "title": "Brewmaster I",
+      "description": [
+        "Beneficial potions +10% duration"
+      ],
+      "icon": "minecraft:brewing_stand",
+      "weight": 16,
+      "category": "brewmaster",
+      "slot": 20,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "long_potions_1"
+        }
+      ]
+    },
+    {
+      "id": "brewmaster_2",
+      "title": "Brewmaster II",
+      "description": [
+        "+20% total"
+      ],
+      "icon": "minecraft:brewing_stand",
+      "weight": 28,
+      "requires": [
+        "brewmaster_1"
+      ],
+      "category": "brewmaster",
+      "slot": 21,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "long_potions_2"
+        }
+      ]
+    },
+    {
+      "id": "brewmaster_3",
+      "title": "Brewmaster III",
+      "description": [
+        "+30% total"
+      ],
+      "icon": "minecraft:brewing_stand",
+      "weight": 40,
+      "requires": [
+        "brewmaster_2"
+      ],
+      "category": "brewmaster",
+      "slot": 22,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "long_potions_3"
+        }
+      ]
+    },
+    {
+      "id": "brewmaster_4",
+      "title": "Brewmaster IV",
+      "description": [
+        "+40% total"
+      ],
+      "icon": "minecraft:brewing_stand",
+      "weight": 53,
+      "requires": [
+        "brewmaster_3"
+      ],
+      "category": "brewmaster",
+      "slot": 23,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "long_potions_4"
+        }
+      ]
+    },
+    {
+      "id": "brewmaster_5",
+      "title": "Brewmaster V",
+      "description": [
+        "+50% total"
+      ],
+      "icon": "minecraft:brewing_stand",
+      "weight": 65,
+      "requires": [
+        "brewmaster_4"
+      ],
+      "category": "brewmaster",
+      "slot": 24,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "long_potions_5"
+        }
+      ]
+    },
+    {
+      "id": "evasion_1",
+      "title": "Evasion I",
+      "description": [
+        "+2% chance to dodge arrows"
+      ],
+      "icon": "minecraft:arrow",
+      "weight": 4,
+      "category": "evasion",
+      "slot": 20,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "arrow_dodge_1"
+        }
+      ]
+    },
+    {
+      "id": "evasion_2",
+      "title": "Evasion II",
+      "description": [
+        "4% total"
+      ],
+      "icon": "minecraft:arrow",
+      "weight": 4,
+      "requires": [
+        "evasion_1"
+      ],
+      "category": "evasion",
+      "slot": 21,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "arrow_dodge_2"
+        }
+      ]
+    },
+    {
+      "id": "evasion_3",
+      "title": "Evasion III",
+      "description": [
+        "6% total"
+      ],
+      "icon": "minecraft:arrow",
+      "weight": 6,
+      "requires": [
+        "evasion_2"
+      ],
+      "category": "evasion",
+      "slot": 22,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "arrow_dodge_3"
+        }
+      ]
+    },
+    {
+      "id": "evasion_4",
+      "title": "Evasion IV",
+      "description": [
+        "8% total"
+      ],
+      "icon": "minecraft:arrow",
+      "weight": 8,
+      "requires": [
+        "evasion_3"
+      ],
+      "category": "evasion",
+      "slot": 23,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "arrow_dodge_4"
+        }
+      ]
+    },
+    {
+      "id": "evasion_5",
+      "title": "Evasion V",
+      "description": [
+        "10% total"
+      ],
+      "icon": "minecraft:arrow",
+      "weight": 10,
+      "requires": [
+        "evasion_4"
+      ],
+      "category": "evasion",
+      "slot": 24,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "arrow_dodge_5"
+        }
+      ]
+    },
+    {
+      "id": "evasion_6",
+      "title": "Evasion VI",
+      "description": [
+        "12% total"
+      ],
+      "icon": "minecraft:arrow",
+      "weight": 14,
+      "requires": [
+        "evasion_5"
+      ],
+      "category": "evasion",
+      "slot": 29,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "arrow_dodge_6"
+        }
+      ]
+    },
+    {
+      "id": "evasion_7",
+      "title": "Evasion VII",
+      "description": [
+        "14% total"
+      ],
+      "icon": "minecraft:arrow",
+      "weight": 20,
+      "requires": [
+        "evasion_6"
+      ],
+      "category": "evasion",
+      "slot": 30,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "arrow_dodge_7"
+        }
+      ]
+    },
+    {
+      "id": "evasion_8",
+      "title": "Evasion VIII",
+      "description": [
+        "16% total"
+      ],
+      "icon": "minecraft:arrow",
+      "weight": 28,
+      "requires": [
+        "evasion_7"
+      ],
+      "category": "evasion",
+      "slot": 31,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "arrow_dodge_8"
+        }
+      ]
+    },
+    {
+      "id": "evasion_9",
+      "title": "Evasion IX",
+      "description": [
+        "18% total"
+      ],
+      "icon": "minecraft:arrow",
+      "weight": 46,
+      "requires": [
+        "evasion_8"
+      ],
+      "category": "evasion",
+      "slot": 32,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "arrow_dodge_9"
+        }
+      ]
+    },
+    {
+      "id": "evasion_10",
+      "title": "Evasion X",
+      "description": [
+        "20% total"
+      ],
+      "icon": "minecraft:arrow",
+      "weight": 61,
+      "requires": [
+        "evasion_9"
+      ],
+      "category": "evasion",
+      "slot": 33,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "arrow_dodge_10"
+        }
+      ]
+    },
+    {
+      "id": "cultivator_1",
+      "title": "Cultivator I",
+      "description": [
+        "+20% chance for bonus crops"
+      ],
+      "icon": "minecraft:wheat",
+      "weight": 6,
+      "category": "cultivator",
+      "slot": 20,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "cultivator_1"
+        }
+      ]
+    },
+    {
+      "id": "cultivator_2",
+      "title": "Cultivator II",
+      "description": [
+        "40% chance"
+      ],
+      "icon": "minecraft:wheat",
+      "weight": 12,
+      "requires": [
+        "cultivator_1"
+      ],
+      "category": "cultivator",
+      "slot": 21,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "cultivator_2"
+        }
+      ]
+    },
+    {
+      "id": "cultivator_3",
+      "title": "Cultivator III",
+      "description": [
+        "60% chance"
+      ],
+      "icon": "minecraft:wheat",
+      "weight": 18,
+      "requires": [
+        "cultivator_2"
+      ],
+      "category": "cultivator",
+      "slot": 22,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "cultivator_3"
+        }
+      ]
+    },
+    {
+      "id": "cultivator_4",
+      "title": "Cultivator IV",
+      "description": [
+        "80% chance"
+      ],
+      "icon": "minecraft:wheat",
+      "weight": 28,
+      "requires": [
+        "cultivator_3"
+      ],
+      "category": "cultivator",
+      "slot": 23,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "cultivator_4"
+        }
+      ]
+    },
+    {
+      "id": "cultivator_5",
+      "title": "Cultivator V",
+      "description": [
+        "100% chance (always bonus)"
+      ],
+      "icon": "minecraft:wheat",
+      "weight": 36,
+      "requires": [
+        "cultivator_4"
+      ],
+      "category": "cultivator",
+      "slot": 24,
+      "effects": [
+        {
+          "type": "flag",
+          "operation": "add_value",
+          "amount": 0,
+          "amplifier": 0,
+          "name": "cultivator_5"
+        }
+      ]
+    },
+    {
+      "id": "nightvision_1",
+      "title": "Night Vision I",
+      "description": [
+        "Permanent Night Vision"
+      ],
+      "icon": "minecraft:golden_carrot",
+      "weight": 75,
+      "minEarned": 709,
+      "category": "nightvision",
+      "slot": 22,
+      "effects": [
+        {
+          "type": "status_effect",
+          "operation": "add_value",
+          "amount": 0,
+          "effect": "minecraft:night_vision",
+          "amplifier": 0
+        }
+      ]
+    }
+  ]
+}

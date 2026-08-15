@@ -1,0 +1,47 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "wooden",
+      "name": "Wooden Crate",
+      "color": "#9C7B4E",
+      "loot_table": "vanillaskills:crate/wooden"
+    },
+    {
+      "id": "copper",
+      "name": "Copper Crate",
+      "color": "#E77C56",
+      "loot_table": "vanillaskills:crate/copper"
+    },
+    {
+      "id": "iron",
+      "name": "Iron Crate",
+      "color": "#D8D8D8",
+      "loot_table": "vanillaskills:crate/iron"
+    },
+    {
+      "id": "diamond",
+      "name": "Diamond Crate",
+      "color": "#4AEDD9",
+      "loot_table": "vanillaskills:crate/diamond"
+    },
+    {
+      "id": "frozen",
+      "name": "Frozen Crate",
+      "color": "#8CC5E8",
+      "loot_table": "vanillaskills:crate/frozen"
+    },
+    {
+      "id": "lush",
+      "name": "Lush Crate",
+      "color": "#7BD44A",
+      "loot_table": "vanillaskills:crate/lush"
+    },
+    {
+      "id": "desert",
+      "name": "Desert Crate",
+      "color": "#E3C77B",
+      "loot_table": "vanillaskills:crate/desert"
+    }
+  ]
+}

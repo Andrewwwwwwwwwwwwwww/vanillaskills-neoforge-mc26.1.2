@@ -1,0 +1,43 @@
+{
+  "parent": "vanillaskills:dragon_template",
+  "display": {
+    "icon": {
+      "id": "minecraft:netherite_ingot",
+      "components": {
+        "minecraft:item_model": "vanillaskills:dragon_ingot"
+      }
+    },
+    "title": {
+      "translate": "vanillaskills.advancement.dragon_ingot.title",
+      "fallback": "Dragon Forged"
+    },
+    "description": {
+      "translate": "vanillaskills.advancement.dragon_ingot.description",
+      "fallback": "Forge a Dragon Ingot"
+    },
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "obtain": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:netherite_ingot"
+            ],
+            "predicates": {
+              "minecraft:custom_data": "{vs_dragon_ingot:1b}"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtain"
+    ]
+  ]
+}

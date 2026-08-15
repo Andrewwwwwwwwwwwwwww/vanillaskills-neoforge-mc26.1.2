@@ -1,0 +1,9 @@
+Worn (on-body) armor textures — one per tier, two layers each:
+
+  humanoid/<tier>.png            (helmet, chestplate, boots layer)   64x32
+  humanoid_leggings/<tier>.png   (leggings layer)                    64x32
+
+tiers: hardwood, rose_gold, steel, crystal, dragon
+
+So 10 files total, e.g. humanoid/dragon.png and humanoid_leggings/dragon.png.
+These use the same format as vanilla armor textures (minecraft/textures/entity/equipment/...).

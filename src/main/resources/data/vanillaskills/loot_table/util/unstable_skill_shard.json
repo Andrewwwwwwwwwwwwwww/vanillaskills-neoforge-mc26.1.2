@@ -1,0 +1,43 @@
+{
+  "type": "minecraft:gift",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:amethyst_shard",
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:custom_data": { "vs_unstable_shard": true },
+                "minecraft:item_model": "vanillaskills:unstable_skill_shard",
+                "minecraft:item_name": {
+                  "translate": "vanillaskills.item.unstable_skill_shard",
+                  "fallback": "Unstable Skill Shard",
+                  "color": "#9B6BE8",
+                  "italic": false
+                },
+                "minecraft:lore": [
+                  {
+                    "translate": "vanillaskills.item.unstable_skill_shard.desc1",
+                    "fallback": "A Skill Shard given physical form.",
+                    "color": "gray",
+                    "italic": false
+                  },
+                  {
+                    "translate": "vanillaskills.item.unstable_skill_shard.desc2",
+                    "fallback": "Right-click to bank it again.",
+                    "color": "gray",
+                    "italic": false
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

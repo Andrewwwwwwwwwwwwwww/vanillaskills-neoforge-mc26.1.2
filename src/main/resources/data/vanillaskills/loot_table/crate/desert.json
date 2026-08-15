@@ -1,0 +1,140 @@
+{
+  "type": "minecraft:gift",
+  "random_sequence": "vanillaskills:crate/desert",
+  "pools": [
+    {
+      "rolls": { "type": "minecraft:uniform", "min": 3.0, "max": 6.0 },
+      "entries": [
+        { "type": "minecraft:loot_table", "value": "vanillaskills:util/unstable_skill_shard" }
+      ]
+    },
+    {
+      "rolls": 2.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:sand",
+          "weight": 20,
+          "functions": [
+            { "function": "minecraft:set_count", "count": { "type": "minecraft:uniform", "min": 16.0, "max": 32.0 } }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:red_sand",
+          "weight": 14,
+          "functions": [
+            { "function": "minecraft:set_count", "count": { "type": "minecraft:uniform", "min": 8.0, "max": 20.0 } }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:sandstone",
+          "weight": 16,
+          "functions": [
+            { "function": "minecraft:set_count", "count": { "type": "minecraft:uniform", "min": 8.0, "max": 16.0 } }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:cactus",
+          "weight": 14,
+          "functions": [
+            { "function": "minecraft:set_count", "count": { "type": "minecraft:uniform", "min": 4.0, "max": 10.0 } }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:terracotta",
+          "weight": 12,
+          "functions": [
+            { "function": "minecraft:set_count", "count": { "type": "minecraft:uniform", "min": 8.0, "max": 16.0 } }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:glass",
+          "weight": 10,
+          "functions": [
+            { "function": "minecraft:set_count", "count": { "type": "minecraft:uniform", "min": 8.0, "max": 16.0 } }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:dead_bush",
+          "weight": 8,
+          "functions": [
+            { "function": "minecraft:set_count", "count": { "type": "minecraft:uniform", "min": 2.0, "max": 5.0 } }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bone",
+          "weight": 12,
+          "functions": [
+            { "function": "minecraft:set_count", "count": { "type": "minecraft:uniform", "min": 4.0, "max": 9.0 } }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:rotten_flesh",
+          "weight": 9,
+          "functions": [
+            { "function": "minecraft:set_count", "count": { "type": "minecraft:uniform", "min": 4.0, "max": 8.0 } }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gold_ingot",
+          "weight": 7,
+          "functions": [
+            { "function": "minecraft:set_count", "count": { "type": "minecraft:uniform", "min": 1.0, "max": 4.0 } }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:emerald",
+          "weight": 5,
+          "functions": [
+            { "function": "minecraft:set_count", "count": { "type": "minecraft:uniform", "min": 1.0, "max": 3.0 } }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:tnt",
+          "weight": 6,
+          "functions": [
+            { "function": "minecraft:set_count", "count": { "type": "minecraft:uniform", "min": 1.0, "max": 3.0 } }
+          ]
+        },
+        { "type": "minecraft:item", "name": "minecraft:saddle", "weight": 4 },
+        { "type": "minecraft:item", "name": "minecraft:golden_horse_armor", "weight": 3 },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:book",
+          "weight": 7,
+          "functions": [
+            { "function": "minecraft:enchant_randomly", "options": ["minecraft:fire_protection"] }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:book",
+          "weight": 5,
+          "functions": [
+            { "function": "minecraft:enchant_randomly", "options": ["minecraft:unbreaking"] }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1.0,
+      "conditions": [
+        { "condition": "minecraft:random_chance", "chance": 0.01 }
+      ],
+      "entries": [
+        { "type": "minecraft:item", "name": "minecraft:enchanted_golden_apple" }
+      ]
+    }
+  ]
+}

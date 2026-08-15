@@ -1,0 +1,32 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+license = "All Rights Reserved"
+issueTrackerURL = "https://github.com/Andrewwwwwwwwwwwwwww/vanillaskills/issues"
+
+[[mods]]
+modId = "vanillaskills"
+version = "${version}"
+displayName = "VanillaSkills"
+authors = "Andrewwwwwwwwwwwwwww"
+description = '''A server-side RPG overhaul: a points-based skill tree, a two-currency bounty economy, and gated crafting across 10 gear tiers.'''
+logoFile = "assets/vanillaskills/icon.png"
+
+[[dependencies.vanillaskills]]
+modId = "neoforge"
+type = "required"
+versionRange = "[26.1.2.71,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.vanillaskills]]
+modId = "minecraft"
+type = "required"
+versionRange = "[26.1.2,26.2)"
+ordering = "NONE"
+side = "BOTH"
+
+[[mixins]]
+config = "vanillaskills.mixins.json"
+
+[[mixins]]
+config = "vanillaskills.client.mixins.json"

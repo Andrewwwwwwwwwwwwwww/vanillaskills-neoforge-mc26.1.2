@@ -1,0 +1,97 @@
+{
+  "parent": "vanillaskills:metallurgist",
+  "display": {
+    "icon": {
+      "id": "minecraft:leather_chestplate",
+      "components": {
+        "minecraft:item_model": "vanillaskills:hardwood_chestplate"
+      }
+    },
+    "title": {
+      "translate": "vanillaskills.advancement.set_hardwood.title",
+      "fallback": "Hardwood Suit"
+    },
+    "description": {
+      "translate": "vanillaskills.advancement.set_hardwood.description",
+      "fallback": "Craft a full set of Hardwood armor"
+    },
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "helmet": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:leather_helmet"
+            ],
+            "predicates": {
+              "minecraft:custom_data": "{vs_armor_hardwood:1b}"
+            }
+          }
+        ]
+      }
+    },
+    "chestplate": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:leather_chestplate"
+            ],
+            "predicates": {
+              "minecraft:custom_data": "{vs_armor_hardwood:1b}"
+            }
+          }
+        ]
+      }
+    },
+    "leggings": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:leather_leggings"
+            ],
+            "predicates": {
+              "minecraft:custom_data": "{vs_armor_hardwood:1b}"
+            }
+          }
+        ]
+      }
+    },
+    "boots": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:leather_boots"
+            ],
+            "predicates": {
+              "minecraft:custom_data": "{vs_armor_hardwood:1b}"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "helmet"
+    ],
+    [
+      "chestplate"
+    ],
+    [
+      "leggings"
+    ],
+    [
+      "boots"
+    ]
+  ]
+}

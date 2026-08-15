@@ -1,0 +1,11 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:custom_model_data",
+    "index": 0,
+    "cases": [
+      { "when": "vanillaskills:crystal_helmet", "model": { "type": "minecraft:model", "model": "vanillaskills:item/crystal_helmet" } }
+    ],
+    "fallback": { "type": "minecraft:model", "model": "minecraft:item/diamond_helmet" }
+  }
+}

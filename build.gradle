@@ -1,0 +1,51 @@
+plugins {
+    id 'net.neoforged.moddev' version "${moddev_version}"
+    id 'maven-publish'
+}
+
+// NeoForge edition. Jar name carries the MC version + loader, e.g. vanillaskills-1.0.7+mc26.2-neoforge.jar
+version = "${project.mod_version}+mc${project.minecraft_version}-neoforge"
+group = project.maven_group
+
+neoForge {
+    version = project.neoforge_version
+
+    mods {
+        vanillaskills {
+            sourceSet sourceSets.main
+        }
+    }
+
+    runs {
+        server {
+            server()
+        }
+        client {
+            client()
+        }
+    }
+}
+
+processResources {
+    def version = project.mod_version
+    inputs.property "version", version
+    filesMatching("META-INF/neoforge.mods.toml") {
+        expand "version": version
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 25
+}
+
+java {
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+jar {
+    from("LICENSE") {
+        rename { "${it}_${project.name}" }
+    }
+}

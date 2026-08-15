@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:gift",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:amethyst_block",
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:custom_data": { "vs_unstable_shard_block": true },
+                "minecraft:item_model": "vanillaskills:unstable_skill_shard_block",
+                "minecraft:item_name": {
+                  "translate": "vanillaskills.item.unstable_skill_shard_block",
+                  "fallback": "Unstable Skill Shard Block",
+                  "color": "#9B6BE8",
+                  "italic": false
+                },
+                "minecraft:lore": [
+                  {
+                    "translate": "vanillaskills.item.unstable_skill_shard_block.desc1",
+                    "fallback": "Nine Skill Shards, compressed.",
+                    "color": "gray",
+                    "italic": false
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

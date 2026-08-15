@@ -1,0 +1,75 @@
+{
+  "parent": "vanillaskills:root",
+  "display": {
+    "icon": {
+      "id": "minecraft:gold_ingot",
+      "components": {
+        "minecraft:item_model": "vanillaskills:rose_gold_ingot"
+      }
+    },
+    "title": {
+      "translate": "vanillaskills.advancement.metallurgist.title",
+      "fallback": "Metallurgist"
+    },
+    "description": {
+      "translate": "vanillaskills.advancement.metallurgist.description",
+      "fallback": "Forge one of VanillaSkills' custom alloys"
+    },
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "rose_gold": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:gold_ingot"
+            ],
+            "predicates": {
+              "minecraft:custom_data": "{vs_rose_gold_ingot:1b}"
+            }
+          }
+        ]
+      }
+    },
+    "steel": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:iron_ingot"
+            ],
+            "predicates": {
+              "minecraft:custom_data": "{vs_steel_ingot:1b}"
+            }
+          }
+        ]
+      }
+    },
+    "crystal": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:diamond"
+            ],
+            "predicates": {
+              "minecraft:custom_data": "{vs_crystallized_diamond:1b}"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "rose_gold",
+      "steel",
+      "crystal"
+    ]
+  ]
+}

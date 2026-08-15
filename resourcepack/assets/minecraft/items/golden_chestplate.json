@@ -1,0 +1,11 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:custom_model_data",
+    "index": 0,
+    "cases": [
+      { "when": "vanillaskills:rose_gold_chestplate", "model": { "type": "minecraft:model", "model": "vanillaskills:item/rose_gold_chestplate" } }
+    ],
+    "fallback": { "type": "minecraft:model", "model": "minecraft:item/golden_chestplate" }
+  }
+}

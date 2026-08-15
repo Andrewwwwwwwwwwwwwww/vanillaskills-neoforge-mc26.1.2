@@ -1,0 +1,40 @@
+{
+  "parent": "vanillaskills:set_dragon",
+  "display": {
+    "icon": {
+      "id": "minecraft:elytra"
+    },
+    "title": {
+      "translate": "vanillaskills.advancement.armored_elytra.title",
+      "fallback": "Winged Dragon"
+    },
+    "description": {
+      "translate": "vanillaskills.advancement.armored_elytra.description",
+      "fallback": "Fuse an Elytra onto a Dragon chestplate"
+    },
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "obtain": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:netherite_chestplate"
+            ],
+            "predicates": {
+              "minecraft:custom_data": "{vs_dragon_elytra:1b}"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtain"
+    ]
+  ]
+}

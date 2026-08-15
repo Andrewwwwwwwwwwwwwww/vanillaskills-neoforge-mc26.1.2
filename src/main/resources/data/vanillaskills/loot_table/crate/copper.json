@@ -1,0 +1,73 @@
+{
+  "type": "minecraft:gift",
+  "random_sequence": "vanillaskills:crate/copper",
+  "pools": [
+    {
+      "rolls": { "type": "minecraft:uniform", "min": 2.0, "max": 4.0 },
+      "entries": [
+        { "type": "minecraft:loot_table", "value": "vanillaskills:util/unstable_skill_shard" }
+      ]
+    },
+    {
+      "rolls": 2.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:copper_ingot",
+          "weight": 20,
+          "functions": [
+            { "function": "minecraft:set_count", "count": { "type": "minecraft:uniform", "min": 6.0, "max": 14.0 } }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:redstone",
+          "weight": 18,
+          "functions": [
+            { "function": "minecraft:set_count", "count": { "type": "minecraft:uniform", "min": 8.0, "max": 20.0 } }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:lapis_lazuli",
+          "weight": 15,
+          "functions": [
+            { "function": "minecraft:set_count", "count": { "type": "minecraft:uniform", "min": 6.0, "max": 12.0 } }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_ingot",
+          "weight": 15,
+          "functions": [
+            { "function": "minecraft:set_count", "count": { "type": "minecraft:uniform", "min": 5.0, "max": 10.0 } }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gold_ingot",
+          "weight": 10,
+          "functions": [
+            { "function": "minecraft:set_count", "count": { "type": "minecraft:uniform", "min": 2.0, "max": 5.0 } }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:amethyst_shard",
+          "weight": 8,
+          "functions": [
+            { "function": "minecraft:set_count", "count": { "type": "minecraft:uniform", "min": 3.0, "max": 6.0 } }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:book",
+          "weight": 6,
+          "functions": [
+            { "function": "minecraft:enchant_randomly", "options": "#minecraft:on_random_loot" }
+          ]
+        }
+      ]
+    }
+  ]
+}
