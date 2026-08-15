@@ -249,13 +249,29 @@ public class ShardBlocks {
         display.setNoGravity(true);
         display.setInvulnerable(true);
         display.addTag(TAG);
-        // Centred on the block, because the model is now a full cube rather than a flat sprite. The cube is
-        // drawn very slightly oversized in the model file itself (elements run -0.2..16.2 instead of 0..16),
-        // which hides the vanilla block underneath and avoids the z-fighting two coplanar faces would cause.
-        // Done in the model rather than via Display#setTransformation, which is private in 26.2 and would
-        // otherwise need an access widener on Fabric and a transformer on NeoForge.
+        // Centred on the block, and drawn very slightly oversized so it hides the vanilla block underneath
+        // rather than z-fighting with it — two exactly coplanar faces flicker.
+        //
+        // The oversize used to be baked into the model (elements running -0.2..16.2), which meant the model
+        // could not inherit minecraft:block/cube_all. That parent is where a block item gets its display
+        // transforms from, so without it the same item rendered as a flat unrotated square in the inventory
+        // and in hand. The model is now a plain cube_all and the oversize lives here instead.
+        scale(display, 1.025f);
         display.snapTo(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 0.0f, 0.0f);
         level.addFreshEntity(display);
+    }
+
+    /**
+     * Resize a display. Scale lives in the transformation, whose setter is private in 26.2 — see
+     * {@code DisplayTransformAccessor} for why this goes through an invoker.
+     */
+    private static void scale(Display.ItemDisplay display, float factor) {
+        ((io.github.andrewwwwwwwwwwwwwww.vanillaskills.mixin.DisplayTransformAccessor) display)
+                .vanillaskills$setTransformation(new com.mojang.math.Transformation(
+                        new org.joml.Vector3f(0.0f, 0.0f, 0.0f),
+                        new org.joml.Quaternionf(),
+                        new org.joml.Vector3f(factor, factor, factor),
+                        new org.joml.Quaternionf()));
     }
 
     private static void clearDisplays(ServerLevel level, BlockPos pos) {

@@ -143,6 +143,14 @@ public class VanillaSkills {
             for (ServerLevel lvl : e.getServer().getAllLevels()) {
                 io.github.andrewwwwwwwwwwwwwww.vanillaskills.crate.CrateReel.sweep(lvl);
             }
+            // Redraw every tracked Skill Shard block. Their overlays are entities written into the world,
+            // so one built by an older version keeps whatever size and model it was spawned with — 2.0.0
+            // moved the anti-z-fighting oversize off the model and onto the entity, and an un-redrawn
+            // overlay flickers against the vanilla block underneath. Doubles as the repair for overlays
+            // lost to a chunk-delete or an entity wipe. Only touches loaded chunks; the rest catch up as
+            // they load.
+            int redrawn = SHARDS.refreshAll(server);
+            if (redrawn > 0) LOGGER.info("Redrew {} Skill Shard block overlay(s)", redrawn);
         });
 
         NeoForge.EVENT_BUS.addListener((ServerStoppingEvent e) -> {
