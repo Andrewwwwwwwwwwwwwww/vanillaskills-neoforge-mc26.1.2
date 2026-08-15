@@ -34,7 +34,6 @@ import net.minecraft.world.item.ItemStack;
  * /skill reset|recalc &lt;player&gt;       (op) refund all unlocks / reprice against current config
  * /skill reload                      (op) reload tree + configs from disk
  * /skill mending on|off              (op) enable or strip Mending for this world
- * /skill regenpoints                 (op) reset points.json to defaults
  */
 public final class SkillCommands {
     private SkillCommands() {}
@@ -112,10 +111,6 @@ public final class SkillCommands {
                 .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
                 .then(Commands.literal("on").executes(ctx -> setMending(ctx, true)))
                 .then(Commands.literal("off").executes(ctx -> setMending(ctx, false))));
-
-        root.then(Commands.literal("regenpoints")
-                .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
-                .executes(SkillCommands::regenPoints));
 
 
 
@@ -330,18 +325,6 @@ public final class SkillCommands {
                 + " for this world. Restart the world/server for it to take effect."
                 + (enabled ? " (Existing villager trades won't change — reroll librarians for new mending offers.)" : ""))
                 .withStyle(enabled ? ChatFormatting.GREEN : ChatFormatting.YELLOW), true);
-        return 1;
-    }
-
-    private static int regenPoints(CommandContext<CommandSourceStack> ctx) {
-        PointsConfig cfg = PointsConfig.regenerate();
-        VanillaSkills.PLAYERS.setPointsConfig(cfg);
-        int p = VanillaSkills.PLAYERS.computeTotalEarnable();
-        ctx.getSource().sendSuccess(() -> Component.literal(
-                "Reset points.json to defaults (task " + cfg.valueTask + " / goal " + cfg.valueGoal
-                + " / challenge " + cfg.valueChallenge + "). Total earnable = " + p
-                + ". Run /skill recalc <player> to reprice, and /skill regen fresh to re-price the tree.")
-                .withStyle(ChatFormatting.GREEN), true);
         return 1;
     }
 

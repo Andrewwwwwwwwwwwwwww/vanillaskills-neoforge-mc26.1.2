@@ -540,7 +540,6 @@
   "vanillaskills.help.a_reset": "退還並重置玩家的所有解鎖項目",
   "vanillaskills.help.a_recalc": "依進度成就重新計算已獲得的碎片",
   "vanillaskills.help.a_reload": "從磁碟重新載入點數與技能樹設定檔",
-  "vanillaskills.help.a_regenpoints": "將 points.json（進度成就數值）重置為預設值",
   "vanillaskills.help.a_editor": "節點編輯器（移動/刪除節點）",
   "vanillaskills.help.a_layout": "拖曳能力圖示以重新排列版面",
   "vanillaskills.help.a_board": "放置 / 移除 / 重新繪製懸賞板",
