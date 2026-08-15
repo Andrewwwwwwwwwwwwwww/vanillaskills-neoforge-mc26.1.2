@@ -1,0 +1,111 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "dragonslayer",
+      "type": "kill",
+      "target": "minecraft:ender_dragon",
+      "reward": 30,
+      "icon": "minecraft:dragon_head",
+      "title": "Dragonslayer",
+      "desc": "Defeat the Ender Dragon"
+    },
+    {
+      "id": "wither_down",
+      "type": "kill",
+      "target": "minecraft:wither",
+      "reward": 25,
+      "icon": "minecraft:nether_star",
+      "title": "Wither Be Gone",
+      "desc": "Defeat the Wither"
+    },
+    {
+      "id": "warden_down",
+      "type": "kill",
+      "target": "minecraft:warden",
+      "reward": 25,
+      "icon": "minecraft:echo_shard",
+      "title": "Silence the Dark",
+      "desc": "Defeat a Warden"
+    },
+    {
+      "id": "the_end",
+      "type": "dimension",
+      "target": "minecraft:the_end",
+      "reward": 20,
+      "icon": "minecraft:ender_eye",
+      "title": "Beyond the Portal",
+      "desc": "Enter The End — the Hungering Portal ritual complete"
+    },
+    {
+      "id": "ancient_city",
+      "type": "discover",
+      "target": "minecraft:ancient_city",
+      "dimension": "minecraft:overworld",
+      "reward": 15,
+      "icon": "minecraft:sculk_catalyst",
+      "title": "Deep Dark Delver",
+      "desc": "Discover an Ancient City"
+    },
+    {
+      "id": "mansion",
+      "type": "discover",
+      "target": "minecraft:mansion",
+      "dimension": "minecraft:overworld",
+      "reward": 15,
+      "icon": "minecraft:totem_of_undying",
+      "title": "Woodland Wanderer",
+      "desc": "Discover a Woodland Mansion"
+    },
+    {
+      "id": "trial_chambers",
+      "type": "discover",
+      "target": "minecraft:trial_chambers",
+      "dimension": "minecraft:overworld",
+      "reward": 12,
+      "icon": "minecraft:trial_key",
+      "title": "Trial by Combat",
+      "desc": "Discover a Trial Chamber"
+    },
+    {
+      "id": "monument",
+      "type": "discover",
+      "target": "minecraft:monument",
+      "dimension": "minecraft:overworld",
+      "reward": 12,
+      "icon": "minecraft:prismarine",
+      "title": "Monument Raider",
+      "desc": "Discover an Ocean Monument"
+    },
+    {
+      "id": "bastion",
+      "type": "discover",
+      "target": "minecraft:bastion_remnant",
+      "dimension": "minecraft:the_nether",
+      "reward": 12,
+      "icon": "minecraft:gilded_blackstone",
+      "title": "Bastion Breacher",
+      "desc": "Discover a Bastion Remnant"
+    },
+    {
+      "id": "fortress",
+      "type": "discover",
+      "target": "minecraft:fortress",
+      "dimension": "minecraft:the_nether",
+      "reward": 10,
+      "icon": "minecraft:nether_bricks",
+      "title": "Fortress Found",
+      "desc": "Discover a Nether Fortress"
+    },
+    {
+      "id": "end_city",
+      "type": "discover",
+      "target": "minecraft:end_city",
+      "dimension": "minecraft:the_end",
+      "reward": 12,
+      "icon": "minecraft:shulker_shell",
+      "title": "City in the Sky",
+      "desc": "Discover an End City"
+    }
+  ]
+}

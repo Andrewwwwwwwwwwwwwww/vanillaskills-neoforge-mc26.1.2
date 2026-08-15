@@ -1,0 +1,97 @@
+{
+  "parent": "vanillaskills:set_steel",
+  "display": {
+    "icon": {
+      "id": "minecraft:diamond_chestplate",
+      "components": {
+        "minecraft:item_model": "vanillaskills:crystal_chestplate"
+      }
+    },
+    "title": {
+      "translate": "vanillaskills.advancement.set_crystal.title",
+      "fallback": "Crystalline Suit"
+    },
+    "description": {
+      "translate": "vanillaskills.advancement.set_crystal.description",
+      "fallback": "Craft a full set of Crystalline armor"
+    },
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "helmet": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:diamond_helmet"
+            ],
+            "predicates": {
+              "minecraft:custom_data": "{vs_armor_crystal:1b}"
+            }
+          }
+        ]
+      }
+    },
+    "chestplate": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:diamond_chestplate"
+            ],
+            "predicates": {
+              "minecraft:custom_data": "{vs_armor_crystal:1b}"
+            }
+          }
+        ]
+      }
+    },
+    "leggings": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:diamond_leggings"
+            ],
+            "predicates": {
+              "minecraft:custom_data": "{vs_armor_crystal:1b}"
+            }
+          }
+        ]
+      }
+    },
+    "boots": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:diamond_boots"
+            ],
+            "predicates": {
+              "minecraft:custom_data": "{vs_armor_crystal:1b}"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "helmet"
+    ],
+    [
+      "chestplate"
+    ],
+    [
+      "leggings"
+    ],
+    [
+      "boots"
+    ]
+  ]
+}

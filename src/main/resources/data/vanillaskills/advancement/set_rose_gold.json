@@ -1,0 +1,97 @@
+{
+  "parent": "vanillaskills:metallurgist",
+  "display": {
+    "icon": {
+      "id": "minecraft:golden_chestplate",
+      "components": {
+        "minecraft:item_model": "vanillaskills:rose_gold_chestplate"
+      }
+    },
+    "title": {
+      "translate": "vanillaskills.advancement.set_rose_gold.title",
+      "fallback": "Rose Gold Suit"
+    },
+    "description": {
+      "translate": "vanillaskills.advancement.set_rose_gold.description",
+      "fallback": "Craft a full set of Rose Gold armor"
+    },
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "helmet": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:golden_helmet"
+            ],
+            "predicates": {
+              "minecraft:custom_data": "{vs_armor_rose_gold:1b}"
+            }
+          }
+        ]
+      }
+    },
+    "chestplate": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:golden_chestplate"
+            ],
+            "predicates": {
+              "minecraft:custom_data": "{vs_armor_rose_gold:1b}"
+            }
+          }
+        ]
+      }
+    },
+    "leggings": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:golden_leggings"
+            ],
+            "predicates": {
+              "minecraft:custom_data": "{vs_armor_rose_gold:1b}"
+            }
+          }
+        ]
+      }
+    },
+    "boots": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:golden_boots"
+            ],
+            "predicates": {
+              "minecraft:custom_data": "{vs_armor_rose_gold:1b}"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "helmet"
+    ],
+    [
+      "chestplate"
+    ],
+    [
+      "leggings"
+    ],
+    [
+      "boots"
+    ]
+  ]
+}

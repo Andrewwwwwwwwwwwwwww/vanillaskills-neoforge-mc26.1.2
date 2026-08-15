@@ -1,0 +1,6 @@
+{
+  "layers": {
+    "humanoid": [ { "texture": "vanillaskills:dragon" } ],
+    "humanoid_leggings": [ { "texture": "vanillaskills:dragon" } ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "io.github.andrewwwwwwwwwwwwwww.vanillaskills.mixin.client",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+    "GameNarratorMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

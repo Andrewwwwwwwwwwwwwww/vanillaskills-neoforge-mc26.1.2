@@ -1,0 +1,74 @@
+{
+  "type": "minecraft:gift",
+  "random_sequence": "vanillaskills:crate/iron",
+  "pools": [
+    {
+      "rolls": { "type": "minecraft:uniform", "min": 4.0, "max": 7.0 },
+      "entries": [
+        { "type": "minecraft:loot_table", "value": "vanillaskills:util/unstable_skill_shard" }
+      ]
+    },
+    {
+      "rolls": { "type": "minecraft:uniform", "min": 2.0, "max": 3.0 },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_block",
+          "weight": 18,
+          "functions": [
+            { "function": "minecraft:set_count", "count": { "type": "minecraft:uniform", "min": 1.0, "max": 2.0 } }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond",
+          "weight": 15,
+          "functions": [
+            { "function": "minecraft:set_count", "count": { "type": "minecraft:uniform", "min": 1.0, "max": 3.0 } }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:emerald",
+          "weight": 15,
+          "functions": [
+            { "function": "minecraft:set_count", "count": { "type": "minecraft:uniform", "min": 2.0, "max": 6.0 } }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:obsidian",
+          "weight": 12,
+          "functions": [
+            { "function": "minecraft:set_count", "count": { "type": "minecraft:uniform", "min": 4.0, "max": 8.0 } }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gold_block",
+          "weight": 10,
+          "functions": [
+            { "function": "minecraft:set_count", "count": { "type": "minecraft:uniform", "min": 1.0, "max": 2.0 } }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:book",
+          "weight": 10,
+          "functions": [
+            { "function": "minecraft:enchant_randomly", "options": "#minecraft:on_random_loot" }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:book",
+          "weight": 6,
+          "functions": [
+            { "function": "minecraft:enchant_randomly", "options": ["vanillaskills:unboxing"] }
+          ]
+        },
+        { "type": "minecraft:item", "name": "minecraft:golden_apple", "weight": 5 }
+      ]
+    }
+  ]
+}

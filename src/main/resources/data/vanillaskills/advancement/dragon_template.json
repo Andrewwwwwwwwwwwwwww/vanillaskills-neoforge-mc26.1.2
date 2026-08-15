@@ -1,0 +1,43 @@
+{
+  "parent": "vanillaskills:root",
+  "display": {
+    "icon": {
+      "id": "minecraft:netherite_upgrade_smithing_template",
+      "components": {
+        "minecraft:item_model": "vanillaskills:dragon_template"
+      }
+    },
+    "title": {
+      "translate": "vanillaskills.advancement.dragon_template.title",
+      "fallback": "Dragon's Legacy"
+    },
+    "description": {
+      "translate": "vanillaskills.advancement.dragon_template.description",
+      "fallback": "Discover a Dragon Upgrade template"
+    },
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "obtain": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:netherite_upgrade_smithing_template"
+            ],
+            "predicates": {
+              "minecraft:custom_data": "{vs_dragon_template:1b}"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtain"
+    ]
+  ]
+}

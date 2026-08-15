@@ -1,0 +1,97 @@
+{
+  "parent": "vanillaskills:dragon_ingot",
+  "display": {
+    "icon": {
+      "id": "minecraft:netherite_chestplate",
+      "components": {
+        "minecraft:item_model": "vanillaskills:dragon_chestplate"
+      }
+    },
+    "title": {
+      "translate": "vanillaskills.advancement.set_dragon.title",
+      "fallback": "Ascended"
+    },
+    "description": {
+      "translate": "vanillaskills.advancement.set_dragon.description",
+      "fallback": "Craft a full set of Dragon armor"
+    },
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "helmet": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:netherite_helmet"
+            ],
+            "predicates": {
+              "minecraft:custom_data": "{vs_armor_dragon:1b}"
+            }
+          }
+        ]
+      }
+    },
+    "chestplate": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:netherite_chestplate"
+            ],
+            "predicates": {
+              "minecraft:custom_data": "{vs_armor_dragon:1b}"
+            }
+          }
+        ]
+      }
+    },
+    "leggings": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:netherite_leggings"
+            ],
+            "predicates": {
+              "minecraft:custom_data": "{vs_armor_dragon:1b}"
+            }
+          }
+        ]
+      }
+    },
+    "boots": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:netherite_boots"
+            ],
+            "predicates": {
+              "minecraft:custom_data": "{vs_armor_dragon:1b}"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "helmet"
+    ],
+    [
+      "chestplate"
+    ],
+    [
+      "leggings"
+    ],
+    [
+      "boots"
+    ]
+  ]
+}

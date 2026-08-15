@@ -1,0 +1,23 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:written_book"
+    },
+    "title": {
+      "translate": "vanillaskills.advancement.root.title",
+      "fallback": "VanillaSkills"
+    },
+    "description": {
+      "translate": "vanillaskills.advancement.root.description",
+      "fallback": "Master the skill tree and forge new gear"
+    },
+    "background": "minecraft:block/iron_block",
+    "show_toast": false,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "tick": {
+      "trigger": "minecraft:tick"
+    }
+  }
+}

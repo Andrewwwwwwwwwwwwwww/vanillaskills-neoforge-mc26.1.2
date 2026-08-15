@@ -1,0 +1,6 @@
+{
+  "layers": {
+    "humanoid": [ { "texture": "vanillaskills:hardwood" } ],
+    "humanoid_leggings": [ { "texture": "vanillaskills:hardwood" } ]
+  }
+}

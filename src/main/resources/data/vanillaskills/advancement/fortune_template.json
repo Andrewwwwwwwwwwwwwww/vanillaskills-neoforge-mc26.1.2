@@ -1,0 +1,43 @@
+{
+  "parent": "vanillaskills:root",
+  "display": {
+    "icon": {
+      "id": "minecraft:echo_shard",
+      "components": {
+        "minecraft:item_model": "vanillaskills:fortune_template"
+      }
+    },
+    "title": {
+      "translate": "vanillaskills.advancement.fortune_template.title",
+      "fallback": "Ancient Knowledge"
+    },
+    "description": {
+      "translate": "vanillaskills.advancement.fortune_template.description",
+      "fallback": "Discover a Fortune Upgrade template"
+    },
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "obtain": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:echo_shard"
+            ],
+            "predicates": {
+              "minecraft:custom_data": "{vs_fortune_template:1b}"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtain"
+    ]
+  ]
+}

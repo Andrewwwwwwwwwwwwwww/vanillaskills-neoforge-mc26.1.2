@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "ingredient": "minecraft:iron_block",
+  "cookingtime": 200,
+  "experience": 0.0,
+  "result": {
+    "id": "minecraft:iron_ingot",
+    "count": 3,
+    "components": {
+      "minecraft:custom_data": { "vs_steel_ingot": true },
+      "minecraft:item_model": "vanillaskills:steel_ingot",
+      "minecraft:item_name": {
+        "translate": "vanillaskills.item.steel_ingot",
+        "fallback": "Steel Ingot",
+        "color": "#B8C0C8",
+        "italic": false
+      }
+    }
+  }
+}

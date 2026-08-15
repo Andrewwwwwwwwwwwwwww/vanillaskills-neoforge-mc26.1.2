@@ -1,0 +1,22 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:custom_model_data",
+    "index": 0,
+    "cases": [
+      { "when": "vanillaskills:rose_gold_spear", "model": {
+          "type": "minecraft:select",
+          "property": "minecraft:display_context",
+          "cases": [ { "when": ["gui","ground","fixed","on_shelf"], "model": { "type": "minecraft:model", "model": "vanillaskills:item/rose_gold_spear" } } ],
+          "fallback": { "type": "minecraft:model", "model": "vanillaskills:item/rose_gold_spear_in_hand" }
+      } }
+    ],
+    "fallback": {
+      "type": "minecraft:select",
+      "property": "minecraft:display_context",
+      "cases": [ { "when": ["gui","ground","fixed","on_shelf"], "model": { "type": "minecraft:model", "model": "minecraft:item/golden_spear" } } ],
+      "fallback": { "type": "minecraft:model", "model": "minecraft:item/golden_spear_in_hand" }
+    }
+  },
+  "swap_animation_scale": 1.95
+}

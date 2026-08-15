@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "vanillaskills:item/stable_skill_shard_block"
+  }
+}

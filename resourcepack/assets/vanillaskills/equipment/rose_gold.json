@@ -1,0 +1,6 @@
+{
+  "layers": {
+    "humanoid": [ { "texture": "vanillaskills:rose_gold" } ],
+    "humanoid_leggings": [ { "texture": "vanillaskills:rose_gold" } ]
+  }
+}

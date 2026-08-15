@@ -1,0 +1,28 @@
+{
+  "parent": "vanillaskills:root",
+  "display": {
+    "icon": {
+      "id": "minecraft:experience_bottle"
+    },
+    "title": {
+      "translate": "vanillaskills.advancement.specialist.title",
+      "fallback": "Specialist"
+    },
+    "description": {
+      "translate": "vanillaskills.advancement.specialist.description",
+      "fallback": "Fully unlock any skill path"
+    },
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "path": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "path"
+    ]
+  ]
+}

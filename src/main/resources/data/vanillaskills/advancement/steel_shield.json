@@ -1,0 +1,49 @@
+{
+  "parent": "vanillaskills:set_steel",
+  "display": {
+    "icon": {
+      "id": "minecraft:shield",
+      "components": {
+        "minecraft:base_color": "light_gray",
+        "minecraft:banner_patterns": [
+          {
+            "pattern": "vanillaskills:steel",
+            "color": "white"
+          }
+        ]
+      }
+    },
+    "title": {
+      "translate": "vanillaskills.advancement.steel_shield.title",
+      "fallback": "Steeled Defense"
+    },
+    "description": {
+      "translate": "vanillaskills.advancement.steel_shield.description",
+      "fallback": "Craft a Steel-Infused Shield"
+    },
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "obtain": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:shield"
+            ],
+            "predicates": {
+              "minecraft:custom_data": "{vs_steel_shield:1b}"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtain"
+    ]
+  ]
+}

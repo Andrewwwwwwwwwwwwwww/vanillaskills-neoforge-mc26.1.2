@@ -1,0 +1,113 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "health",
+      "title": "Vitality",
+      "icon": "minecraft:golden_apple",
+      "slot": 10
+    },
+    {
+      "id": "speed",
+      "title": "Fleet Foot",
+      "icon": "minecraft:feather",
+      "slot": 11
+    },
+    {
+      "id": "mining",
+      "title": "Prospector",
+      "icon": "minecraft:diamond_pickaxe",
+      "slot": 20
+    },
+    {
+      "id": "luck",
+      "title": "Fortune Finder",
+      "icon": "minecraft:rabbit_foot",
+      "slot": 21
+    },
+    {
+      "id": "damage",
+      "title": "Warrior",
+      "icon": "minecraft:iron_sword",
+      "slot": 12
+    },
+    {
+      "id": "guardian",
+      "title": "Guardian",
+      "icon": "minecraft:iron_chestplate",
+      "slot": 13
+    },
+    {
+      "id": "reach",
+      "title": "Reach",
+      "icon": "minecraft:spyglass",
+      "slot": 14
+    },
+    {
+      "id": "mountaineer",
+      "title": "Mountaineer",
+      "icon": "minecraft:ladder",
+      "slot": 16
+    },
+    {
+      "id": "aquatic",
+      "title": "Aquatic",
+      "icon": "minecraft:heart_of_the_sea",
+      "slot": 22
+    },
+    {
+      "id": "armorsmith",
+      "title": "Armorsmith",
+      "icon": "minecraft:smithing_table",
+      "slot": 39
+    },
+    {
+      "id": "toolsmith",
+      "title": "Toolsmith",
+      "icon": "minecraft:anvil",
+      "slot": 41
+    },
+    {
+      "id": "brewmaster",
+      "title": "Brewmaster",
+      "icon": "minecraft:brewing_stand",
+      "slot": 24
+    },
+    {
+      "id": "evasion",
+      "title": "Evasion",
+      "icon": "minecraft:arrow",
+      "slot": 15
+    },
+    {
+      "id": "cultivator",
+      "title": "Cultivator",
+      "icon": "minecraft:wheat",
+      "slot": 23
+    },
+    {
+      "id": "nightvision",
+      "title": "Night Vision",
+      "icon": "minecraft:golden_carrot",
+      "slot": 40
+    },
+    {
+      "id": "recipes",
+      "title": "Recipes",
+      "icon": "minecraft:crafting_table",
+      "slot": 48
+    },
+    {
+      "id": "guide",
+      "title": "Guide",
+      "icon": "minecraft:written_book",
+      "slot": 50
+    },
+    {
+      "id": "quests",
+      "title": "Bounty Board",
+      "icon": "minecraft:clock",
+      "slot": 49
+    }
+  ]
+}

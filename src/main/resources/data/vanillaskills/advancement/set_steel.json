@@ -1,0 +1,97 @@
+{
+  "parent": "vanillaskills:metallurgist",
+  "display": {
+    "icon": {
+      "id": "minecraft:iron_chestplate",
+      "components": {
+        "minecraft:item_model": "vanillaskills:steel_chestplate"
+      }
+    },
+    "title": {
+      "translate": "vanillaskills.advancement.set_steel.title",
+      "fallback": "Steel Suit"
+    },
+    "description": {
+      "translate": "vanillaskills.advancement.set_steel.description",
+      "fallback": "Craft a full set of Steel armor"
+    },
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "helmet": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:iron_helmet"
+            ],
+            "predicates": {
+              "minecraft:custom_data": "{vs_armor_steel:1b}"
+            }
+          }
+        ]
+      }
+    },
+    "chestplate": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:iron_chestplate"
+            ],
+            "predicates": {
+              "minecraft:custom_data": "{vs_armor_steel:1b}"
+            }
+          }
+        ]
+      }
+    },
+    "leggings": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:iron_leggings"
+            ],
+            "predicates": {
+              "minecraft:custom_data": "{vs_armor_steel:1b}"
+            }
+          }
+        ]
+      }
+    },
+    "boots": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:iron_boots"
+            ],
+            "predicates": {
+              "minecraft:custom_data": "{vs_armor_steel:1b}"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "helmet"
+    ],
+    [
+      "chestplate"
+    ],
+    [
+      "leggings"
+    ],
+    [
+      "boots"
+    ]
+  ]
+}
