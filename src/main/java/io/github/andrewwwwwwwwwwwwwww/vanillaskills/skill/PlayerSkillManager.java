@@ -235,8 +235,17 @@ public class PlayerSkillManager {
     }
 
     /** Only vanilla Minecraft and our own VanillaSkills advancements award points (not datapacks like VanillaTweaks). */
-    private static boolean isCounted(String advancementId) {
-        return advancementId.startsWith("minecraft:") || advancementId.startsWith("vanillaskills:");
+    /** True if this advancement's namespace is one the points config pays out for. */
+    private boolean isCounted(String advancementId) {
+        int colon = advancementId.indexOf(':');
+        String namespace = colon >= 0 ? advancementId.substring(0, colon) : "minecraft";
+        java.util.List<String> allowed = points == null ? null : points.countedNamespaces;
+        // A config written before this setting existed deserializes it as null; fall back to the
+        // pre-config behaviour rather than silently paying out nothing.
+        if (allowed == null || allowed.isEmpty()) {
+            return namespace.equals("minecraft") || namespace.equals("vanillaskills");
+        }
+        return allowed.contains(namespace);
     }
 
     private static boolean isRecipe(String advancementId) {
