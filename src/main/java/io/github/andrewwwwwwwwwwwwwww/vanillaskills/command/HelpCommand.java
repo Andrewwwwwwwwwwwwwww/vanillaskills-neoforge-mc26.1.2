@@ -24,9 +24,9 @@ public final class HelpCommand {
     private static void showPlayer(CommandSourceStack source) {
         header(source, "help.title", "VanillaSkills — Commands");
         line(source, "/skill", "help.skill", "open your skill tree");
-        line(source, "/skill points", "help.skill_points", "view your Skill & Quest Shards");
-        line(source, "/skill guide", "help.skill_guide", "open the in-game guide book");
         line(source, "/quests", "help.quests", "open your bounty board (alias /bounty)");
+        line(source, "/skill toggle nightvision", "help.skill_nightvision", "turn permanent Night Vision on or off");
+        line(source, "/skill toggle stepup", "help.skill_stepup", "turn the Mountaineer step-up on or off");
         source.sendSystemMessage(Component.literal(tr(source, "help.ops_hint",
                 "Ops: /help admin for admin commands.")).withStyle(ChatFormatting.DARK_GRAY));
     }
@@ -36,20 +36,18 @@ public final class HelpCommand {
         source.sendSystemMessage(Component.literal(tr(source, "help.section_player", "Player commands:"))
                 .withStyle(ChatFormatting.GRAY));
         line(source, "/skill", "help.skill", "open your skill tree");
-        line(source, "/skill points", "help.skill_points", "view your Skill & Quest Shards");
-        line(source, "/skill guide", "help.skill_guide", "open the guide book");
         line(source, "/quests", "help.quests", "open your bounty board (alias /bounty)");
+        line(source, "/skill toggle nightvision|stepup", "help.skill_toggle", "per-player Night Vision / step-up toggles");
         source.sendSystemMessage(Component.literal(tr(source, "help.section_admin", "Admin / op commands:"))
                 .withStyle(ChatFormatting.GRAY));
-        line(source, "/skill points <player> add|set|reset <n>", "help.a_points", "grant/set/clear Skill Shards");
+        line(source, "/skill skillshards <player> add|set|reset <n>", "help.a_skillshards", "grant/set/clear Skill Shards");
         line(source, "/skill questshards <player> add|set|reset <n>", "help.a_questshards", "grant/set/clear Quest Shards");
         line(source, "/skill reset <player>", "help.a_reset", "refund all of a player's unlocks");
         line(source, "/skill recalc <player>", "help.a_recalc", "recompute earned Shards from advancements");
         line(source, "/skill reload", "help.a_reload", "reload the points + tree config from disk");
-        line(source, "/skill regen [fresh]", "help.a_regen", "rebuild tree (keeps your changes; 'fresh' = full reset)");
         line(source, "/skill regenpoints", "help.a_regenpoints", "reset points.json (advancement values) to the new defaults");
-        line(source, "/skill edit ...", "help.a_edit", "live-edit nodes (cost/slot/effects/requires)");
-        line(source, "/skill give <item> [n]", "help.a_give", "give any VanillaSkills item ('list' shows all ids)");
+        line(source, "/skill mending on|off", "help.a_mending", "allow or strip the Mending enchantment");
+        line(source, "/skill give <item> [n] [player]", "help.a_give", "give any VanillaSkills item ('list' shows all ids)");
         line(source, "/quests board [remove|refresh]", "help.a_board", "place / remove / re-render a bounty board");
         line(source, "/quests reroll", "help.a_reroll", "force a fresh set of universal bounties now");
         line(source, "/quests graduate <player>", "help.a_graduate", "move a player to the main bounty board");

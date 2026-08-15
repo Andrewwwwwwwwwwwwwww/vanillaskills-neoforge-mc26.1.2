@@ -39,7 +39,7 @@ public class GameplayConfig {
     // approach, which both broke those vanilla textures and outranked any locally-installed 2.0 pack.
     private static final String DEFAULT_RP_URL =
             "https://github.com/Andrewwwwwwwwwwwwwww/vanillaskills/releases/download/v2.0.0/VanillaSkills-TexturePack.zip";
-    private static final String DEFAULT_RP_SHA1 = "0b6314361c10262155132b1d4a539ede9c3bd20b";
+    private static final String DEFAULT_RP_SHA1 = "9614fe6444fcb5012cd8178b48605502e170af1b";
 
     /** When true, the server force-pushes the VanillaSkills texture pack to every joining client
      *  (so vanilla clients see the custom gear with no server.properties setup). Read on player join. */
