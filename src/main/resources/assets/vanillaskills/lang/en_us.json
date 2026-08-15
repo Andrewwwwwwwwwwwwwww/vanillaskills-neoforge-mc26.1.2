@@ -540,7 +540,6 @@
   "vanillaskills.help.a_reset": "refund all of a player's unlocks",
   "vanillaskills.help.a_recalc": "recompute earned Shards from advancements",
   "vanillaskills.help.a_reload": "reload the points + tree config from disk",
-  "vanillaskills.help.a_regenpoints": "reset points.json (advancement values) to the new defaults",
   "vanillaskills.help.a_editor": "node editor (move/delete nodes)",
   "vanillaskills.help.a_layout": "drag the lane icons around to rearrange them",
   "vanillaskills.help.a_board": "place / remove / re-render a bounty board",

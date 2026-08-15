@@ -45,7 +45,6 @@ public final class HelpCommand {
         line(source, "/skill reset <player>", "help.a_reset", "refund all of a player's unlocks");
         line(source, "/skill recalc <player>", "help.a_recalc", "recompute earned Shards from advancements");
         line(source, "/skill reload", "help.a_reload", "reload the points + tree config from disk");
-        line(source, "/skill regenpoints", "help.a_regenpoints", "reset points.json (advancement values) to the new defaults");
         line(source, "/skill mending on|off", "help.a_mending", "allow or strip the Mending enchantment");
         line(source, "/skill give <item> [n] [player]", "help.a_give", "give any VanillaSkills item ('list' shows all ids)");
         line(source, "/quests board [remove|refresh]", "help.a_board", "place / remove / re-render a bounty board");
