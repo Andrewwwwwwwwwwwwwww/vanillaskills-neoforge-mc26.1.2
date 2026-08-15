@@ -26,6 +26,7 @@
     "ItemStackRepairMixin",
     "LongPotionsMixin",
     "LootExperienceBottleMixin",
+    "LootBlankBookMixin",
     "MerchantOfferXpMixin",
     "PotionStackSizeMixin",
     "PlayerAdvancementsMixin",

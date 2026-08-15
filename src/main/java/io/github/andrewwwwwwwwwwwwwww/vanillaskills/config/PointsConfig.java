@@ -22,6 +22,19 @@ public class PointsConfig {
     public int valueGoal = 5;               // rounded-frame goals
     public int valueChallenge = 20;         // purple challenge-frame advancements
     public boolean ignoreRecipeAdvancements = true;
+
+    /**
+     * Namespaces whose advancements are worth Skill Shards.
+     *
+     * <p>An allowlist rather than "everything", because shards are the whole economy: a server that adds a
+     * pack with three hundred advancements would otherwise hand out a fortune, and VanillaTweaks-style
+     * packs are common. Listing a namespace opts its advancements in at the usual per-frame rate.
+     *
+     * <p>{@code thp} ships in the default because The Hungering Portal is a sibling mod whose End-fight
+     * advancements are meant to feed this progression. Remove it, or add your own, to taste.
+     */
+    public java.util.List<String> countedNamespaces =
+            new java.util.ArrayList<>(java.util.List.of("minecraft", "vanillaskills", "thp"));
     public int startingPoints = 0;
     public Map<String, Integer> advancementOverrides = new HashMap<>();
 
