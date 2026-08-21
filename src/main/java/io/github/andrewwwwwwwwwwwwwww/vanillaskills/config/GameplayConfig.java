@@ -39,7 +39,7 @@ public class GameplayConfig {
     // approach, which both broke those vanilla textures and outranked any locally-installed 2.0 pack.
     private static final String DEFAULT_RP_URL =
             "https://github.com/Andrewwwwwwwwwwwwwww/vanillaskills/releases/download/v2.0.0/VanillaSkills-TexturePack.zip";
-    private static final String DEFAULT_RP_SHA1 = "ee74865f7d22770f12b5fa3d7c3c10c0efa4303d";
+    private static final String DEFAULT_RP_SHA1 = "8221d178584b92f055d93e9f691730dab7398f0e";
     /** The public wiki page the Guide icon links to. */
     private static final String DEFAULT_GUIDE_URL =
             "https://andrewwwwwwwwwwwwwww.github.io/modhub/mods/vanillaskills/";
