@@ -49,7 +49,7 @@ The datapack-era rework. Experience is gone, the Skill Shard is a real item, and
 - The pushed texture pack now ships the same language files as the mod, so vanilla clients see translated item names rather than raw translation keys. A build step keeps the two copies in step.
 
 ### Translation
-- English and Traditional Chinese are both complete at **689 keys**. Every quest, crate, feat, shop offer, skill lane and skill-node description is translatable, and node titles translate through their lane name.
+- English and Traditional Chinese are both complete at **710 keys**. Every quest, crate, feat, shop offer, skill lane and skill-node description is translatable, and node titles translate through their lane name.
 
 ## [1.7.6] - 2026-07-24
 ### Changed
