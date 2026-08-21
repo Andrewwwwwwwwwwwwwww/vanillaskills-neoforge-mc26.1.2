@@ -14,7 +14,8 @@ import net.minecraft.world.item.ItemStack;
  * Skill-gated crafting: VanillaSkills armor and tools can be crafted only once the player has
  * unlocked the matching skill (which grants a "flag" effect). The raw materials/ingots are never
  * gated — only the finished gear. Enforced via {@code CraftResultGateMixin} on the crafting result
- * slot's {@code mayPickup}, so the item shows but can't be taken until the skill is unlocked.
+ * slot's {@code mayPickup}, so the item shows but can't be taken until the skill is unlocked — with an
+ * action-bar line naming the missing skill, so the refusal is never mistaken for a broken recipe.
  */
 public final class CraftingGate {
     private CraftingGate() {}
@@ -22,22 +23,80 @@ public final class CraftingGate {
     /** True if this crafted stack is gear whose per-tier craft skill isn't unlocked (custom OR vanilla).
      *  The tool/armor requirement systems can each be disabled entirely in gameplay.json. */
     public static boolean isLocked(Player player, ItemStack stack) {
-        if (stack.isEmpty()) return false;
+        String flag = requiredFlag(stack);
+        return flag != null && !hasFlag(player, flag);
+    }
+
+    /**
+     * The skill flag this stack's tier demands, or null when it is not gated at all — either because it is
+     * not gear, or because its requirement system is switched off in gameplay.json.
+     *
+     * <p>Split out of {@link #isLocked} so the refusal can say <i>which</i> skill is missing. A gate that
+     * silently declines is indistinguishable from a broken recipe, which is exactly how it was read.
+     */
+    public static String requiredFlag(ItemStack stack) {
+        if (stack.isEmpty()) return null;
         boolean armorReqs = io.github.andrewwwwwwwwwwwwwww.vanillaskills.config.GameplayConfig.ARMOR_REQS_ENABLED;
         boolean toolReqs = io.github.andrewwwwwwwwwwwwwww.vanillaskills.config.GameplayConfig.TOOL_REQS_ENABLED;
         // Custom tiers first (marker-based) — these reuse vanilla base items + a marker.
         for (ArmorTier tier : ArmorTiers.TIERS) {
-            if (tier.isWorn(stack)) return armorReqs && !hasFlag(player, "craft_armor_" + tier.id);
+            if (tier.isWorn(stack)) return armorReqs ? "craft_armor_" + tier.id : null;
         }
         for (ToolTier tier : ToolTiers.TIERS) {
-            if (Markers.has(stack, tier.markerKey)) return toolReqs && !hasFlag(player, "craft_tool_" + tier.id);
+            if (Markers.has(stack, tier.markerKey)) return toolReqs ? "craft_tool_" + tier.id : null;
         }
         // Vanilla tiers (no custom marker): copper/gold/iron/diamond/netherite armour & tools.
         String armorTier = VANILLA_ARMOR.get(stack.getItem());
-        if (armorTier != null) return armorReqs && !hasFlag(player, "craft_armor_" + armorTier);
+        if (armorTier != null) return armorReqs ? "craft_armor_" + armorTier : null;
         String toolTier = VANILLA_TOOL.get(stack.getItem());
-        if (toolTier != null) return toolReqs && !hasFlag(player, "craft_tool_" + toolTier);
-        return false;
+        if (toolTier != null) return toolReqs ? "craft_tool_" + toolTier : null;
+        return null;
+    }
+
+    /** The skill-tree node that grants a flag, so a refusal can name it rather than the internal id. */
+    public static SkillNode nodeForFlag(String flag) {
+        SkillTree tree = VanillaSkills.TREE.tree();
+        if (tree == null) return null;
+        for (SkillNode node : tree.nodes) {
+            for (SkillEffect effect : node.effects) {
+                if ("flag".equals(effect.type) && flag.equals(effect.name)) return node;
+            }
+        }
+        return null;
+    }
+
+    /** The last server tick each player was told why a craft was refused. */
+    private static final java.util.Map<java.util.UUID, Integer> LAST_NOTICE = new java.util.concurrent.ConcurrentHashMap<>();
+
+    /**
+     * Explain a refused craft on the action bar — the same surface, and the same red, as the deepslate gate.
+     *
+     * <p>The overlay is the right place for this: it fades on its own after a couple of seconds, so a player
+     * who keeps trying gets reminded rather than accumulating a column of identical chat lines. Every fresh
+     * attempt re-sends it, which restarts the fade.
+     *
+     * <p>Throttled to one packet per tick, because a single click consults {@code mayPickup} more than once
+     * and a shift-click loops over it. That is invisible to the player; it only collapses the burst.
+     */
+    public static void notifyLocked(Player player, ItemStack stack) {
+        if (!(player instanceof ServerPlayer sp)) return;
+        String flag = requiredFlag(stack);
+        if (flag == null) return;
+
+        Integer last = LAST_NOTICE.get(sp.getUUID());
+        if (last != null && last.intValue() == sp.tickCount) return;
+        LAST_NOTICE.put(sp.getUUID(), sp.tickCount);
+
+        SkillNode node = nodeForFlag(flag);
+        String name = node == null ? flag
+                : io.github.andrewwwwwwwwwwwwwww.vanillaskills.text.Lang.tr(
+                        sp, "vanillaskills.node." + node.id, node.title);
+        sp.connection.send(new net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket(
+                net.minecraft.network.chat.Component.literal(
+                                io.github.andrewwwwwwwwwwwwwww.vanillaskills.text.Lang.tr(sp,
+                                        "vanillaskills.msg.craft_locked",
+                                        "You need %s to craft this. Open /skill to unlock it.", name))
+                        .withStyle(net.minecraft.ChatFormatting.RED)));
     }
 
     /** True if this skill-tree lane is turned off by config (its crafting is ungated and it's hidden). */

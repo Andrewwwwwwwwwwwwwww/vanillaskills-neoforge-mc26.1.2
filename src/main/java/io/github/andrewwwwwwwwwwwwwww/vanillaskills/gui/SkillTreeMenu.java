@@ -15,7 +15,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
@@ -574,7 +573,12 @@ public class SkillTreeMenu extends ChestMenu {
                 return true;
             }
             if ("guide".equals(cat.id)) {
-                io.github.andrewwwwwwwwwwwwwww.vanillaskills.book.GuideBook.open(sp);
+                // Prefer the wiki: it is the copy that stays current. The book is the offline fallback.
+                if (io.github.andrewwwwwwwwwwwwwww.vanillaskills.book.GuideLink.available()) {
+                    io.github.andrewwwwwwwwwwwwwww.vanillaskills.book.GuideLink.open(sp);
+                } else {
+                    io.github.andrewwwwwwwwwwwwwww.vanillaskills.book.GuideBook.open(sp);
+                }
                 return true;
             }
             if ("quests".equals(cat.id)) {

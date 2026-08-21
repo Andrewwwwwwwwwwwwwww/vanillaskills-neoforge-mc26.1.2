@@ -23,4 +23,16 @@ public interface DisplayTransformAccessor {
 
     @Invoker("setTransformation")
     void vanillaskills$setTransformation(Transformation transformation);
+
+    /**
+     * Exposes {@code Display#setBrightnessOverride}, also private.
+     *
+     * <p>A display entity is lit by the light level at its own position. A block overlay sits <i>inside</i>
+     * the solid block it is covering, where the light level is 0 — so without an override it renders almost
+     * black no matter how bright the world around it is. That is what made the Stable block (on a
+     * non-emitting diamond block base) look nearly unlit, and what made the Unstable block read as plain
+     * crying obsidian: the overlay was drawn, just in the dark.
+     */
+    @Invoker("setBrightnessOverride")
+    void vanillaskills$setBrightnessOverride(net.minecraft.util.Brightness brightness);
 }

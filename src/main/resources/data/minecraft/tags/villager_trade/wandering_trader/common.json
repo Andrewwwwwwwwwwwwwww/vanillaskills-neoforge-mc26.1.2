@@ -1,0 +1,20 @@
+{
+  "replace": true,
+  "values": [
+    "vanillaskills:wandering_trader/wheat",
+    "vanillaskills:wandering_trader/carrot",
+    "vanillaskills:wandering_trader/potato",
+    "vanillaskills:wandering_trader/beetroot",
+    "vanillaskills:wandering_trader/pumpkin",
+    "vanillaskills:wandering_trader/melon",
+    "vanillaskills:wandering_trader/sugar_cane",
+    "vanillaskills:wandering_trader/bamboo",
+    "vanillaskills:wandering_trader/kelp",
+    "vanillaskills:wandering_trader/cactus",
+    "vanillaskills:wandering_trader/sweet_berries",
+    "vanillaskills:wandering_trader/honey_bottle",
+    "vanillaskills:wandering_trader/glass",
+    "vanillaskills:wandering_trader/bricks",
+    "vanillaskills:wandering_trader/dried_kelp_block"
+  ]
+}

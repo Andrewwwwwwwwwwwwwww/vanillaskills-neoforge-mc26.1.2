@@ -25,20 +25,30 @@ public class InfoMenu extends ChestMenu {
     private final SimpleContainer container;
 
     public static void open(ServerPlayer player, Component title, int rows, List<ItemStack> items) {
-        int clamped = Math.max(1, Math.min(6, rows));
-        player.openMenu(new SimpleMenuProvider(
-                (syncId, inv, p) -> new InfoMenu(syncId, inv, (ServerPlayer) p, clamped, items), title));
+        open(player, title, rows, items, 7);
     }
 
-    private InfoMenu(int syncId, Inventory inv, ServerPlayer player, int rows, List<ItemStack> items) {
+    /**
+     * As above, but with a chosen row width.
+     *
+     * <p>Worth setting when the items fall into groups: a screen of twelve reads far better as two rows of
+     * six with a theme each than as a row of seven and a stub of five.
+     */
+    public static void open(ServerPlayer player, Component title, int rows, List<ItemStack> items, int perRow) {
+        int clamped = Math.max(1, Math.min(6, rows));
+        int width = Math.max(1, Math.min(9, perRow));
+        player.openMenu(new SimpleMenuProvider(
+                (syncId, inv, p) -> new InfoMenu(syncId, inv, (ServerPlayer) p, clamped, items, width), title));
+    }
+
+    private InfoMenu(int syncId, Inventory inv, ServerPlayer player, int rows, List<ItemStack> items, int perRow) {
         super(menuTypeFor(rows), syncId, inv, new SimpleContainer(rows * 9), rows);
         this.player = player;
         this.container = (SimpleContainer) getContainer();
 
         for (int i = 0; i < container.getContainerSize(); i++) container.setItem(i, ItemStack.EMPTY);
 
-        // Lay the content items in centered rows of up to 7, starting below the top border.
-        int perRow = 7;
+        // Lay the content items in centered rows of up to perRow, starting below the top border.
         int chunks = Math.max(1, (int) Math.ceil(items.size() / (double) perRow));
         int startRow = Math.max(1, (rows - chunks) / 2); // vertically centered band
         int idx = 0;

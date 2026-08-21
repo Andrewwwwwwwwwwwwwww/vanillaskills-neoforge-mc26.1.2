@@ -2,7 +2,6 @@ package io.github.andrewwwwwwwwwwwwwww.vanillaskills.book;
 
 import io.github.andrewwwwwwwwwwwwwww.vanillaskills.config.GameplayConfig;
 import io.github.andrewwwwwwwwwwwwwww.vanillaskills.skill.QuestShop;
-import io.github.andrewwwwwwwwwwwwwww.vanillaskills.skill.Quests;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
@@ -23,8 +22,11 @@ import java.util.List;
  * is sent, then the real held item is re-sent to correct the client.
  *
  * <p>Pages are kept short so none overflow a written-book page (~14 lines). {@code {MENDING}},
- * {@code {GRAD}} and {@code {CONVERT}} are filled from the live config at build time so the guide
- * never contradicts the current settings.
+ * {@code {XP}}, {@code {GRAD}}, {@code {CONVERT}}, {@code {QUESTS}} and {@code {SHARDBLOCK}} are filled
+ * from the live config at build time so the guide never contradicts the current settings.
+ *
+ * <p>Page order is load-bearing: each page is keyed by its index for translation, so new pages go on the
+ * end and existing ones are edited in place.
  */
 public final class GuideBook {
     private GuideBook() {}
@@ -35,8 +37,9 @@ public final class GuideBook {
 
             A server-side progression overhaul.
 
-            Skill Shards: from advancements.
-            Quest Shards: from bounties.
+            Skill Shards: advancements, ore,
+            exploring.
+            Quest Shards: bounties.
 
             Type /help for commands.""",
 
@@ -57,19 +60,15 @@ public final class GuideBook {
             """
             Earning Skill Shards
 
-            Each advancement grants Skill Shards once:
+            Advancements are the main source - each counts once. Tasks a little, goals more, challenges a lot.
 
-            tasks - a little
-            goals - more
-            challenges - a lot
-
-            Earn them all to afford the whole tree.""",
+            Also: shard ore, chests, barters, spawners and the trader.""",
 
             """
             Bounty Board
             (/quests or /bounty)
 
-            Three bounties at a time, refreshing on a timer.
+            {QUESTS} bounties at a time, refreshing on a timer.
 
             Gather items or slay mobs to earn Quest Shards.""",
 
@@ -106,23 +105,23 @@ public final class GuideBook {
 
             Hardwood armor: from Wood blocks (all-bark, like Oak Wood) - not logs or planks.
 
-            Rose Gold ingot: 4 gold + 4 copper.""",
+            Rose Gold ingot: 4 gold + 4 copper = 4.""",
 
             """
             Gear Materials
 
-            Steel ingot: smelt an iron block in a furnace = 3.
+            Steel ingot: an iron block in a furnace or blast furnace = 3.
 
             Steel Shield: shield + Steel Ingot in an anvil.
 
-            Crystallized Diamond: 4 amethyst shards + 2 Unstable Skill Shards + 2 diamonds + 1 amethyst block = 2.""",
+            Crystallized Diamond: 4 amethyst + 2 Unstable Shards + 2 diamonds + 1 amethyst block = 2.""",
 
             """
             Set Bonuses
 
-            Rose Gold: immune to bad effects, fire resistant; piglins stay neutral.
+            Rose Gold: immune to bad effects & fire; piglins stay neutral.
 
-            Crystalline: reflects 25% of melee damage, plus Strength & Resistance I.
+            Crystalline: reflects 25% melee damage, plus Strength & Resistance I.
 
             Dragon: immune to fire, lava & breath.""",
 
@@ -166,7 +165,44 @@ public final class GuideBook {
 
             {MENDING}
 
-            Open the Recipes icon on the skill screen to see every custom recipe."""
+            Open the Recipes icon on the skill screen to see every custom recipe.""",
+
+            """
+            Experience
+
+            {XP}
+
+            Your XP bar shows your banked Skill Shards instead.""",
+
+            """
+            Skill Shards
+
+            Shards can be held as items. Right-click one to bank it.
+
+            {SHARDBLOCK} shards craft an Unstable Skill Shard Block.""",
+
+            """
+            Stable Shard Blocks
+
+            Ring an Unstable block with redstone and tinted glass to make it Stable.
+
+            A placed Stable block damages nearby hostile mobs.""",
+
+            """
+            Infusing Table
+
+            The enchanting table, without experience.
+
+            It offers the enchantments shelved in chiseled bookshelves around it, and never consumes them.
+
+            Paid in Shards.""",
+
+            """
+            Crates
+
+            Fishing can pull up a crate alongside the catch - the biome decides which one.
+
+            Inside: a random haul, sometimes Skill Shards."""
     };
 
     public static ItemStack create() {
@@ -179,14 +215,21 @@ public final class GuideBook {
         String mending = GameplayConfig.MENDING_ENABLED
                 ? io.github.andrewwwwwwwwwwwwwww.vanillaskills.text.Lang.tr(player, "vanillaskills.guide.mending_on", "Mending works normally on this server.")
                 : io.github.andrewwwwwwwwwwwwwww.vanillaskills.text.Lang.tr(player, "vanillaskills.guide.mending_off", "Mending is removed - it never appears anywhere.");
+        String experience = GameplayConfig.EXPERIENCE_ENABLED
+                ? io.github.andrewwwwwwwwwwwwwww.vanillaskills.text.Lang.tr(player, "vanillaskills.guide.xp_on", "Experience works as in vanilla on this server.")
+                : io.github.andrewwwwwwwwwwwwwww.vanillaskills.text.Lang.tr(player, "vanillaskills.guide.xp_off", "Experience is removed: no orbs, no levels, and nothing grants it.");
         List<Filterable<Component>> pages = new ArrayList<>();
         for (int pi = 0; pi < PAGES.length; pi++) {
             String page = io.github.andrewwwwwwwwwwwwwww.vanillaskills.text.Lang.tr(player, "vanillaskills.guide.page." + pi, PAGES[pi]);
             // Fill the live-config tokens so the guide always matches the current settings.
             String text = page
                     .replace("{MENDING}", mending)
+                    .replace("{XP}", experience)
                     .replace("{GRAD}", String.valueOf(io.github.andrewwwwwwwwwwwwwww.vanillaskills.skill.QuestPool.starter().size()))
-                    .replace("{CONVERT}", String.valueOf(QuestShop.CONVERT_RATIO));
+                    .replace("{CONVERT}", String.valueOf(QuestShop.CONVERT_RATIO))
+                    .replace("{QUESTS}", String.valueOf(GameplayConfig.QUESTS_PER_ROTATION))
+                    .replace("{SHARDBLOCK}", String.valueOf(
+                            io.github.andrewwwwwwwwwwwwwww.vanillaskills.shard.ShardItems.SHARDS_PER_BLOCK));
             pages.add(Filterable.passThrough(Component.literal(text)));
         }
         WrittenBookContent content = new WrittenBookContent(

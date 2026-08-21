@@ -38,6 +38,14 @@ public final class ShardBank {
         stack.setCount(amount);
         // placeItemBackInInventory drops whatever will not fit, so shards can never be destroyed by a full bag.
         player.getInventory().placeItemBackInInventory(stack);
+        // Push the inventory change to the client immediately.
+        //
+        // Withdrawing happens with our chest GUI open, and adding to the inventory behind an open menu does
+        // not mark that menu dirty — so the shard count in the screen dropped while the items appeared not to
+        // arrive, and clicking quickly made it look like several had been eaten. The items were always there;
+        // the client simply had not been told until the screen closed. A full resync costs nothing at this
+        // rate and keeps the two in step no matter how fast the button is clicked.
+        if (player.containerMenu != null) player.containerMenu.broadcastFullState();
         player.sendSystemMessage(Component.literal(Lang.tr(player,
                 "vanillaskills.msg.shard_withdrawn", "Withdrew %d Skill Shard(s) as items.", amount))
                 .withStyle(ChatFormatting.LIGHT_PURPLE));

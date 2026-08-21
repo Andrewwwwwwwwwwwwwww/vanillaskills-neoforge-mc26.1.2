@@ -1,0 +1,11 @@
+{
+  "replace": true,
+  "values": [
+    "vanillaskills:wandering_trader/iron_ingot",
+    "vanillaskills:wandering_trader/gold_ingot",
+    "vanillaskills:wandering_trader/copper_ingot",
+    "vanillaskills:wandering_trader/redstone",
+    "vanillaskills:wandering_trader/lapis_lazuli",
+    "vanillaskills:wandering_trader/coal_block"
+  ]
+}

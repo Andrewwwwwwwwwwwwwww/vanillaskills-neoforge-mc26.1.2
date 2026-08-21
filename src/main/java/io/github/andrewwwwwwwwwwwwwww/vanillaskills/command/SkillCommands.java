@@ -1,7 +1,6 @@
 package io.github.andrewwwwwwwwwwwwwww.vanillaskills.command;
 
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.DoubleArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -12,16 +11,11 @@ import io.github.andrewwwwwwwwwwwwwww.vanillaskills.text.Lang;
 import io.github.andrewwwwwwwwwwwwwww.vanillaskills.config.PointsConfig;
 import io.github.andrewwwwwwwwwwwwwww.vanillaskills.gui.SkillTreeMenu;
 import io.github.andrewwwwwwwwwwwwwww.vanillaskills.skill.PlayerSkillData;
-import io.github.andrewwwwwwwwwwwwwww.vanillaskills.skill.SkillEffect;
-import io.github.andrewwwwwwwwwwwwwww.vanillaskills.skill.SkillNode;
-import io.github.andrewwwwwwwwwwwwwww.vanillaskills.skill.SkillTree;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
-import net.minecraft.commands.arguments.IdentifierArgument;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
@@ -175,16 +169,6 @@ public final class SkillCommands {
         return 1;
     }
 
-    private static int showOwnPoints(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
-        ServerPlayer player = ctx.getSource().getPlayerOrException();
-        PlayerSkillData data = VanillaSkills.PLAYERS.get(player.getUUID());
-        ctx.getSource().sendSuccess(() -> Component.literal(
-                "Skill Shards: " + data.pointsAvailable + " (earned " + data.pointsEarned + ")"
-                + "   Quest Shards: " + data.questShardsAvailable)
-                .withStyle(ChatFormatting.AQUA), false);
-        return 1;
-    }
-
     // ---- op: player management ----
 
     private static int adjustPoints(CommandContext<CommandSourceStack> ctx, boolean add) throws CommandSyntaxException {
@@ -281,21 +265,6 @@ public final class SkillCommands {
         return given;
     }
 
-
-
-    private static boolean isOreOrOurs(net.minecraft.server.level.ServerLevel level,
-                                       net.minecraft.core.BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
-        if (VanillaSkills.SHARDS.kindAt(level, pos) != null) {
-            return true;
-        }
-        if (state.is(net.minecraft.world.level.block.Blocks.ANCIENT_DEBRIS)
-                || state.is(net.minecraft.world.level.block.Blocks.REINFORCED_DEEPSLATE)) {
-            return true;
-        }
-        Identifier id = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(state.getBlock());
-        return id.getPath().endsWith("_ore");
-    }
-
     private static int reload(CommandContext<CommandSourceStack> ctx) {
         PointsConfig points = PointsConfig.load();
         VanillaSkills.PLAYERS.setPointsConfig(points);
@@ -326,28 +295,6 @@ public final class SkillCommands {
                 + (enabled ? " (Existing villager trades won't change — reroll librarians for new mending offers.)" : ""))
                 .withStyle(enabled ? ChatFormatting.GREEN : ChatFormatting.YELLOW), true);
         return 1;
-    }
-
-
-    // ---- op: tree editor ----
-
-
-    private static SkillNode requireNode(CommandContext<CommandSourceStack> ctx) {
-        String id = StringArgumentType.getString(ctx, "id");
-        SkillNode node = VanillaSkills.TREE.tree().byId(id);
-        if (node == null) ctx.getSource().sendFailure(Component.literal("No skill node with id '" + id + "'."));
-        return node;
-    }
-
-
-
-    // ---- lane (category) editing ----
-
-    private static io.github.andrewwwwwwwwwwwwwww.vanillaskills.skill.SkillCategory requireCategory(CommandContext<CommandSourceStack> ctx) {
-        String id = StringArgumentType.getString(ctx, "id");
-        io.github.andrewwwwwwwwwwwwwww.vanillaskills.skill.SkillCategory cat = VanillaSkills.TREE.tree().category(id);
-        if (cat == null) ctx.getSource().sendFailure(Component.literal("No lane with id '" + id + "'."));
-        return cat;
     }
 
 

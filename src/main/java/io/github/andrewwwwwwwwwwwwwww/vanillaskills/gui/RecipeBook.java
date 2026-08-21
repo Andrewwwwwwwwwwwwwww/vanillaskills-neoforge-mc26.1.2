@@ -79,8 +79,8 @@ public final class RecipeBook {
                 copper.copy(), E, copper.copy(),
                 gold.copy(), copper.copy(), gold.copy()}, count(Alloys.roseGoldIngot(), 4)));
 
-        // 2. Steel Ingot — SMELTED, not crafted: one iron block in a furnace yields three.
-        r.add(new Display("Steel Ingot (×3, smelt an Iron Block)", new ItemStack[]{
+        // 2. Steel Ingot — SMELTED, not crafted: one iron block yields three, in either furnace.
+        r.add(new Display("Steel Ingot (×3, Furnace or Blast Furnace)", new ItemStack[]{
                 E, E, E,
                 E, new ItemStack(Items.IRON_BLOCK), E,
                 E, E, E}, count(Alloys.steelIngot(), 3), Items.FURNACE));

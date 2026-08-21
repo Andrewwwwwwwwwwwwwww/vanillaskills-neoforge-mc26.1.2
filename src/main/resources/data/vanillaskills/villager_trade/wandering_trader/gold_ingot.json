@@ -1,0 +1,49 @@
+{
+  "wants": {
+    "id": "minecraft:gold_ingot",
+    "count": 4
+  },
+  "gives": {
+    "id": "minecraft:written_book",
+    "count": 1
+  },
+  "given_item_modifiers": [
+    {
+      "function": "minecraft:set_components",
+      "components": {
+        "minecraft:custom_data": {
+          "vs_unstable_shard": true
+        },
+        "minecraft:item_model": "vanillaskills:unstable_skill_shard",
+        "minecraft:item_name": {
+          "translate": "vanillaskills.item.unstable_skill_shard",
+          "fallback": "Unstable Skill Shard",
+          "color": "#9B6BE8",
+          "italic": false
+        },
+        "minecraft:lore": [
+          {
+            "translate": "vanillaskills.item.unstable_skill_shard.desc1",
+            "fallback": "A Skill Shard given physical form.",
+            "color": "gray",
+            "italic": false
+          },
+          {
+            "translate": "vanillaskills.item.unstable_skill_shard.desc2",
+            "fallback": "Right-click to bank it again.",
+            "color": "gray",
+            "italic": false
+          }
+        ],
+        "minecraft:max_stack_size": 64,
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:written_book_content"
+          ]
+        }
+      }
+    }
+  ],
+  "max_uses": 4,
+  "reputation_discount": 0
+}
