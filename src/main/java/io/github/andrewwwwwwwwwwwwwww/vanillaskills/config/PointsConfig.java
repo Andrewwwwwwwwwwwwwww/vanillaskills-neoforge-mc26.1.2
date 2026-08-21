@@ -12,7 +12,8 @@ import java.util.Map;
 
 /**
  * Controls how many skill points players earn from advancements.
- * Stored at config/vanillaskills/points.json.
+ * Stored PER-WORLD at &lt;world&gt;/vanillaskills/points.json, alongside gameplay.json — NOT under
+ * config/. A pack shipping overrides for it in config/vanillaskills/ has no effect.
  */
 public class PointsConfig {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
