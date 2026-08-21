@@ -46,11 +46,6 @@ public final class DragonElytra {
         return Markers.has(stack, MARKER);
     }
 
-    /** True if these two stacks (in either order) can be merged: a Dragon chestplate + an Elytra. */
-    public static boolean canCombine(ItemStack a, ItemStack b) {
-        return (isDragonChest(a) && b.is(Items.ELYTRA)) || (isDragonChest(b) && a.is(Items.ELYTRA));
-    }
-
     /** True if the stack is an uncombined Dragon chestplate (eligible to fuse with an elytra). */
     public static boolean isDragonChest(ItemStack stack) {
         return ArmorTiers.DRAGON.isWorn(stack) && !isCombined(stack);

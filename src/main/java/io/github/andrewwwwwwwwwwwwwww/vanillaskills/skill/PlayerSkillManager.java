@@ -31,6 +31,17 @@ public class PlayerSkillManager {
     private PointsConfig points = new PointsConfig();
     private int totalEarnable = 0; // P = total points a completionist can earn (computed at start)
 
+    /**
+     * When each online player joined, for the login grace window.
+     *
+     * <p>An advancement that completes during login was not earned just now — it is one whose criteria were
+     * already satisfied and are only being re-checked as the player's state loads. That is the normal case
+     * the moment a new mod is added to a pack: its root advancement and anything keyed on "have X" all fire
+     * at once, which without this would pay out a fortune for doing nothing. Such advancements are recorded
+     * as credited so they can never pay later, but are worth zero.
+     */
+    private final Map<UUID, Long> joinedAt = new ConcurrentHashMap<>();
+
     public void setPointsConfig(PointsConfig points) {
         this.points = points;
     }
@@ -47,6 +58,7 @@ public class PlayerSkillManager {
 
     /** Called when a player joins: load, initialize once, (re)apply all effects. */
     public void onJoin(ServerPlayer player) {
+        joinedAt.put(player.getUUID(), System.currentTimeMillis());
         PlayerSkillData data = get(player.getUUID());
         SkillTree tree = VanillaSkills.TREE.tree();
 
@@ -78,6 +90,7 @@ public class PlayerSkillManager {
     public void onLeave(ServerPlayer player) {
         PlayerSkillData data = get(player.getUUID());
         data.lastHealth = player.getHealth();
+        joinedAt.remove(player.getUUID()); // only online players need a login timestamp
         unload(player.getUUID());
     }
 
@@ -131,6 +144,7 @@ public class PlayerSkillManager {
 
         AdvancementHolder holder = findHolder(advancementId);
         int amount = holder != null ? points.pointsFor(holder) : points.perAdvancement;
+        if (withinLoginGrace(player)) amount = 0; // completed during login, so not earned now
         data.creditedAdvancements.add(advancementId);
         if (amount > 0) {
             data.grantPoints(amount);
@@ -138,6 +152,21 @@ public class PlayerSkillManager {
                     .withStyle(ChatFormatting.GREEN));
         }
         save(player.getUUID());
+    }
+
+    /**
+     * True while the player is still inside the login grace window.
+     *
+     * <p>Deliberately a short wall-clock window rather than a tick count: the advancements this exists to
+     * catch all complete within the first tick or two of login, and a few seconds is far too brief for a
+     * player to have genuinely earned one. Set {@code advancementLoginGraceMs} to 0 to pay for everything,
+     * including whatever a newly-added mod hands out on sight.
+     */
+    private boolean withinLoginGrace(ServerPlayer player) {
+        long grace = io.github.andrewwwwwwwwwwwwwww.vanillaskills.config.GameplayConfig.ADVANCEMENT_LOGIN_GRACE_MS;
+        if (grace <= 0) return false;
+        Long joined = joinedAt.get(player.getUUID());
+        return joined != null && System.currentTimeMillis() - joined < grace;
     }
 
     private void tallyExistingAdvancements(ServerPlayer player, PlayerSkillData data) {
@@ -382,44 +411,6 @@ public class PlayerSkillManager {
     private static void refund(PlayerSkillData data, SkillNode node, int amount) {
         if (node.isQuestCurrency()) data.questShardsAvailable += amount;
         else data.pointsAvailable += amount;
-    }
-
-    /** Refund a node and every unlocked node that depends on it (cascade), returning all their Shards. */
-    public boolean refundChain(ServerPlayer player, String nodeId) {
-        SkillTree tree = VanillaSkills.TREE.tree();
-        SkillNode target = tree.byId(nodeId);
-        if (target == null) return false;
-        if (SkillTree.ROOT_ID.equals(nodeId)) {
-            player.sendSystemMessage(Component.literal(io.github.andrewwwwwwwwwwwwwww.vanillaskills.text.Lang.tr(player,
-                    "vanillaskills.msg.base_no_refund", "The base node can't be refunded.")).withStyle(ChatFormatting.RED));
-            return false;
-        }
-        PlayerSkillData data = get(player.getUUID());
-        if (!data.hasUnlocked(nodeId)) return false;
-
-        Set<String> remove = new LinkedHashSet<>();
-        for (String uid : data.unlocked) {
-            if (uid.equals(nodeId) || dependsOn(tree, uid, nodeId, new HashSet<>())) remove.add(uid);
-        }
-        int refunded = 0;
-        for (String id : remove) {
-            SkillNode n = tree.byId(id);
-            if (n == null) continue;
-            SkillEffects.removeNode(player, n);
-            data.unlocked.remove(id);
-            refund(data, n, n.cost);
-            refunded += n.cost;
-        }
-        save(player.getUUID());
-        int count = remove.size();
-        String refundCur = currencyName(player, target);
-        String refundMsg = count == 1
-                ? io.github.andrewwwwwwwwwwwwwww.vanillaskills.text.Lang.tr(player,
-                        "vanillaskills.msg.refunded_one", "Refunded 1 skill for %d %s.", refunded, refundCur)
-                : io.github.andrewwwwwwwwwwwwwww.vanillaskills.text.Lang.tr(player,
-                        "vanillaskills.msg.refunded_many", "Refunded %d skills for %d %s.", count, refunded, refundCur);
-        player.sendSystemMessage(Component.literal(refundMsg).withStyle(ChatFormatting.YELLOW));
-        return true;
     }
 
     /** DFS that adds {@code nodeId}'s locked prerequisites (prereqs first) then the node itself to {@code chain}. */

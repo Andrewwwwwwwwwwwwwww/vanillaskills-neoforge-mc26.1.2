@@ -87,7 +87,6 @@ public class VanillaSkills {
         RECIPE_SERIALIZERS.register("fortune_upgrade", () -> FortuneUpgradeRecipe.SERIALIZER);
         RECIPE_SERIALIZERS.register("fortune_template", () -> FortuneTemplateRecipe.SERIALIZER);
         RECIPE_SERIALIZERS.register("tool_crafting", () -> io.github.andrewwwwwwwwwwwwwww.vanillaskills.tool.ToolCraftingRecipe.SERIALIZER);
-        RECIPE_SERIALIZERS.register("steel_shield", () -> io.github.andrewwwwwwwwwwwwwww.vanillaskills.shield.ShieldInfuseRecipe.SERIALIZER);
         RECIPE_SERIALIZERS.register("armor_crafting", () -> ArmorCraftingRecipe.SERIALIZER);
         RECIPE_SERIALIZERS.register("dragon_ingot", () -> io.github.andrewwwwwwwwwwwwwww.vanillaskills.armor.DragonIngotRecipe.SERIALIZER);
         RECIPE_SERIALIZERS.register("dragon_template_dup", () -> io.github.andrewwwwwwwwwwwwwww.vanillaskills.recipe.DragonTemplateRecipe.SERIALIZER);
@@ -178,8 +177,10 @@ public class VanillaSkills {
             if (!io.github.andrewwwwwwwwwwwwwww.vanillaskills.config.GameplayConfig.PUSH_RESOURCE_PACK) return;
             MinecraftServer srv = server; // set on ServerStartedEvent, always before players join
             if (srv == null) return;
-            // Skip pure single-player (the host already has the textures bundled in the jar);
-            // still push on LAN-opened worlds and dedicated servers, where vanilla clients can join.
+            // Skip pure single-player: the host has every texture in the mod jar already, including the
+            // assets/minecraft/** overrides the block takeover needs. Keep those bundled — without them a
+            // single-player world shows plain reinforced deepslate and lodestone with their vanilla names.
+            // Still push on LAN-opened worlds and dedicated servers, where vanilla clients can join.
             if (srv.isSingleplayer() && !srv.isPublished()) return;
             String url = io.github.andrewwwwwwwwwwwwwww.vanillaskills.config.GameplayConfig.RESOURCE_PACK_URL;
             if (url == null || url.isEmpty()) return;
@@ -203,10 +204,10 @@ public class VanillaSkills {
         });
 
         // Right-click a bounty board's floating-text interaction entity to open the quest GUI.
-        // Placing a shard block, and merging one Stable block into another. Handled here rather than
-        // left to vanilla because the block that lands in the world is an ordinary vanilla block — the
-        // same interaction has to record the position and spawn its display, and there is no
-        // "block was placed" hook to bolt that onto afterwards.
+        // Right-clicks that need to beat vanilla to the punch: opening the Infusing Table, and merging
+        // one Stable block into another. Placement itself is vanilla's — the blocks ARE reinforced
+        // deepslate and lodestone, so a BlockItem places them correctly on its own; ShardBlockPlaceMixin
+        // records the position afterwards.
         NeoForge.EVENT_BUS.addListener((PlayerInteractEvent.RightClickBlock e) -> {
             if (!(e.getEntity() instanceof ServerPlayer sp) || !(e.getLevel() instanceof ServerLevel level)) return;
             // Right-clicking an enchanting table opens the Infusing Table instead.
@@ -241,13 +242,11 @@ public class VanillaSkills {
                 return;
             }
 
-            net.minecraft.core.BlockPos target = e.getPos().relative(e.getFace());
-            if (!level.getBlockState(target).canBeReplaced()) return;
-            var kind = stable ? io.github.andrewwwwwwwwwwwwwww.vanillaskills.shard.ShardBlocks.Kind.STABLE : io.github.andrewwwwwwwwwwwwwww.vanillaskills.shard.ShardBlocks.Kind.UNSTABLE;
-            level.setBlockAndUpdate(target, io.github.andrewwwwwwwwwwwwwww.vanillaskills.shard.ShardBlocks.baseBlock(kind).defaultBlockState());
-            SHARDS.register(level, target, kind);
-            if (!sp.hasInfiniteMaterials()) held.shrink(1);
-            e.setCanceled(true);
+            // Placement is left entirely to vanilla BlockItem#place, and ShardBlockPlaceMixin records the
+            // position afterwards. Hand-rolling it here meant re-implementing every vanilla placement rule:
+            // it ignored that right-clicking an interactable block should OPEN it, so aiming at a crafting
+            // table with a shard block in hand buried the table instead of opening it.
+            return;
         });
 
         // Right-click a held Unstable Skill Shard to bank the whole stack again, or a crate to open it.
@@ -470,6 +469,9 @@ public class VanillaSkills {
                 // Catches pre-2.0 gear picked up from a chest after the join sweep. Costs one
                 // component lookup per slot once a world has been migrated.
                 io.github.andrewwwwwwwwwwwwwww.vanillaskills.armor.LegacyGear.sweep(player);
+                // Reveal recipes for ingredients picked up since the last check. Only awarding on join
+                // meant finding your first shard showed nothing until you relogged.
+                io.github.andrewwwwwwwwwwwwwww.vanillaskills.recipe.RecipeUnlocks.sync(player);
             }
         }
         if (tickCounter % QUEST_ROTATION_INTERVAL == 0) {

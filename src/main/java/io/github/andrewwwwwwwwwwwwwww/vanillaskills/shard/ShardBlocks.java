@@ -6,9 +6,7 @@ import io.github.andrewwwwwwwwwwwwwww.vanillaskills.VanillaSkills;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.Display;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.item.ItemStack;
@@ -28,14 +26,19 @@ import java.util.Map;
  * Placed Skill Shard blocks — the Unstable block and the Stable block that harms nearby hostiles.
  *
  * <h2>How a "custom block" works here without registering one</h2>
- * The world holds a real vanilla block (see {@link #baseBlock}); VanillaSkills remembers which positions are
- * ours and what each one is, and dresses each with a {@link Display.ItemDisplay} carrying a full-cube custom
- * model, drawn fractionally oversized so it hides the block underneath completely. What a player sees is
- * entirely our texture; the vanilla block only supplies light, collision and beacon-base membership. Registering a real block would kick vanilla clients (see REWORK §2.1), and the marker-entity
- * pattern is the same one the reference pack uses for its own custom blocks.
+ * Registering a real block would kick vanilla clients (see REWORK §2.1), so instead VanillaSkills <b>takes
+ * over</b> two vanilla blocks outright: reinforced deepslate and lodestone (see {@link #baseBlock}). Both are
+ * retextured in the pushed resource pack, and the datapack removes every vanilla way to obtain one — so a
+ * block of either type in the world is, by construction, ours.
  *
- * <p>The tracking map is the source of truth, not the block in the world — so a Stable block keeps its merge
- * count, its aura and its identity even though it is, to vanilla, an ordinary amethyst block.
+ * <p>This replaced an earlier design that left the vanilla block in place and covered it with an oversized
+ * {@code Display.ItemDisplay}. That overlay was lit by the light level at its own position — inside a solid
+ * block, i.e. zero — so it rendered black, and the client culled it whenever the chunk re-meshed, which made
+ * the texture "revert" on any nearby block update. Owning the block outright removes the overlay, and with it
+ * the lighting, culling and hand-rolled-placement problems all at once.
+ *
+ * <p>Positions are still tracked, because the Stable block needs its merge count and both kinds need to know
+ * a player put them there rather than worldgen.
  */
 public class ShardBlocks {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
@@ -43,16 +46,6 @@ public class ShardBlocks {
     /** Tags the display entity so it can be found and cleaned up without tracking its id. */
     public static final String TAG = "vanillaskills_shard_block";
 
-    /**
-     * The real block placed in the world for each kind.
-     *
-     * <p>The Stable block sits on {@link Blocks#DIAMOND_BLOCK} specifically so that it is a valid beacon
-     * base <em>natively</em>. The alternative was adding our base block to {@code #minecraft:beacon_base_blocks},
-     * which would have promoted <b>every</b> block of that type in the world to a beacon base — a side effect
-     * far worse than the feature is worth. The Unstable block has no such requirement, so it stays amethyst.
-     *
-     * <p>Either way the visible block is the item-display overlay; the base only shows if that is ever lost.
-     */
     /**
      * The vanilla block actually placed in the world under our display.
      *
@@ -63,16 +56,18 @@ public class ShardBlocks {
      * collision, and what a beacon considers a valid base.
      *
      * <ul>
-     *   <li><b>Unstable</b> → crying obsidian, for its light level 10. Amethyst emits nothing, and no vanilla
-     *       full block sits at glow lichen's 7; 10 is the nearest that still reads as a soft glow rather than
-     *       a lamp. Being violet also means a failed display degrades to something plausible.</li>
-     *   <li><b>Stable</b> → diamond block, because it is already in {@code #minecraft:beacon_base_blocks},
-     *       which is what lets the Stable block work as a beacon base without tagging a block type globally
-     *       and promoting every diamond block in the world.</li>
+     *   <li><b>Unstable</b> → reinforced deepslate. Vanilla places it in ancient city floors and nowhere
+     *       else, and our datapack rewrites those to obsidian at generation, so every reinforced deepslate
+     *       in a new world is ours. It has no recipe and an empty loot table, so a player cannot obtain or
+     *       place one by any other route.</li>
+     *   <li><b>Stable</b> → lodestone. Removed from vanilla the same way: its recipe is neutered and it is
+     *       stripped from the two chest tables that carried it. Our datapack then adds it to
+     *       {@code #minecraft:beacon_base_blocks}, which is safe precisely because no other lodestone can
+     *       exist to be promoted.</li>
      * </ul>
      */
     public static net.minecraft.world.level.block.Block baseBlock(Kind kind) {
-        return kind == Kind.STABLE ? Blocks.DIAMOND_BLOCK : Blocks.CRYING_OBSIDIAN;
+        return kind == Kind.STABLE ? Blocks.LODESTONE : Blocks.REINFORCED_DEEPSLATE;
     }
 
     /**
@@ -136,16 +131,32 @@ public class ShardBlocks {
 
     // ---- queries ----
 
-    /** The kind of shard block at this position, or null if it is not one of ours. */
+    /**
+     * The kind of shard block at this position, or null if it is not one of ours.
+     *
+     * <p>Answered from the <b>block in the world</b>, not the tracking map. Both base blocks are taken over
+     * from vanilla, so their presence is the identity — which means a block placed by any route at all
+     * (creative menu, {@code /setblock}, a hopper into a dispenser) behaves correctly, not just one placed
+     * through our own use handler. Relying on the map is what made a placed block behave like plain vanilla.
+     */
     public Kind kindAt(ServerLevel level, BlockPos pos) {
-        Entry e = index.get(key(dimId(level), pos));
-        return e == null ? null : Kind.parse(e.kind);
+        net.minecraft.world.level.block.state.BlockState state = level.getBlockState(pos);
+        if (state.is(Blocks.LODESTONE)) return Kind.STABLE;
+        if (state.is(Blocks.REINFORCED_DEEPSLATE)) return Kind.UNSTABLE;
+        return null;
     }
 
-    /** How many Stable blocks are merged into the one at this position (1 if unmerged, 0 if not ours). */
+    /**
+     * How many Stable blocks are merged into the one at this position (0 if not ours).
+     *
+     * <p>This is the one question the block alone cannot answer, and the only reason the tracking map still
+     * exists. An untracked Stable block is simply unmerged, so it reports 1 rather than 0 — a block placed
+     * outside our handler is still a real Stable block, just one nobody has merged into yet.
+     */
     public int mergeCountAt(ServerLevel level, BlockPos pos) {
         Entry e = index.get(key(dimId(level), pos));
-        return e == null ? 0 : e.merged;
+        if (e != null) return e.merged;
+        return kindAt(level, pos) == Kind.STABLE ? 1 : 0;
     }
 
     /**
@@ -167,14 +178,13 @@ public class ShardBlocks {
 
     // ---- placing / breaking ----
 
-    /** Record a shard block at {@code pos} and give it its display. The caller sets the world block. */
+    /** Record a shard block at {@code pos}. The caller sets the world block. */
     public void register(ServerLevel level, BlockPos pos, Kind kind) {
         String k = key(dimId(level), pos);
         if (index.containsKey(k)) return;
         Entry e = new Entry(dimId(level), pos, kind);
         blocks.add(e);
         index.put(k, e);
-        spawnDisplay(level, pos, kind);
         save();
     }
 
@@ -188,7 +198,7 @@ public class ShardBlocks {
         Entry e = index.remove(key(dimId(level), pos));
         if (e == null) return null;
         blocks.remove(e);
-        clearDisplays(level, pos);
+        clearDisplays(level, pos); // legacy overlays from the pre-takeover design
         save();
         return e;
     }
@@ -207,8 +217,7 @@ public class ShardBlocks {
     }
 
     /**
-     * Handle a player breaking a tracked block: forget it, clear the world block, and drop our item
-     * instead of the amethyst block vanilla would have dropped.
+     * Handle a player breaking a tracked block: forget it, clear the world block, and drop our item.
      *
      * @return true if this position was ours and has been fully handled by us
      */
@@ -240,40 +249,13 @@ public class ShardBlocks {
 
     // ---- display entities ----
 
-    private static void spawnDisplay(ServerLevel level, BlockPos pos, Kind kind) {
-        Display.ItemDisplay display = new Display.ItemDisplay(EntityType.ITEM_DISPLAY, level);
-        ItemStack model = kind == Kind.STABLE ? ShardItems.stableBlock() : ShardItems.unstableBlock();
-        // getSlot(0) is the public route to an item display's stack; setItemStack itself is private, and
-        // going through the slot avoids needing an access widener on Fabric and a transformer on NeoForge.
-        display.getSlot(0).set(model);
-        display.setNoGravity(true);
-        display.setInvulnerable(true);
-        display.addTag(TAG);
-        // Centred on the block, and drawn very slightly oversized so it hides the vanilla block underneath
-        // rather than z-fighting with it — two exactly coplanar faces flicker.
-        //
-        // The oversize used to be baked into the model (elements running -0.2..16.2), which meant the model
-        // could not inherit minecraft:block/cube_all. That parent is where a block item gets its display
-        // transforms from, so without it the same item rendered as a flat unrotated square in the inventory
-        // and in hand. The model is now a plain cube_all and the oversize lives here instead.
-        scale(display, 1.025f);
-        display.snapTo(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 0.0f, 0.0f);
-        level.addFreshEntity(display);
-    }
-
     /**
-     * Resize a display. Scale lives in the transformation, whose setter is private in 26.2 — see
-     * {@code DisplayTransformAccessor} for why this goes through an invoker.
+     * Delete any leftover display overlay at this position.
+     *
+     * <p>Nothing creates these any more — the blocks are real and retextured. It stays because overlays
+     * written into a world by an earlier version are still sitting in it, and would otherwise hover over
+     * the block forever with nothing tracking them.
      */
-    private static void scale(Display.ItemDisplay display, float factor) {
-        ((io.github.andrewwwwwwwwwwwwwww.vanillaskills.mixin.DisplayTransformAccessor) display)
-                .vanillaskills$setTransformation(new com.mojang.math.Transformation(
-                        new org.joml.Vector3f(0.0f, 0.0f, 0.0f),
-                        new org.joml.Quaternionf(),
-                        new org.joml.Vector3f(factor, factor, factor),
-                        new org.joml.Quaternionf()));
-    }
-
     private static void clearDisplays(ServerLevel level, BlockPos pos) {
         AABB box = new AABB(pos).inflate(0.6);
         for (Entity e : level.getEntitiesOfClass(Entity.class, box, en -> en.entityTags().contains(TAG))) {
@@ -281,14 +263,26 @@ public class ShardBlocks {
         }
     }
 
-    /** Re-render every tracked block in a loaded chunk (op tool, and a repair for lost displays). */
+    /**
+     * Bring every tracked block in a loaded chunk onto the current design.
+     *
+     * <p>Heals the base block if it was placed by a version that used a different one, and deletes the
+     * display overlay that version left hovering over it. Runs on server start; positions in unloaded
+     * chunks are simply skipped, and there is nothing to catch up on in a world built by this version.
+     */
     public int refreshAll(MinecraftServer server) {
         int count = 0;
         for (Entry e : blocks) {
             ServerLevel level = levelFor(server, e.dim);
             if (level == null || !level.isLoaded(e.pos())) continue;
+            Kind kind = Kind.parse(e.kind);
+            // Heal the base block if this position was placed by a version that used a different one.
+            // 2.0.0 moved the Unstable base off crying obsidian, whose drip particles escaped the overlay.
+            Block want = baseBlock(kind);
+            if (!level.getBlockState(e.pos()).is(want)) {
+                level.setBlockAndUpdate(e.pos(), want.defaultBlockState());
+            }
             clearDisplays(level, e.pos());
-            spawnDisplay(level, e.pos(), Kind.parse(e.kind));
             count++;
         }
         return count;

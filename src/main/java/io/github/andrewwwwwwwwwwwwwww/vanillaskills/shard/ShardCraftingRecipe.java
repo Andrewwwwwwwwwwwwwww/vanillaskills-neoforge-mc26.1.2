@@ -1,5 +1,7 @@
 package io.github.andrewwwwwwwwwwwwwww.vanillaskills.shard;
 
+import net.minecraft.world.item.crafting.PlacementInfo;
+import io.github.andrewwwwwwwwwwwwwww.vanillaskills.recipe.RecipePlacement;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -175,5 +177,35 @@ public class ShardCraftingRecipe extends CustomRecipe {
     @Override
     public RecipeSerializer<ShardCraftingRecipe> getSerializer() {
         return SERIALIZER;
+    }
+
+    /**
+     * Show this recipe in the recipe book.
+     *
+     * <p>{@link net.minecraft.world.item.crafting.CustomRecipe} declares itself special, and vanilla excludes
+     * a special recipe from the book entirely — which is why these never appeared no matter what the player
+     * was carrying. Unlocking worked the whole time; there was simply nothing to render.
+     *
+     * <p>"Special" exists for recipes whose result depends on inputs the book cannot draw, such as firework
+     * or shulker-box dyeing. Ours have a fixed, drawable result and publish a {@code display()} for it, so
+     * they are ordinary recipes as far as the book is concerned.
+     */
+    @Override
+    public boolean isSpecial() {
+        return false;
+    }
+
+
+    /**
+     * Publish real, item-keyed placement data instead of {@code CustomRecipe}'s {@code NOT_PLACEABLE}.
+     *
+     * <p>Without this the recipe is unusable from the book in both directions: the packet handler drops the
+     * click before placement is ever attempted, and the client is told the recipe costs nothing and so lights
+     * it up as craftable for everybody. See {@code RecipePlacement} for what an Ingredient can and cannot say
+     * about a component-marked item.
+     */
+    @Override
+    public PlacementInfo placementInfo() {
+        return RecipePlacement.placementFor(this);
     }
 }

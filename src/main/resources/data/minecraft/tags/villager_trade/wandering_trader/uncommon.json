@@ -1,0 +1,13 @@
+{
+  "replace": true,
+  "values": [
+    "vanillaskills:wandering_trader/netherite_scrap",
+    "vanillaskills:wandering_trader/ancient_debris",
+    "vanillaskills:wandering_trader/diamond",
+    "vanillaskills:wandering_trader/emerald",
+    "vanillaskills:wandering_trader/obsidian",
+    "vanillaskills:wandering_trader/blaze_rod",
+    "vanillaskills:wandering_trader/ghast_tear",
+    "vanillaskills:wandering_trader/amethyst_block"
+  ]
+}

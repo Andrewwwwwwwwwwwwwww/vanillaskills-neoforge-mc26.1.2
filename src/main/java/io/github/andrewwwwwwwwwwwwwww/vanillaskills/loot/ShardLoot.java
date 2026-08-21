@@ -62,7 +62,7 @@ public final class ShardLoot {
         return LootPool.lootPool()
                 .setRolls(ConstantValue.exactly(1.0f))
                 .add(EmptyLootItem.emptyItem().setWeight(Math.max(1, emptyWeight)))
-                .add(LootItem.lootTableItem(Items.AMETHYST_SHARD)
+                .add(LootItem.lootTableItem(Items.WRITTEN_BOOK)
                         .setWeight(shardWeight)
                         // Same components ShardItems stamps, so a found shard is indistinguishable from a
                         // withdrawn one — including being bankable by right-click.
@@ -79,6 +79,12 @@ public final class ShardLoot {
                         .apply(SetComponentsFunction.setComponent(DataComponents.ITEM_NAME,
                                 ShardItems.unstableShardName()))
                         .apply(SetComponentsFunction.setComponent(DataComponents.LORE,
-                                ShardItems.unstableShardLore())));
+                                ShardItems.unstableShardLore())))
+                        // The shard is a written book (see ShardItems#unstableShard): lift its 16 stack to
+                        // 64 and hide the book-content tooltip line, exactly as the item builder does.
+                        .apply(SetComponentsFunction.setComponent(DataComponents.MAX_STACK_SIZE,
+                                io.github.andrewwwwwwwwwwwwwww.vanillaskills.shard.ShardItems.USS_STACK_SIZE))
+                        .apply(SetComponentsFunction.setComponent(DataComponents.TOOLTIP_DISPLAY,
+                                io.github.andrewwwwwwwwwwwwwww.vanillaskills.shard.ShardItems.USS_TOOLTIP));
     }
 }

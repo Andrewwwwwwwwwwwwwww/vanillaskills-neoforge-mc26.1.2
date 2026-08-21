@@ -1,9 +1,6 @@
 package io.github.andrewwwwwwwwwwwwwww.vanillaskills.mixin;
 
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootTable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -41,13 +38,8 @@ public class LootBlankBookMixin {
             at = @At("HEAD"), argsOnly = true, index = 2)
     private Consumer<ItemStack> vanillaskills$stripBlankBooks(Consumer<ItemStack> original) {
         return stack -> {
-            if (!vanillaskills$isBlankBook(stack)) original.accept(stack);
+            if (!io.github.andrewwwwwwwwwwwwwww.vanillaskills.loot.BlankBooks.isBlank(stack)) original.accept(stack);
         };
     }
 
-    private static boolean vanillaskills$isBlankBook(ItemStack stack) {
-        if (!stack.is(Items.ENCHANTED_BOOK)) return false;
-        ItemEnchantments stored = stack.get(DataComponents.STORED_ENCHANTMENTS);
-        return stored == null || stored.isEmpty();
-    }
 }

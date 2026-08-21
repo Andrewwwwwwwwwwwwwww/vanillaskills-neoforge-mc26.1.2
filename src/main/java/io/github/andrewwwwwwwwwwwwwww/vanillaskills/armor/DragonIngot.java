@@ -1,11 +1,8 @@
 package io.github.andrewwwwwwwwwwwwwww.vanillaskills.armor;
 
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomModelData;
 
-import java.util.List;
 
 /**
  * Dragon Ingot: forged by surrounding a Netherite Ingot with eight Dragon Scales. Used (with the

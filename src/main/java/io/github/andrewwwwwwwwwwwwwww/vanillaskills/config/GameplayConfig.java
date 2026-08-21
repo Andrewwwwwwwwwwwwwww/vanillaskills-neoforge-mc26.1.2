@@ -39,13 +39,20 @@ public class GameplayConfig {
     // approach, which both broke those vanilla textures and outranked any locally-installed 2.0 pack.
     private static final String DEFAULT_RP_URL =
             "https://github.com/Andrewwwwwwwwwwwwwww/vanillaskills/releases/download/v2.0.0/VanillaSkills-TexturePack.zip";
-    private static final String DEFAULT_RP_SHA1 = "0f52229408eb6440af929e5fc232d924e64fd776";
+    private static final String DEFAULT_RP_SHA1 = "ee74865f7d22770f12b5fa3d7c3c10c0efa4303d";
+    /** The public wiki page the Guide icon links to. */
+    private static final String DEFAULT_GUIDE_URL =
+            "https://andrewwwwwwwwwwwwwww.github.io/modhub/mods/vanillaskills/";
 
     /** When true, the server force-pushes the VanillaSkills texture pack to every joining client
      *  (so vanilla clients see the custom gear with no server.properties setup). Read on player join. */
     public static volatile boolean PUSH_RESOURCE_PACK = true;
     public static volatile String RESOURCE_PACK_URL = DEFAULT_RP_URL;
     public static volatile String RESOURCE_PACK_SHA1 = DEFAULT_RP_SHA1;
+    /** Wiki URL for the Guide icon; blank = open the built-in book instead. See {@code guideUrl}. */
+    public static volatile String GUIDE_URL = DEFAULT_GUIDE_URL;
+    /** Milliseconds after login during which a completed advancement is worth 0. See the persisted field. */
+    public static volatile long ADVANCEMENT_LOGIN_GRACE_MS = 5000L;
     /** Read by {@code CraftingGate}: when false, TOOL crafting has no skill requirement and the
      *  Toolsmith lane is hidden from the skill tree. */
     public static volatile boolean TOOL_REQS_ENABLED = true;
@@ -271,8 +278,8 @@ public class GameplayConfig {
     public int dragonRepairCost = 20;
     /** Stable Skill Shard Block aura reach from its centre, in blocks (default 3 = a 7x7x7 cube). */
     public int shardAuraRadius = 3;
-    /** Damage each hostile mob inside the aura takes per pulse (default 2.0 = one heart). */
-    public float shardAuraDamage = 3.0f;
+    /** Damage each hostile mob inside the aura takes per pulse (default 4.0 = two hearts). */
+    public float shardAuraDamage = 4.0f;
     /** Ticks between aura pulses (default 20 = once a second). Raise to soften, lower to sharpen. */
     public int shardAuraIntervalTicks = 20;
     /** How many Stable blocks can be merged into one placed block (default 4). Each merge widens the aura. */
@@ -366,6 +373,23 @@ public class GameplayConfig {
     public String resourcePackUrl = DEFAULT_RP_URL;
     /** SHA-1 of that pack (lets clients cache it; update alongside the URL if you change the pack). */
     public String resourcePackSha1 = DEFAULT_RP_SHA1;
+    /**
+     * Where the Guide icon sends players. A URL opens the wiki as a clickable chat link; blank falls back
+     * to the built-in written book, which is the offline answer and the one that still works if this page
+     * ever moves. Point it at your own docs if you run a modified pack.
+     */
+    public String guideUrl = DEFAULT_GUIDE_URL;
+    /**
+     * How long after logging in an advancement completing is treated as "already had it" and pays nothing.
+     *
+     * <p>This is what makes it safe to add another mod's namespace to {@code countedNamespaces} in
+     * points.json. A newly added mod completes its root advancement, and anything keyed on inventory or
+     * statistics the player already satisfies, the instant they next log in — without this those all pay out
+     * at once for no play. They are still recorded, so they never pay later either.
+     *
+     * <p>Set to 0 to disable and pay for everything.
+     */
+    public long advancementLoginGraceMs = 5000L;
 
     private static Path path() {
         Path dir = VanillaSkills.worldDir();
@@ -379,10 +403,16 @@ public class GameplayConfig {
         if (path != null) {
             try {
                 if (Files.exists(path)) {
-                    GameplayConfig loaded = GSON.fromJson(Files.readString(path), GameplayConfig.class);
+                    String raw = Files.readString(path);
+                    GameplayConfig loaded = GSON.fromJson(raw, GameplayConfig.class);
                     if (loaded != null) {
                         cfg = loaded;
-                        if (cfg.migrateStalePack()) cfg.save(); // upgrade servers pinned to a superseded pack
+                        boolean rewrite = cfg.migrateStalePack(); // servers pinned to a superseded pack
+                        // A file written by an older version has none of the options added since. They work
+                        // — Gson leaves them at their defaults — but an option nobody can see in the file is
+                        // an option nobody can change, so write the full set back with existing values kept.
+                        rewrite |= cfg.missingOptions(raw);
+                        if (rewrite) cfg.save();
                     }
                 } else {
                     cfg.save();
@@ -499,6 +529,8 @@ public class GameplayConfig {
         PUSH_RESOURCE_PACK = serverResourcePack;
         RESOURCE_PACK_URL = resourcePackUrl == null ? "" : resourcePackUrl;
         RESOURCE_PACK_SHA1 = resourcePackSha1 == null ? "" : resourcePackSha1;
+        GUIDE_URL = guideUrl == null ? "" : guideUrl.trim();
+        ADVANCEMENT_LOGIN_GRACE_MS = Math.max(0L, advancementLoginGraceMs);
     }
 
     public void save() {
@@ -513,5 +545,25 @@ public class GameplayConfig {
         } catch (IOException e) {
             VanillaSkills.LOGGER.error("Failed to save gameplay.json", e);
         }
+    }
+
+    /**
+     * True if the file on disk is missing any option this version defines.
+     *
+     * <p>Compared at the top level only. That is enough — a nested object such as {@code gear} is written
+     * whole or not at all — and it keeps the check cheap and predictable.
+     */
+    private boolean missingOptions(String raw) {
+        try {
+            com.google.gson.JsonObject onDisk = GSON.fromJson(raw, com.google.gson.JsonObject.class);
+            if (onDisk == null) return false;
+            com.google.gson.JsonObject full = GSON.toJsonTree(this).getAsJsonObject();
+            for (String key : full.keySet()) {
+                if (!onDisk.has(key)) return true;
+            }
+        } catch (Exception e) {
+            return false; // unreadable JSON is the load path's problem, not this one's
+        }
+        return false;
     }
 }

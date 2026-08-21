@@ -1,11 +1,8 @@
 package io.github.andrewwwwwwwwwwwwwww.vanillaskills.armor;
 
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomModelData;
 
-import java.util.List;
 
 /**
  * The custom crafting metals. They are vanilla ingots stamped with a name + marker + model hook

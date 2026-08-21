@@ -1,5 +1,6 @@
 package io.github.andrewwwwwwwwwwwwwww.vanillaskills.recipe;
 
+import net.minecraft.core.NonNullList;
 import net.minecraft.util.context.ContextMap;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
@@ -32,8 +33,16 @@ import java.util.List;
  * That already contains real {@code ItemStack}s with components, which is exactly what matching needs and
  * exactly what {@code Ingredient} cannot express.
  *
- * <p>⚠ The book may still show these recipes greyed out, because craftability highlighting is computed
- * client-side by that same component-blind matcher. Clicking works regardless.
+ * <p><b>Every item placed is an item taken.</b> Ingredients only ever move out of the player's inventory;
+ * nothing here can create one. That is not a detail — an earlier version conjured missing ingredients for
+ * creative players, which handed out free Rose Gold and Steel from the book, so the rule is now absolute
+ * and there is no gamemode that relaxes it. A cell the player cannot pay for fails the whole fill, and a
+ * failed fill moves nothing at all.
+ *
+ * <p>⚠ The highlight the book draws is still only as precise as an item id. A recipe is shown craftable
+ * when the player holds the right base items, which for a marked ingredient can be one item too generous —
+ * gold ingots read as Rose Gold Ingots. Clicking is where the components are actually checked, so an
+ * over-optimistic highlight costs a ghost recipe, not a wrong craft and not a free ingot.
  */
 public final class ComponentAutofill {
     private ComponentAutofill() {}
@@ -49,92 +58,153 @@ public final class ComponentAutofill {
     }
 
     /**
+     * The recipe-book entry the player actually clicked, handed over by {@code PlaceRecipeDisplayMixin}.
+     *
+     * <p>Vanilla drops it before placement because a placeable vanilla recipe only ever has one display.
+     * Server thread only, written and read within a single packet, and consumed on read.
+     */
+    private static RecipeDisplay clickedDisplay;
+
+    public static void rememberClickedDisplay(RecipeDisplay display) {
+        clickedDisplay = display;
+    }
+
+    public static void forgetClickedDisplay() {
+        clickedDisplay = null;
+    }
+
+    /**
      * Fill the crafting grid for one of our recipes.
      *
-     * <p>Tries each published display in turn — a tier recipe publishes one per material, so the first the
-     * player can actually afford is the one used. Nothing is moved unless a whole display can be satisfied,
-     * so a partial fill can never leave the grid in a state that crafts the wrong thing.
+     * <p>Fills the display the player clicked. Only when that is unknown — a placement not reached through
+     * the recipe book — does it fall back to trying each published display in turn.
      *
+     * @param useMaxItems shift-click: lay out as many complete copies as the inventory can pay for
      * @return true if the grid was filled
      */
     public static boolean fill(RecipeHolder<?> holder, Inventory inventory, List<Slot> gridSlots,
-                               net.minecraft.world.level.Level level, boolean creative) {
+                               int gridWidth, int gridHeight,
+                               net.minecraft.world.level.Level level, boolean useMaxItems) {
         // fromLevel supplies both parameters a SlotDisplay can ask for (registries and fuel values), so
         // resolving never fails for want of context.
         ContextMap context = net.minecraft.world.item.crafting.display.SlotDisplayContext.fromLevel(level);
 
+        RecipeDisplay clicked = clickedDisplay;
+        clickedDisplay = null;
+        if (clicked != null) {
+            // The player named a variant; failing it must not silently lay out a different one.
+            return clicked instanceof ShapedCraftingRecipeDisplay shaped
+                    && tryFill(shaped, context, inventory, gridSlots, gridWidth, gridHeight, useMaxItems);
+        }
+
         for (RecipeDisplay display : holder.value().display()) {
             if (!(display instanceof ShapedCraftingRecipeDisplay shaped)) continue;
-            if (tryFill(shaped, context, inventory, gridSlots, creative)) return true;
+            if (tryFill(shaped, context, inventory, gridSlots, gridWidth, gridHeight, useMaxItems)) return true;
         }
         return false;
     }
 
     private static boolean tryFill(ShapedCraftingRecipeDisplay shaped, ContextMap context,
-                                   Inventory inventory, List<Slot> gridSlots, boolean creative) {
+                                   Inventory inventory, List<Slot> gridSlots,
+                                   int gridWidth, int gridHeight, boolean useMaxItems) {
         int width = shaped.width();
         int height = shaped.height();
-        int gridSize = (int) Math.sqrt(gridSlots.size());
-        if (width > gridSize || height > gridSize) return false;
+        if (width > gridWidth || height > gridHeight) return false;
+        if (shaped.ingredients().size() != width * height) return false;
+        if (gridWidth * gridHeight > gridSlots.size()) return false;
 
         // Resolve the display into the concrete stack wanted per grid position.
-        List<ItemStack> wanted = new ArrayList<>();
+        List<ItemStack> wanted = new ArrayList<>(shaped.ingredients().size());
         for (SlotDisplay slot : shaped.ingredients()) {
             List<ItemStack> options = slot.resolveForStacks(context);
             wanted.add(options.isEmpty() ? ItemStack.EMPTY : options.get(0));
         }
 
-        // Plan the whole fill before touching anything: find a source slot for every non-empty cell, with
-        // no slot used twice. Only commit once the plan is complete.
-        int[] source = new int[wanted.size()];
-        boolean[] taken = new boolean[inventory.getContainerSize()];
+        // Group cells by what they want, and count how many cells want each thing. Demand has to be counted
+        // per ingredient rather than per inventory slot: nine Skill Shards sitting in one stack must be able
+        // to fill nine cells, which the old one-slot-per-cell search could not do.
+        List<ItemStack> distinct = new ArrayList<>();
+        List<Integer> demand = new ArrayList<>();
+        int[] group = new int[wanted.size()];
         for (int i = 0; i < wanted.size(); i++) {
             ItemStack need = wanted.get(i);
             if (need.isEmpty()) {
-                source[i] = -1;
+                group[i] = -1;
                 continue;
             }
-            int found = findMatching(inventory, need, taken);
-            if (found < 0 && !creative) return false;   // cannot complete this display
-            source[i] = found;
-            if (found >= 0) taken[found] = true;
+            int found = -1;
+            for (int d = 0; d < distinct.size(); d++) {
+                if (ItemStack.isSameItemSameComponents(distinct.get(d), need)) {
+                    found = d;
+                    break;
+                }
+            }
+            if (found < 0) {
+                distinct.add(need);
+                demand.add(0);
+                found = distinct.size() - 1;
+            }
+            group[i] = found;
+            demand.set(found, demand.get(found) + 1);
         }
+        if (distinct.isEmpty()) return false;
+
+        // Equipment is deliberately out of reach — sourcing from getContainerSize() would strip worn armour
+        // to pay for a craft.
+        NonNullList<ItemStack> items = inventory.getNonEquipmentItems();
+
+        // How many complete copies the player can actually pay for, decided before anything moves.
+        int copies = Integer.MAX_VALUE;
+        for (int d = 0; d < distinct.size(); d++) {
+            copies = Math.min(copies, countMatching(items, distinct.get(d)) / demand.get(d));
+            copies = Math.min(copies, distinct.get(d).getMaxStackSize());
+        }
+        if (copies < 1) return false;          // an ingredient is missing: move nothing
+        if (!useMaxItems) copies = 1;
 
         for (int i = 0; i < wanted.size(); i++) {
-            ItemStack need = wanted.get(i);
-            if (need.isEmpty()) continue;
-            int row = i / width;
-            int col = i % width;
-            int gridIndex = row * gridSize + col;
-            if (gridIndex >= gridSlots.size()) continue;
-
-            ItemStack place;
-            if (source[i] >= 0) {
-                ItemStack from = inventory.getItem(source[i]);
-                place = from.split(1);
-            } else {
-                place = need.copy();                    // creative: conjure it
-                place.setCount(1);
-            }
-            gridSlots.get(gridIndex).set(place);
+            if (group[i] < 0) continue;
+            int gridIndex = (i / width) * gridWidth + (i % width);
+            gridSlots.get(gridIndex).set(pull(items, wanted.get(i), copies));
         }
+        inventory.setChanged();
         return true;
     }
 
     /**
-     * First inventory slot holding a stack that is the same item AND carries the same components.
+     * How many of this exact ingredient — same item AND same components — the player is carrying.
      *
-     * <p>The component check is the entire point: a plain amethyst shard and an Unstable Skill Shard are the
-     * same item, and picking the wrong one produces a grid that looks right and crafts nothing.
+     * <p>The component check is the entire point: a plain gold ingot and a Rose Gold Ingot are the same
+     * item, and counting the wrong one is what makes the book over-promise.
      */
-    private static int findMatching(Inventory inventory, ItemStack need, boolean[] taken) {
-        for (int i = 0; i < inventory.getContainerSize(); i++) {
-            if (taken[i]) continue;
-            ItemStack candidate = inventory.getItem(i);
-            if (candidate.isEmpty()) continue;
-            if (ItemStack.isSameItemSameComponents(candidate, need)) return i;
+    private static int countMatching(NonNullList<ItemStack> items, ItemStack need) {
+        int total = 0;
+        for (ItemStack candidate : items) {
+            if (!candidate.isEmpty() && ItemStack.isSameItemSameComponents(candidate, need)) {
+                total += candidate.getCount();
+            }
         }
-        return -1;
+        return total;
     }
 
+    /**
+     * Take {@code count} of an ingredient out of the inventory, across as many stacks as it takes.
+     *
+     * <p>Only ever called once {@link #countMatching} has proved the whole fill is affordable, so it cannot
+     * come up short and cannot be the thing that invents an item.
+     */
+    private static ItemStack pull(NonNullList<ItemStack> items, ItemStack need, int count) {
+        ItemStack out = ItemStack.EMPTY;
+        int remaining = count;
+        for (int i = 0; i < items.size() && remaining > 0; i++) {
+            ItemStack candidate = items.get(i);
+            if (candidate.isEmpty() || !ItemStack.isSameItemSameComponents(candidate, need)) continue;
+            ItemStack taken = candidate.split(Math.min(remaining, candidate.getCount()));
+            if (candidate.isEmpty()) items.set(i, ItemStack.EMPTY);
+            remaining -= taken.getCount();
+            if (out.isEmpty()) out = taken;
+            else out.grow(taken.getCount());
+        }
+        return out;
+    }
 }

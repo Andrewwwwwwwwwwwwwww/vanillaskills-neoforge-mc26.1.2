@@ -19,9 +19,9 @@ import java.util.List;
  * the <i>matching</i> half needs an Ingredient. Display is separate: {@link SlotDisplay} resolves to whole
  * {@link ItemStack}s, components and all, so the book can show a marked Steel Ingot with its own texture.
  *
- * <p>What this does <b>not</b> buy is autofill. That runs off {@code placementInfo()}, which is item-keyed,
- * so clicking a recipe still will not lay out marked ingredients for you. Discovery and reference work;
- * one-click crafting does not.
+ * <p>Autofill needs one more thing on top of this: {@code placementInfo()}, which is item-keyed and which
+ * {@code CustomRecipe} leaves empty — an empty one makes vanilla drop the click before placement is even
+ * attempted. {@code RecipePlacement} derives a real one from these same displays.
  */
 public final class RecipeDisplays {
     private RecipeDisplays() {}

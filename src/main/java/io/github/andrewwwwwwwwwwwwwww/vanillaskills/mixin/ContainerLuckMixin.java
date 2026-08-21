@@ -2,12 +2,10 @@ package io.github.andrewwwwwwwwwwwwwww.vanillaskills.mixin;
 
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -48,18 +46,11 @@ public abstract class ContainerLuckMixin {
         // Fresh unseeded roll of the same table, so bonus items match the container's loot pool.
         for (ItemStack stack : this.getRandomItems(params)) {
             if (placed >= bonus || emptySlots.isEmpty()) break;
-            if (stack.isEmpty() || vanillaskills$isBlankBook(stack)) continue;
+            if (stack.isEmpty() || io.github.andrewwwwwwwwwwwwwww.vanillaskills.loot.BlankBooks.isBlank(stack)) continue;
             int slot = emptySlots.removeInt(random.nextInt(emptySlots.size()));
             container.setItem(slot, stack);
             placed++;
         }
     }
 
-    /** An enchanted book with no stored enchantments is worthless "blank" loot — never place it. */
-    @org.spongepowered.asm.mixin.Unique
-    private static boolean vanillaskills$isBlankBook(ItemStack stack) {
-        if (!stack.is(Items.ENCHANTED_BOOK)) return false;
-        var ench = stack.get(DataComponents.STORED_ENCHANTMENTS);
-        return ench == null || ench.isEmpty();
-    }
 }

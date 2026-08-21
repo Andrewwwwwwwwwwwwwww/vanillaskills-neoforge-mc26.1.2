@@ -22,6 +22,9 @@ public class CraftResultGateMixin {
     private void vanillaskills$gateCustomCrafting(Player player, CallbackInfoReturnable<Boolean> cir) {
         Slot self = (Slot) (Object) this;
         if (self instanceof ResultSlot && CraftingGate.isLocked(player, self.getItem())) {
+            // Say which skill is missing. Without this the slot just declines, which looks identical to a
+            // recipe that does not work.
+            CraftingGate.notifyLocked(player, self.getItem());
             cir.setReturnValue(false);
         }
     }

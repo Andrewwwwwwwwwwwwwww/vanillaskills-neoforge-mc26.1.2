@@ -18,8 +18,8 @@ import java.util.Optional;
 /**
  * Makes placed Skill Shard blocks immune to explosions — creepers above all.
  *
- * <p>The block in the world is an ordinary amethyst block, which a creeper would happily delete along with
- * the tracked record behind it. Rather than special-casing creepers, this reports an effectively infinite
+ * <p>Reinforced deepslate is blast-proof in vanilla, but lodestone is not, and both carry a tracked record
+ * a creeper would happily delete along with the block. Rather than special-casing creepers, this reports an effectively infinite
  * blast resistance for any position VanillaSkills is tracking, which covers TNT, ghasts, beds and end
  * crystals too.
  *

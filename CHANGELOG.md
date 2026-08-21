@@ -1,12 +1,12 @@
 # VanillaSkills Changelog
 
-## [2.0.0] - 2026-08-14
+## [2.0.0] - 2026-08-20
 The datapack-era rework. Experience is gone, the Skill Shard is a real item, and almost all of the mod's content now lives in datapack files instead of Java constants — so a server can rewrite the skill tree, the quests, the shop and the crates without touching the code.
 
 **This is a breaking release.** Commands were removed, data formats changed, and the pushed texture pack was replaced. Back up your world before updating.
 
 ### Added
-- **Skill Shards are physical.** Withdraw banked shards as **Unstable Skill Shards** from the skill tree, right-click one to bank it again. Nine compress into an **Unstable Skill Shard Block**, which also generates naturally in all three dimensions and can only be mined with a Crystalline pickaxe or better — anything less shatters it for nothing.
+- **Skill Shards are physical.** Withdraw banked shards as **Unstable Skill Shards** from the skill tree, right-click one to bank it again. Nine compress into an **Unstable Skill Shard Block**, which also generates naturally in all three dimensions and can only be mined with a Netherite, Crystalline or Dragon pickaxe — anything less shatters it for nothing.
 - **Stable Skill Shard Blocks** damage nearby hostile mobs, merge with adjacent blocks to widen that aura, work as a beacon base, and are immune to explosions.
 - **Crates**, fished out of the water: Wooden, Copper, Iron and Diamond as a rarity ladder, plus **Frozen**, **Lush** and **Desert** biome variants. Opening one spins a slot-machine reel in front of you before it pays out.
 - **Unboxing**, a datapack fishing-rod enchantment that raises your crate rate — and is itself found in crates and sold in the shop.
@@ -17,6 +17,10 @@ The datapack-era rework. Experience is gone, the Skill Shard is a real item, and
 - Horse speed, jump height and health are shown when you open a horse's inventory.
 - Your banked Skill Shards are displayed on the experience bar, which experience no longer uses.
 - The recipe book fills the crafting grid for custom recipes.
+- **The wandering trader buys from you**, paying in Skill Shards for iron, netherite scrap, crops and blocks. Offers keep vanilla's no-restock behaviour, and are priced to beat handing the same items in as a quest.
+- **Iron blocks smelt into Steel in a blast furnace** as well as a furnace, at the usual double speed.
+- The **Guide** icon opens the wiki as a clickable chat link. Clear `guideUrl` in gameplay.json to go back to the in-game book.
+- **Skill Shard ore** and every other physical shard source are listed on the Earning Skill Shards screen, with rates read live from the config.
 
 ### Changed
 - **Experience is removed from the game.** No orbs, no XP from mobs, mining, smelting, breeding or furnaces, and Bottles o' Enchanting no longer appear in loot or villager trades. Anvils charge **Skill Shards** instead of levels.
@@ -29,6 +33,8 @@ The datapack-era rework. Experience is gone, the Skill Shard is a real item, and
 - The skill tree is built from the datapack; `skilltree.json` is no longer authored in-game and an existing one is migrated into a datapack on first load.
 - Quest progress and the bounty board are keyed by stable quest ids rather than list positions, so quests can be reordered or replaced without disturbing anyone's progress.
 - Custom items identify themselves with `item_model` and `item_name` components instead of `custom_model_data`, which also stops custom gear showing a floating nameplate in an item frame.
+- The **Unstable Skill Shard** is a written book and the shard blocks are **reinforced deepslate** and **lodestone**, taken over outright rather than drawn as overlays. Reinforced deepslate no longer generates in ancient cities, and lodestone's recipe is gone; both are obtained only through VanillaSkills.
+- `gameplay.json` gains any options added since it was written, instead of silently leaving new settings out of the file.
 
 ### Removed
 - `/skill open`, `/skill guide`, `/skill editor`, `/skill layout`, `/skill edit …` and `/skill regen`.

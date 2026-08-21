@@ -1,11 +1,8 @@
 package io.github.andrewwwwwwwwwwwwwww.vanillaskills.armor;
 
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomModelData;
 
-import java.util.List;
 
 /**
  * Dragon Scale: the Dragon (Netherite II) tier's crafting + repair material. A marked phantom

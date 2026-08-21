@@ -1,5 +1,6 @@
 package io.github.andrewwwwwwwwwwwwwww.vanillaskills.recipe;
 
+import net.minecraft.world.item.crafting.PlacementInfo;
 import com.mojang.serialization.MapCodec;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.core.Holder;
@@ -148,5 +149,35 @@ public class FortuneUpgradeRecipe extends CustomRecipe {
             if (entry.getKey().is(Enchantments.FORTUNE)) return entry.getIntValue();
         }
         return 0;
+    }
+
+    /**
+     * Show this recipe in the recipe book.
+     *
+     * <p>{@link net.minecraft.world.item.crafting.CustomRecipe} declares itself special, and vanilla excludes
+     * a special recipe from the book entirely — which is why these never appeared no matter what the player
+     * was carrying. Unlocking worked the whole time; there was simply nothing to render.
+     *
+     * <p>"Special" exists for recipes whose result depends on inputs the book cannot draw, such as firework
+     * or shulker-box dyeing. Ours have a fixed, drawable result and publish a {@code display()} for it, so
+     * they are ordinary recipes as far as the book is concerned.
+     */
+    @Override
+    public boolean isSpecial() {
+        return false;
+    }
+
+
+    /**
+     * Publish real, item-keyed placement data instead of {@code CustomRecipe}'s {@code NOT_PLACEABLE}.
+     *
+     * <p>Without this the recipe is unusable from the book in both directions: the packet handler drops the
+     * click before placement is ever attempted, and the client is told the recipe costs nothing and so lights
+     * it up as craftable for everybody. See {@code RecipePlacement} for what an Ingredient can and cannot say
+     * about a component-marked item.
+     */
+    @Override
+    public PlacementInfo placementInfo() {
+        return RecipePlacement.placementFor(this);
     }
 }
