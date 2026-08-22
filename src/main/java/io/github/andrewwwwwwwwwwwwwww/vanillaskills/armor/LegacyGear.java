@@ -28,7 +28,8 @@ public final class LegacyGear {
 
     /** Repoint one stack's model if it is a pre-2.0 VanillaSkills item. Returns true if it changed. */
     public static boolean upgrade(ItemStack stack) {
-        boolean changed = demoteCustomName(stack);
+        boolean changed = reidentify(stack);
+        changed |= demoteCustomName(stack);
         changed |= restat(stack);
 
         CustomModelData cmd = stack.get(DataComponents.CUSTOM_MODEL_DATA);
@@ -43,6 +44,56 @@ public final class LegacyGear {
         }
         stack.remove(DataComponents.CUSTOM_MODEL_DATA);
         return true;
+    }
+
+    /**
+     * Work out which tier and piece a stack is, and put its identity components back.
+     *
+     * <p>{@link #upgrade}'s original path could only help a stack that still carried one of our markers.
+     * A piece that had lost its marker — or had one written by a version whose key has since changed — was
+     * unrecognisable, so it kept the pre-2.0 {@code custom_model_data} whose pack overrides 2.0 removed and
+     * rendered as a plain vanilla sword or helmet forever.
+     *
+     * <p>Identity is recoverable without the marker because the model id is derived, not stored:
+     * {@code vanillaskills:<tier>_<piece>}. So a stack naming one of ours in either {@code ITEM_MODEL} or
+     * the legacy {@code custom_model_data} can be matched back to its tier and re-stamped.
+     *
+     * <p>The base item must still match the tier's item for that slot, which is what stops a renamed vanilla
+     * diamond sword being adopted just because someone wrote our model id onto it.
+     */
+    private static boolean reidentify(ItemStack stack) {
+        if (stack.isEmpty()) return false;
+
+        String claimed = claimedModelId(stack);
+        if (claimed == null) return false;
+
+        for (ArmorTier tier : ArmorTiers.TIERS) {
+            ArmorPiece piece = tier.pieceOf(stack);   // null unless the base item is this tier's for a slot
+            if (piece == null) continue;
+            if (!claimed.equals("vanillaskills:" + tier.id + "_" + piece.lower())) continue;
+            return tier.applyIdentity(stack, piece);
+        }
+        for (io.github.andrewwwwwwwwwwwwwww.vanillaskills.tool.ToolTier tier :
+                io.github.andrewwwwwwwwwwwwwww.vanillaskills.tool.ToolTiers.TIERS) {
+            io.github.andrewwwwwwwwwwwwwww.vanillaskills.tool.ToolKind kind = tier.kindOf(stack);
+            if (kind == null) continue;
+            if (!claimed.equals("vanillaskills:" + tier.id + "_" + kind.lower())) continue;
+            return tier.applyIdentity(stack, kind);
+        }
+        return false;
+    }
+
+    /** The vanillaskills model id a stack claims, from either the current or the legacy component. */
+    private static String claimedModelId(ItemStack stack) {
+        Identifier model = stack.get(DataComponents.ITEM_MODEL);
+        if (model != null && model.getNamespace().equals("vanillaskills")) return model.toString();
+
+        CustomModelData cmd = stack.get(DataComponents.CUSTOM_MODEL_DATA);
+        if (cmd == null) return null;
+        for (String s : cmd.strings()) {
+            if (s != null && s.startsWith("vanillaskills:")) return s;
+        }
+        return null;
     }
 
     /**
@@ -114,7 +165,36 @@ public final class LegacyGear {
     private static int sweep(Container container) {
         int changed = 0;
         for (int i = 0; i < container.getContainerSize(); i++) {
-            if (upgrade(container.getItem(i))) changed++;
+            ItemStack stack = container.getItem(i);
+            if (upgrade(stack)) changed++;
+            changed += sweepNested(stack);
+        }
+        return changed;
+    }
+
+    /**
+     * Migrate gear stored <i>inside</i> a carried item — a shulker box, mainly.
+     *
+     * <p>Without this, a box of old gear stays untouched however many times its owner logs in, and the
+     * pieces only fix themselves once taken out and left loose in the inventory. Since a shulker box is how
+     * people actually store spare kit, that was where most un-migrated gear was sitting.
+     *
+     * <p>{@code CONTAINER} is an immutable component, so the contents are rebuilt and written back only when
+     * something actually changed.
+     */
+    private static int sweepNested(ItemStack stack) {
+        net.minecraft.world.item.component.ItemContainerContents contents =
+                stack.get(DataComponents.CONTAINER);
+        if (contents == null) return 0;
+
+        java.util.List<ItemStack> items = new java.util.ArrayList<>(contents.allItemsCopyStream().toList());
+        int changed = 0;
+        for (ItemStack inner : items) {
+            if (upgrade(inner)) changed++;
+        }
+        if (changed > 0) {
+            stack.set(DataComponents.CONTAINER,
+                    net.minecraft.world.item.component.ItemContainerContents.fromItems(items));
         }
         return changed;
     }

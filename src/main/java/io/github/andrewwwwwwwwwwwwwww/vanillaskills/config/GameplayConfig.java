@@ -38,8 +38,8 @@ public class GameplayConfig {
     // (gold_ingot, diamond, iron_ingot, the tool and armour sets) using the pre-2.0 custom_model_data
     // approach, which both broke those vanilla textures and outranked any locally-installed 2.0 pack.
     private static final String DEFAULT_RP_URL =
-            "https://github.com/Andrewwwwwwwwwwwwwww/vanillaskills/releases/download/v2.0.0/VanillaSkills-TexturePack.zip";
-    private static final String DEFAULT_RP_SHA1 = "8221d178584b92f055d93e9f691730dab7398f0e";
+            "https://github.com/Andrewwwwwwwwwwwwwww/vanillaskills/releases/download/v2.0.1/VanillaSkills-TexturePack.zip";
+    private static final String DEFAULT_RP_SHA1 = "f3f17dc0bccda7e214fe70f144b25b3946874e07";
     /** The public wiki page the Guide icon links to. */
     private static final String DEFAULT_GUIDE_URL =
             "https://andrewwwwwwwwwwwwwww.github.io/modhub/mods/vanillaskills/";
@@ -429,6 +429,7 @@ public class GameplayConfig {
     /** URLs of packs we've shipped as the default before; a config pinned to one of these predates the
      *  localized pack, so its custom item names show English. Auto-upgraded to the current default. */
     private static final java.util.Set<String> SUPERSEDED_RP_URLS = java.util.Set.of(
+            "https://github.com/Andrewwwwwwwwwwwwwww/vanillaskills/releases/download/v2.0.0/VanillaSkills-TexturePack.zip",
             "https://github.com/Andrewwwwwwwwwwwwwww/vanillaskills/releases/download/v2.0.0-beta.1/VanillaSkills-TexturePack.zip",
             "https://github.com/Andrewwwwwwwwwwwwwww/vanillaskills/releases/download/v1.7.6/VanillaSkills-TexturePack.zip",
             "https://github.com/Andrewwwwwwwwwwwwwww/vanillaskills/releases/download/v1.7.5/VanillaSkills-TexturePack.zip",

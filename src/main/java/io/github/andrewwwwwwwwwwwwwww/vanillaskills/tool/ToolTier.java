@@ -102,6 +102,45 @@ public class ToolTier {
      * reaches gear that already exists without rebuilding it (which would discard enchantments, damage and
      * any anvil rename). Damage is clamped so a lowered durability cannot over-damage a tool.
      */
+    /**
+     * Restore everything that identifies a stack as this tier's tool, without rebuilding it.
+     *
+     * <p>The counterpart to {@link #create}: that mints a new tool, this repairs one that exists and has
+     * lost part of its identity — pre-2.0 gear still carrying {@code custom_model_data}, whose supporting
+     * pack overrides 2.0 removed, so it renders as its plain vanilla base.
+     *
+     * <p>Enchantments, damage and a genuine anvil rename survive untouched. Returns true if it changed.
+     */
+    public boolean applyIdentity(ItemStack stack, ToolKind kind) {
+        boolean changed = false;
+
+        if (!io.github.andrewwwwwwwwwwwwwww.vanillaskills.armor.Markers.has(stack, markerKey)) {
+            io.github.andrewwwwwwwwwwwwwww.vanillaskills.armor.Markers.applyMarker(stack, markerKey);
+            changed = true;
+        }
+
+        net.minecraft.resources.Identifier model =
+                net.minecraft.resources.Identifier.fromNamespaceAndPath("vanillaskills", id + "_" + kind.lower());
+        if (!model.equals(stack.get(DataComponents.ITEM_MODEL))) {
+            stack.set(DataComponents.ITEM_MODEL, model);
+            changed = true;
+        }
+        if (!stack.has(DataComponents.ITEM_NAME)) {
+            stack.set(DataComponents.ITEM_NAME,
+                    io.github.andrewwwwwwwwwwwwwww.vanillaskills.armor.Markers.name(
+                            "vanillaskills.gear." + id + "." + kind.lower(),
+                            displayName + " " + kind.word, nameColor));
+            changed = true;
+        }
+        if (!stack.has(DataComponents.REPAIRABLE)) {
+            stack.set(DataComponents.REPAIRABLE, new Repairable(repairItems));
+            changed = true;
+        }
+        // Re-assert the extra harvest rules; a stripped tool would otherwise mine like its vanilla base.
+        applyExtraHarvest(stack, baseItems[kind.ordinal()]);
+        return changed;
+    }
+
     public void applyStats(ItemStack stack, ToolKind kind) {
         stack.set(DataComponents.MAX_DAMAGE, durability);
         if (stack.getDamageValue() > durability - 1) {

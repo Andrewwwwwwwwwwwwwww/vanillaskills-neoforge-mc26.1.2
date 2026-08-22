@@ -1,5 +1,16 @@
 # VanillaSkills Changelog
 
+## [2.0.1] - 2026-08-22
+
+### Added
+- **Satchel** — a chest surrounded by leather makes a brown shulker box named Satchel, so portable storage no longer waits on a trip to the End.
+
+### Fixed
+- **Crates handed out a broken Unstable Skill Shard Block.** Its loot table still built the item on an amethyst block, left behind when 2.0 took over reinforced deepslate. The block looked right and did nothing — no aura, no merging, and it would not craft back into shards. Spawner drops were unaffected.
+- **Pre-2.0 gear that had lost its marker stayed broken forever.** Such a piece kept the old `custom_model_data`, whose supporting pack overrides 2.0 removed, so it rendered as a plain vanilla sword or helmet. Gear is now identified by the model id it claims and re-stamped in full — marker, model, name, repairability and the worn-armour asset — with enchantments, damage and anvil renames untouched.
+- **Gear inside shulker boxes was never migrated.** The sweep only looked at loose inventory and the ender chest, which is exactly where spare kit is not kept.
+- Every superseded texture pack now auto-upgrades. The list named six of the 47 released packs, so a server pinned to any of the other 41 kept pushing a pre-2.0 pack that overrides 57 vanilla items.
+
 ## [2.0.0] - 2026-08-20
 The datapack-era rework. Experience is gone, the Skill Shard is a real item, and almost all of the mod's content now lives in datapack files instead of Java constants — so a server can rewrite the skill tree, the quests, the shop and the crates without touching the code.
 
