@@ -128,6 +128,59 @@ public class ArmorTier {
     }
 
     /**
+     * Restore everything that identifies a stack as this tier's piece, without rebuilding it.
+     *
+     * <p>{@link #create} mints a new piece; this repairs one that already exists and has lost part of its
+     * identity. That happens to gear minted before 2.0 — it carries the old {@code custom_model_data}, whose
+     * supporting pack overrides 2.0 removed, so it renders as its plain vanilla base — and to any piece an
+     * operation has stripped components from.
+     *
+     * <p>Enchantments, damage and a genuine anvil rename are all left alone; only the identity components
+     * are rewritten. Returns true if anything actually changed.
+     */
+    public boolean applyIdentity(ItemStack stack, ArmorPiece piece) {
+        boolean changed = false;
+
+        if (!Markers.has(stack, markerKey)) { Markers.applyMarker(stack, markerKey); changed = true; }
+
+        Identifier model = Identifier.fromNamespaceAndPath("vanillaskills", id + "_" + piece.lower());
+        if (!model.equals(stack.get(DataComponents.ITEM_MODEL))) {
+            stack.set(DataComponents.ITEM_MODEL, model);
+            changed = true;
+        }
+        if (!stack.has(DataComponents.ITEM_NAME)) {
+            stack.set(DataComponents.ITEM_NAME, Markers.name("vanillaskills.gear." + id + "." + piece.lower(),
+                    displayName + " " + pieceWord(piece), nameColor));
+            changed = true;
+        }
+        if (!stack.has(DataComponents.REPAIRABLE)) {
+            stack.set(DataComponents.REPAIRABLE, new Repairable(repairItems));
+            changed = true;
+        }
+        if (staticLore != null && !stack.has(DataComponents.LORE)) {
+            stack.set(DataComponents.LORE, staticLore.get());
+            changed = true;
+        }
+
+        // The worn-armour asset, so the equipped texture is right and not just the inventory icon.
+        net.minecraft.world.item.equipment.Equippable equippable = stack.get(DataComponents.EQUIPPABLE);
+        if (equippable != null) {
+            var asset = net.minecraft.resources.ResourceKey.create(
+                    net.minecraft.world.item.equipment.EquipmentAssets.ROOT_ID,
+                    Identifier.fromNamespaceAndPath("vanillaskills", id));
+            if (!asset.equals(equippable.assetId().orElse(null))) {
+                stack.set(DataComponents.EQUIPPABLE, net.minecraft.world.item.equipment.Equippable
+                        .builder(equippable.slot())
+                        .setEquipSound(equippable.equipSound())
+                        .setAsset(asset)
+                        .build());
+                changed = true;
+            }
+        }
+        return changed;
+    }
+
+    /**
      * Write this tier's current durability and attribute modifiers onto a stack.
      *
      * <p>Split out of {@link #create} so an existing piece can be brought onto retuned numbers without

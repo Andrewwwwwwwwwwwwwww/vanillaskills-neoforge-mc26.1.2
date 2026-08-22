@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:amethyst_block",
+          "name": "minecraft:reinforced_deepslate",
           "functions": [
             {
               "function": "minecraft:set_components",
