@@ -117,6 +117,11 @@ public class GameplayConfig {
     public static volatile int QUESTS_PER_ROTATION = 6;
     /** Read by {@code QuestShop}: how many offers appear per shop rotation. */
     public static volatile int SHOP_SLOTS = 8;
+    /** Anvil pricing in Skill Shards — see the persisted fields for the reasoning. */
+    public static volatile boolean ANVIL_MATERIAL_PRICING = true;
+    public static volatile int ANVIL_REPAIR_PER_MATERIAL = 1;
+    public static volatile int ANVIL_ENCHANT_PER_LEVEL = 1;
+    public static volatile int ANVIL_RENAME_COST = 0;
     /** Read by {@code AnvilMenuMixin}: true = restore the vanilla 40-level "Too Expensive" cap. */
     public static volatile boolean ANVIL_TOO_EXPENSIVE_CAP = false;
     /** Read by {@code AnvilMenuMixin}: true restores letting an enchanted book be applied straight to a
@@ -125,7 +130,7 @@ public class GameplayConfig {
     public static volatile boolean ANVIL_BOOKS_ON_ITEMS = false;
     /** Read by {@code AnvilMenuMixin}: flat cost to fully repair Dragon gear with a Dragon Ingot.
      *  Charged in Skill Shards while experience is removed, in levels when it is restored. */
-    public static volatile int DRAGON_REPAIR_COST = 20;
+    public static volatile int DRAGON_REPAIR_COST = 2;
     // --- Skill Shard blocks (read by ShardBlocks / ShardBank) ---
     /** How far a Stable Skill Shard Block's aura reaches from its centre. 3 = a 7x7x7 cube. */
     public static volatile int SHARD_AURA_RADIUS = 3;
@@ -266,6 +271,30 @@ public class GameplayConfig {
     public int questsPerRotation = 6;
     /** How many offers the Quest Shop shows per rotation (default 8). */
     public int questShopSlots = 8;
+    /**
+     * Price anvil work by what it consumes rather than by vanilla's level formula.
+     *
+     * <p>Vanilla's anvil cost is built for experience, which regrows. Skill Shards do not — an advancement
+     * pays once, and the whole world holds a fixed number. Charging vanilla's levels 1:1 in shards therefore
+     * bills a <b>repeatable</b> sink to a <b>finite</b> budget: every repair is taken out of the skill tree,
+     * and a heavy anvil user eventually cannot pay at all. A late-game combine can cost 39 of roughly 2,100.
+     *
+     * <p>With this on, the price is what you put in:
+     * <ul>
+     *   <li>repairing with materials costs {@code anvilRepairCostPerMaterial} per material consumed —
+     *       four diamonds into a pickaxe is four shards;</li>
+     *   <li>merging enchantments costs {@code anvilEnchantCostPerLevel} per enchantment level on the
+     *       sacrificed item, so the price tracks what you are actually feeding in;</li>
+     *   <li>a plain rename costs {@code anvilRenameCost}.</li>
+     * </ul>
+     *
+     * <p>Prior-work penalty stops applying, which is the point: it is what made an item progressively
+     * unrepairable. Set false to go back to vanilla's level cost charged 1:1 in shards.
+     */
+    public boolean anvilMaterialPricing = true;
+    public int anvilRepairCostPerMaterial = 1;
+    public int anvilEnchantCostPerLevel = 1;
+    public int anvilRenameCost = 0;
     /** Restore vanilla's 40-level "Too Expensive" anvil cap (default false = no cap, costs still scale). */
     public boolean anvilTooExpensiveCap = false;
     /** Allow an enchanted book to be applied directly to a tool/armor piece in the anvil (default false).
@@ -273,9 +302,17 @@ public class GameplayConfig {
      *  two enchanted books together in the anvil is never affected by this: that still works, and is still
      *  priced in Skill Shards like every other anvil operation. */
     public boolean anvilBooksOnItems = false;
-    /** Flat cost to fully repair a Dragon tool/armor piece with 1 Dragon Ingot (default 20). Paid in
-     *  Skill Shards while {@link #experienceEnabled} is false, in levels when it is true. */
-    public int dragonRepairCost = 20;
+    /**
+     * Flat cost to fully repair a Dragon tool or armour piece with one Dragon Scale or Ingot.
+     *
+     * <p>One material restores the piece completely however damaged it was, so this is a flat fee rather
+     * than a per-material price like the rest of the anvil. It was 20 back when an ordinary combine cost
+     * 30-40 levels; now that {@link #anvilMaterialPricing} puts everything else at one shard per material,
+     * 2 keeps Dragon the dearest repair in the game without being out of step with it.
+     *
+     * <p>Paid in Skill Shards while {@link #experienceEnabled} is false, in levels when it is true.
+     */
+    public int dragonRepairCost = 2;
     /** Stable Skill Shard Block aura reach from its centre, in blocks (default 3 = a 7x7x7 cube). */
     public int shardAuraRadius = 3;
     /** Damage each hostile mob inside the aura takes per pulse (default 4.0 = two hearts). */
@@ -517,6 +554,10 @@ public class GameplayConfig {
         STARTER_QUESTS = starterQuests;
         QUESTS_PER_ROTATION = Math.max(1, Math.min(6, questsPerRotation));  // 6 quest slots in the GUI
         SHOP_SLOTS = Math.max(1, Math.min(45, questShopSlots));
+        ANVIL_MATERIAL_PRICING = anvilMaterialPricing;
+        ANVIL_REPAIR_PER_MATERIAL = Math.max(0, anvilRepairCostPerMaterial);
+        ANVIL_ENCHANT_PER_LEVEL = Math.max(0, anvilEnchantCostPerLevel);
+        ANVIL_RENAME_COST = Math.max(0, anvilRenameCost);
         ANVIL_TOO_EXPENSIVE_CAP = anvilTooExpensiveCap;
         ANVIL_BOOKS_ON_ITEMS = anvilBooksOnItems;
         DRAGON_REPAIR_COST = Math.max(0, dragonRepairCost);

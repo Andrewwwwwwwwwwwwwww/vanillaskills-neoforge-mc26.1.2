@@ -26,10 +26,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 /**
  * The anvil behaviours for VanillaSkills:
  *
- * <p><b>Skill Shards replace experience levels.</b> With experience removed from the game, the level
- * cost the anvil computes is charged in Skill Shards instead — otherwise every anvil operation would
- * be permanently unaffordable, since the player's level is always zero. Vanilla's pricing (including
- * the prior-work penalty) is untouched; only the currency changes.
+ * <p><b>Skill Shards replace experience levels.</b> With experience removed from the game, the anvil is
+ * paid in Skill Shards instead — otherwise every operation would be permanently unaffordable, since the
+ * player's level is always zero.
+ *
+ * <p><b>And the price is by materials, not by vanilla's formula.</b> Vanilla's cost curve assumes
+ * experience, which regrows; Skill Shards do not, so charging it 1:1 billed a repeatable sink to a finite
+ * budget — and the prior-work penalty made an item progressively unrepairable. Instead the cost is what the
+ * operation consumes: one shard per repair material, one per enchantment level on the sacrificed item, and
+ * a configurable flat fee for a plain rename. See {@code vanillaskills$repriceByMaterials}, and
+ * {@code anvilMaterialPricing} to restore vanilla's numbers.
  *
  * <p><b>Steel Shield forging.</b> Put a plain shield in one input slot and a Steel Ingot in the other and it
  * produces a Steel-Infused Shield — the only way to make one, replacing the old crafting-table recipe.
@@ -229,6 +235,59 @@ public class AnvilMenuMixin {
         this.repairItemCountCost = 1; // exactly one ingot per repair, however big the stack
         this.cost.set(io.github.andrewwwwwwwwwwwwwww.vanillaskills.config.GameplayConfig.DRAGON_REPAIR_COST);
         ci.cancel();
+    }
+
+    /**
+     * Reprice the anvil by what the operation consumes, replacing vanilla's level formula.
+     *
+     * <p>Vanilla's cost is designed around experience, which regrows. Skill Shards do not: an advancement
+     * pays once and the world holds a fixed number of them, so charging vanilla's levels 1:1 bills a
+     * repeatable sink to a finite budget. A single late-game combine could cost 39 of roughly 2,100, and the
+     * prior-work penalty doubles on every visit until an item is effectively unrepairable.
+     *
+     * <p>So the price becomes what you put in: one shard per repair material consumed, and one per
+     * enchantment level on the sacrificed item. Both rates are configurable, as is a flat rename fee.
+     *
+     * <p>Runs at TAIL so vanilla has already decided <i>whether</i> there is a result and how many repair
+     * materials it wants — this only overwrites the number, never the outcome. Its order against the other
+     * TAIL injector here does not matter: that one rewrites the result stack's enchantments, while this reads
+     * the sacrifice slot's and writes only {@code cost}.
+     *
+     * <p>Leaves a zero cost alone: the steel forge and the free cases set it deliberately.
+     */
+    @Inject(method = "createResult", at = @At("TAIL"))
+    private void vanillaskills$repriceByMaterials(CallbackInfo ci) {
+        if (!io.github.andrewwwwwwwwwwwwwww.vanillaskills.config.GameplayConfig.ANVIL_MATERIAL_PRICING) return;
+        if (io.github.andrewwwwwwwwwwwwwww.vanillaskills.config.GameplayConfig.EXPERIENCE_ENABLED) return;
+
+        AbstractContainerMenu self = (AbstractContainerMenu) (Object) this;
+        ItemStack result = self.getSlot(AnvilMenu.RESULT_SLOT).getItem();
+        if (result.isEmpty()) return;
+        if (this.cost.get() <= 0) return; // a deliberate freebie (steel forge, Dragon repair path)
+
+        int price = this.repairItemCountCost
+                * io.github.andrewwwwwwwwwwwwwww.vanillaskills.config.GameplayConfig.ANVIL_REPAIR_PER_MATERIAL;
+
+        // Enchantments come from the right-hand item, so its levels are what the merge is charging for.
+        ItemStack sacrifice = self.getSlot(AnvilMenu.ADDITIONAL_SLOT).getItem();
+        price += vanillaskills$enchantmentLevels(sacrifice)
+                * io.github.andrewwwwwwwwwwwwwww.vanillaskills.config.GameplayConfig.ANVIL_ENCHANT_PER_LEVEL;
+
+        if (price <= 0) {
+            // Nothing consumed and nothing merged: this is a rename.
+            price = io.github.andrewwwwwwwwwwwwwww.vanillaskills.config.GameplayConfig.ANVIL_RENAME_COST;
+        }
+        this.cost.set(Math.max(0, price));
+    }
+
+    /** Total enchantment levels on a stack, counting stored book enchantments as well as applied ones. */
+    private static int vanillaskills$enchantmentLevels(ItemStack stack) {
+        if (stack.isEmpty()) return 0;
+        ItemEnchantments ench = stack.get(enchantmentsType(stack));
+        if (ench == null || ench.isEmpty()) return 0;
+        int total = 0;
+        for (var entry : ench.entrySet()) total += entry.getIntValue();
+        return total;
     }
 
     @Inject(method = "createResult", at = @At("TAIL"))
