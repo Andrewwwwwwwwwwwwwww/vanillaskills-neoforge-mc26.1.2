@@ -1,5 +1,11 @@
 # VanillaSkills Changelog
 
+## [2.0.2] - 2026-08-23
+
+### Changed
+- **Anvils now price by what the operation actually consumes, not vanilla's level formula.** Vanilla's cost curve was built around experience, which regrows; Skill Shards do not — a world holds a fixed number, so a late-game combine could eat 39 shards and the prior-work penalty doubled on every visit until a piece was unrepairable. The cost is now one shard per repair material and one per enchantment level on the sacrificed item, with a flat (default free) fee for a plain rename. New gameplay.json options: `anvilMaterialPricing`, `anvilRepairCostPerMaterial`, `anvilEnchantCostPerLevel` and `anvilRenameCost`; clearing the first restores vanilla's numbers.
+- **Dragon scale repair drops from 20 shards to 2.** One scale still restores a piece completely, so it stays a flat fee — 20 only made sense when an ordinary combine cost 30–40.
+
 ## [2.0.1] - 2026-08-22
 
 ### Added
