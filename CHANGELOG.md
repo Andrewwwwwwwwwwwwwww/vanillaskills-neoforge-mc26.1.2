@@ -1,5 +1,11 @@
 # VanillaSkills Changelog
 
+## [2.1.1] - 2026-08-24
+
+### Changed
+- **Advancements pay more.** With enchanting and the anvil both charging Skill Shards, the advancement rates were too stingy: tasks now pay **5** (was 2), goals **20** (was 12) and challenges **50** (was 45). New worlds get the new numbers automatically; an existing world keeps its `points.json` — raise `valueTask` / `valueGoal` / `valueChallenge` there and run `/skill recalc <player>` to re-credit everyone at the new rates.
+- **Luck raises the task-shard odds.** The 2.1.0 work-trickle now reads your luck attribute: each point (Fortune Finder gives +0.5 per node, Luck potions count too) multiplies the base chance by another +10%, so a maxed Fortune Finder lane rolls at +50% odds. Unluck genuinely worsens the roll. New option `taskShardLuckBonus` (0 ignores luck).
+
 ## [2.1.0] - 2026-08-24
 
 ### Added

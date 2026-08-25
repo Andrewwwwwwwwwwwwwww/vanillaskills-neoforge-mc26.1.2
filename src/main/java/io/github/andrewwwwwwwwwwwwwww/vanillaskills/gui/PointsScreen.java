@@ -98,7 +98,8 @@ public final class PointsScreen {
                     "vanillaskills.points.tasks.desc",
                     "Mining, building and harvesting crops each\n"
                     + "have about a %s chance to shake a shard\n"
-                    + "loose — at most one every %d minutes.",
+                    + "loose — at most one every %d minutes.\n"
+                    + "Luck (Fortune Finder) raises your odds.",
                     String.format("%.1f%%", GameplayConfig.TASK_SHARD_CHANCE * 100.0),
                     Math.max(1, Math.round(GameplayConfig.TASK_SHARD_COOLDOWN_SECONDS / 60.0f)))));
         }
