@@ -30,5 +30,6 @@ public abstract class SweetBerryHarvestMixin {
         if (!(level instanceof ServerLevel serverLevel) || !(player instanceof ServerPlayer sp)) return;
         if (state.getValue(SweetBerryBushBlock.AGE) < 2) return; // vanilla only harvests at age 2+
         Farming.rollBonus(serverLevel, pos, sp, Items.SWEET_BERRIES);
+        io.github.andrewwwwwwwwwwwwwww.vanillaskills.shard.TaskShards.roll(serverLevel, sp, pos);
     }
 }

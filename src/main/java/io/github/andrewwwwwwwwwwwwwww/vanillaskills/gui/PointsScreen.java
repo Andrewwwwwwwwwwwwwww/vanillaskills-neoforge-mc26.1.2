@@ -92,6 +92,17 @@ public final class PointsScreen {
                     io.github.andrewwwwwwwwwwwwwww.vanillaskills.shard.ShardItems.SHARDS_PER_BLOCK)));
         }
 
+        if (GameplayConfig.TASK_SHARD_CHANCE > 0) {
+            items.add(item(Items.IRON_PICKAXE,
+                    Lang.tr(player, "vanillaskills.points.tasks", "Hard Work"), ChatFormatting.GOLD, lines(player,
+                    "vanillaskills.points.tasks.desc",
+                    "Mining, building and harvesting crops each\n"
+                    + "have about a %s chance to shake a shard\n"
+                    + "loose — at most one every %d minutes.",
+                    String.format("%.1f%%", GameplayConfig.TASK_SHARD_CHANCE * 100.0),
+                    Math.max(1, Math.round(GameplayConfig.TASK_SHARD_COOLDOWN_SECONDS / 60.0f)))));
+        }
+
         items.add(item(Items.EMERALD,
                 Lang.tr(player, "vanillaskills.points.trader", "Wandering Trader"), ChatFormatting.GREEN, lines(player,
                 "vanillaskills.points.trader.desc",

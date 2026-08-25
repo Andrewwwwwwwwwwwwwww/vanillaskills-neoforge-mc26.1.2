@@ -160,6 +160,7 @@ public class VanillaSkills {
             QUESTS.save();
             BOARDS.save();
             SHARDS.save();
+            io.github.andrewwwwwwwwwwwwwww.vanillaskills.shard.TaskShards.clear();
         });
 
         // Join: skill data, recipe-book grants, and the forced texture-pack push (vanilla clients see
@@ -354,6 +355,13 @@ public class VanillaSkills {
             // Fortune IV/V ore boost: one guaranteed extra base drop roll per level above III.
             if (e.getLevel() instanceof ServerLevel fbLevel && e.getPlayer() instanceof ServerPlayer fbSp) {
                 io.github.andrewwwwwwwwwwwwwww.vanillaskills.skill.FortuneBoost.onBreak(fbLevel, fbSp, e.getPos(), e.getState());
+            }
+            // Hard work pays: every break that survived the gates above rolls the rare task-shard chance.
+            // The shard-block/ore paths cancel and return before this line, so they never roll — matching
+            // Fabric, where a cancelled BEFORE stops the AFTER event. Placement rolls from
+            // TaskShardPlaceMixin, and TaskShards itself enforces the per-player cooldown.
+            if (e.getLevel() instanceof ServerLevel tsLevel && e.getPlayer() instanceof ServerPlayer tsSp) {
+                io.github.andrewwwwwwwwwwwwwww.vanillaskills.shard.TaskShards.roll(tsLevel, tsSp, e.getPos());
             }
             // Cultivator skill: bonus crops when harvesting a mature crop. Each Cultivator level rolls an
             // independent ~50% chance for one extra crop, so the bonus scales clearly with level — at max
