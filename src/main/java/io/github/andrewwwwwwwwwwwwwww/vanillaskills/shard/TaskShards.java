@@ -38,7 +38,13 @@ public final class TaskShards {
         Long last = LAST_PAYOUT.get(player.getUUID());
         if (last != null && now - last < GameplayConfig.TASK_SHARD_COOLDOWN_SECONDS * 20L) return;
 
-        if (player.getRandom().nextDouble() >= GameplayConfig.TASK_SHARD_CHANCE) return;
+        // Luck sweetens the odds: Fortune Finder (+0.5/node) and Luck potions raise the luck
+        // attribute, and each point multiplies the base chance by taskShardLuckBonus more. Bad Omen
+        // of Unluck can push luck negative — that legitimately worsens the odds, floored at zero.
+        double luck = player.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.LUCK);
+        double chance = Math.min(1.0, GameplayConfig.TASK_SHARD_CHANCE
+                * Math.max(0.0, 1.0 + luck * GameplayConfig.TASK_SHARD_LUCK_BONUS));
+        if (player.getRandom().nextDouble() >= chance) return;
 
         LAST_PAYOUT.put(player.getUUID(), now);
         Block.popResource(level, pos, ShardItems.unstableShard());

@@ -186,6 +186,9 @@ public class GameplayConfig {
      *  loose, and the per-player cooldown after a payout during which nothing rolls. 0 chance disables. */
     public static volatile double TASK_SHARD_CHANCE = 0.002;
     public static volatile int TASK_SHARD_COOLDOWN_SECONDS = 240;
+    /** Chance multiplier added per point of the luck attribute (Fortune Finder, Luck potions):
+     *  effective chance = base × (1 + luck × this). 0.1 = +50% odds at a maxed Fortune Finder lane. */
+    public static volatile double TASK_SHARD_LUCK_BONUS = 0.1;
     /** Dragon Scales dropped when a player kills the Ender Dragon, and on the world's FIRST player kill. */
     public static volatile int DRAGON_SCALE_DROP = 8;
     public static volatile int DRAGON_SCALE_FIRST_KILL_DROP = 32;
@@ -381,6 +384,9 @@ public class GameplayConfig {
     public double taskShardChance = 0.002;
     /** After a task shard drops, how long that player earns no more from tasks (default 240 s). */
     public int taskShardCooldownSeconds = 240;
+    /** Extra task-shard odds per point of luck (Fortune Finder / Luck potions), as a multiplier:
+     *  effective chance = taskShardChance × (1 + luck × this). Default 0.1. 0 ignores luck. */
+    public double taskShardLuckBonus = 0.1;
     /** Dragon Scales a player gets for killing the Ender Dragon (default 8). Only PLAYER kills drop. */
     public int dragonScaleDrop = 8;
     /** Dragon Scales for the world's very first player kill of the dragon (default 32). One time only. */
@@ -601,6 +607,7 @@ public class GameplayConfig {
         SHARD_ORE_DROP = Math.max(1, shardOreDrop);
         TASK_SHARD_CHANCE = Math.max(0.0, Math.min(1.0, taskShardChance));
         TASK_SHARD_COOLDOWN_SECONDS = Math.max(0, taskShardCooldownSeconds);
+        TASK_SHARD_LUCK_BONUS = Math.max(0.0, taskShardLuckBonus);
         DRAGON_SCALE_DROP = Math.max(0, dragonScaleDrop);
         DRAGON_SCALE_FIRST_KILL_DROP = Math.max(0, dragonScaleFirstKillDrop);
         HORSE_STATS = horseStats;

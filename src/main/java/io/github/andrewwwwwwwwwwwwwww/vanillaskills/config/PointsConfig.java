@@ -18,10 +18,10 @@ import java.util.Map;
 public class PointsConfig {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
-    public int perAdvancement = 1;          // fallback when an advancement has no display frame
-    public int valueTask = 1;               // common square-frame advancements
-    public int valueGoal = 5;               // rounded-frame goals
-    public int valueChallenge = 20;         // purple challenge-frame advancements
+    public int perAdvancement = 2;          // fallback when an advancement has no display frame
+    public int valueTask = 5;               // common square-frame advancements
+    public int valueGoal = 20;              // rounded-frame goals
+    public int valueChallenge = 50;         // purple challenge-frame advancements
     public boolean ignoreRecipeAdvancements = true;
 
     /**
@@ -92,9 +92,9 @@ public class PointsConfig {
     private static PointsConfig defaults() {
         PointsConfig cfg = new PointsConfig();
         cfg.perAdvancement = 2;
-        cfg.valueTask = 2;        // common (square) advancements — a small amount
-        cfg.valueGoal = 12;       // goals — a moderate amount
-        cfg.valueChallenge = 45;  // purple challenges — a lot
+        cfg.valueTask = 5;        // common (square) advancements — a small amount
+        cfg.valueGoal = 20;       // goals — a moderate amount
+        cfg.valueChallenge = 50;  // purple challenges — a lot
         cfg.startingPoints = 5;
         cfg.ignoreRecipeAdvancements = true;
 
