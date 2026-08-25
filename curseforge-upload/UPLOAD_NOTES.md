@@ -1,11 +1,11 @@
-# VanillaSkills — NeoForge, MC 26.1.2 — CurseForge Upload (2.1.0)
+# VanillaSkills — NeoForge, MC 26.1.2 — CurseForge Upload (2.1.1)
 
 Full details, including the breaking-release notice and the changelog to paste, are in
 `../../../26.2/vanillaskills/curseforge-upload/UPLOAD_NOTES.md`. Upload as an ADDITIONAL FILE on the
 existing **Vanilla-Skills** project (`1570558`) — same project as every other edition, different
 game-version + loader tag.
 
-**File:** `vanillaskills-2.1.0+mc26.1.2-neoforge.jar`
+**File:** `vanillaskills-2.1.1+mc26.1.2-neoforge.jar`
 - Game version **26.1.2**, loader **NeoForge**
 - No Fabric API dependency
 - Release type: Release
