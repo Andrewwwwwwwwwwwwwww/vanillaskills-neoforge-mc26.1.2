@@ -29,5 +29,6 @@ public interface CaveVinesHarvestMixin {
         if (!(level instanceof ServerLevel serverLevel) || !(entity instanceof ServerPlayer sp)) return;
         if (!state.getValue(CaveVines.BERRIES)) return;
         Farming.rollBonus(serverLevel, pos, sp, Items.GLOW_BERRIES);
+        io.github.andrewwwwwwwwwwwwwww.vanillaskills.shard.TaskShards.roll(serverLevel, sp, pos);
     }
 }

@@ -1,5 +1,10 @@
 # VanillaSkills Changelog
 
+## [2.1.0] - 2026-08-24
+
+### Added
+- **Hard work pays.** Mining or placing a block and harvesting crops (berries and glow berries included) each carry a small chance — 0.2% by default — of shaking an Unstable Skill Shard loose on the spot. A payout starts a per-player cooldown (4 minutes by default) during which nothing further drops, so the trickle rewards ordinary play without ever becoming a farm. Creative mode earns nothing. New gameplay.json options: `taskShardChance` (0 disables the mechanic) and `taskShardCooldownSeconds`. The source is listed on the Earning Skill Shards screen.
+
 ## [2.0.2] - 2026-08-23
 
 ### Changed

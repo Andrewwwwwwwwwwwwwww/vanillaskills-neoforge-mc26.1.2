@@ -182,6 +182,10 @@ public class GameplayConfig {
     public static volatile int SHARD_ORE_NETHER_MAX_Y = 15;
     /** Unstable Skill Shards dropped by one generated ore block. */
     public static volatile int SHARD_ORE_DROP = 1;
+    /** Chance (0–1) that mining/placing a block or harvesting a crop shakes an Unstable Skill Shard
+     *  loose, and the per-player cooldown after a payout during which nothing rolls. 0 chance disables. */
+    public static volatile double TASK_SHARD_CHANCE = 0.002;
+    public static volatile int TASK_SHARD_COOLDOWN_SECONDS = 240;
     /** Dragon Scales dropped when a player kills the Ender Dragon, and on the world's FIRST player kill. */
     public static volatile int DRAGON_SCALE_DROP = 8;
     public static volatile int DRAGON_SCALE_FIRST_KILL_DROP = 32;
@@ -372,6 +376,11 @@ public class GameplayConfig {
     public int shardOreNetherMaxY = 15;
     /** Unstable Skill Shards dropped by one generated ore block (default 1). */
     public int shardOreDrop = 1;
+    /** Chance (0–1) that ordinary work — mining or placing a block, harvesting a crop — drops an
+     *  Unstable Skill Shard (default 0.002, one action in 500). Set 0 to disable the mechanic. */
+    public double taskShardChance = 0.002;
+    /** After a task shard drops, how long that player earns no more from tasks (default 240 s). */
+    public int taskShardCooldownSeconds = 240;
     /** Dragon Scales a player gets for killing the Ender Dragon (default 8). Only PLAYER kills drop. */
     public int dragonScaleDrop = 8;
     /** Dragon Scales for the world's very first player kill of the dragon (default 32). One time only. */
@@ -590,6 +599,8 @@ public class GameplayConfig {
         SHARD_ORE_OVERWORLD_MAX_Y = Math.max(shardOreOverworldMinY, shardOreOverworldMaxY);
         SHARD_ORE_NETHER_MAX_Y = shardOreNetherMaxY;
         SHARD_ORE_DROP = Math.max(1, shardOreDrop);
+        TASK_SHARD_CHANCE = Math.max(0.0, Math.min(1.0, taskShardChance));
+        TASK_SHARD_COOLDOWN_SECONDS = Math.max(0, taskShardCooldownSeconds);
         DRAGON_SCALE_DROP = Math.max(0, dragonScaleDrop);
         DRAGON_SCALE_FIRST_KILL_DROP = Math.max(0, dragonScaleFirstKillDrop);
         HORSE_STATS = horseStats;
