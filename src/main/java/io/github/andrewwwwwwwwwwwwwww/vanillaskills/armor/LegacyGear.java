@@ -115,6 +115,14 @@ public final class LegacyGear {
         if (!stack.has(DataComponents.CUSTOM_NAME)) return false;
         if (!Markers.isOurs(stack)) return false;
         if (!stack.has(DataComponents.ITEM_NAME)) return false;
+        // Only our own legacy branding is demoted: the pre-2.0 stamp wrote the same text into
+        // CUSTOM_NAME that ITEM_NAME carries today, so equal text means it is ours to strip. Text
+        // that differs is a player's anvil rename — the sweep runs constantly, so without this
+        // check every rename of VanillaSkills gear silently reverted moments after it was paid for.
+        net.minecraft.network.chat.Component custom = stack.get(DataComponents.CUSTOM_NAME);
+        net.minecraft.network.chat.Component intrinsic = stack.get(DataComponents.ITEM_NAME);
+        if (custom == null || intrinsic == null
+                || !custom.getString().equals(intrinsic.getString())) return false;
         stack.remove(DataComponents.CUSTOM_NAME);
         return true;
     }

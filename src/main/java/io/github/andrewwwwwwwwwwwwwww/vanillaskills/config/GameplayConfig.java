@@ -189,6 +189,9 @@ public class GameplayConfig {
     /** Chance multiplier added per point of the luck attribute (Fortune Finder, Luck potions):
      *  effective chance = base × (1 + luck × this). 0.1 = +50% odds at a maxed Fortune Finder lane. */
     public static volatile double TASK_SHARD_LUCK_BONUS = 0.1;
+    /** Give the vanilla items that ship with no repair material one that fits (trident ← prismarine,
+     *  bow/crossbow/rod ← string, flint-and-steel/shears ← iron, brush ← copper). */
+    public static volatile boolean VANILLA_REPAIR_MATERIALS = true;
     /** Dragon Scales dropped when a player kills the Ender Dragon, and on the world's FIRST player kill. */
     public static volatile int DRAGON_SCALE_DROP = 8;
     public static volatile int DRAGON_SCALE_FIRST_KILL_DROP = 32;
@@ -387,6 +390,9 @@ public class GameplayConfig {
     /** Extra task-shard odds per point of luck (Fortune Finder / Luck potions), as a multiplier:
      *  effective chance = taskShardChance × (1 + luck × this). Default 0.1. 0 ignores luck. */
     public double taskShardLuckBonus = 0.1;
+    /** Give the vanilla items with no repair material one that fits: trident ← prismarine,
+     *  bow/crossbow/fishing rod ← string, flint-and-steel/shears ← iron ingot, brush ← copper ingot. */
+    public boolean vanillaRepairMaterials = true;
     /** Dragon Scales a player gets for killing the Ender Dragon (default 8). Only PLAYER kills drop. */
     public int dragonScaleDrop = 8;
     /** Dragon Scales for the world's very first player kill of the dragon (default 32). One time only. */
@@ -608,6 +614,7 @@ public class GameplayConfig {
         TASK_SHARD_CHANCE = Math.max(0.0, Math.min(1.0, taskShardChance));
         TASK_SHARD_COOLDOWN_SECONDS = Math.max(0, taskShardCooldownSeconds);
         TASK_SHARD_LUCK_BONUS = Math.max(0.0, taskShardLuckBonus);
+        VANILLA_REPAIR_MATERIALS = vanillaRepairMaterials;
         DRAGON_SCALE_DROP = Math.max(0, dragonScaleDrop);
         DRAGON_SCALE_FIRST_KILL_DROP = Math.max(0, dragonScaleFirstKillDrop);
         HORSE_STATS = horseStats;
