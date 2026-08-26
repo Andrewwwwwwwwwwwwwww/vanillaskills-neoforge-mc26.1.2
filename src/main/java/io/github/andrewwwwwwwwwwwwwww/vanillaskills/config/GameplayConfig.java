@@ -101,7 +101,7 @@ public class GameplayConfig {
 
     /** Infusing Table — replaces the enchanting table now that experience is gone. */
     public static volatile boolean INFUSING_ENABLED = true;
-    public static volatile int INFUSING_COST_PER_LEVEL = 3;
+    public static volatile int INFUSING_COST_PER_LEVEL = 2;
     /** "skill" or "quest" — which shard the table charges. */
     public static volatile String INFUSING_CURRENCY = "skill";
     /** Enchantments whose BOOK is burned when infused, as "<enchantment>:<minLevel>". */
@@ -255,8 +255,8 @@ public class GameplayConfig {
     /** Right-clicking an enchanting table opens the Infusing Table (default true). Set false to leave the
      *  vanilla enchanting screen in place — though with experience removed it cannot be paid for. */
     public boolean infusingEnabled = true;
-    /** Shards charged per level of the enchantment being applied (default 3, so Efficiency IV costs 12). */
-    public int infusingCostPerLevel = 3;
+    /** Shards charged per level of the enchantment being applied (default 2, so Efficiency IV costs 8). */
+    public int infusingCostPerLevel = 2;
     /** Which currency the Infusing Table charges: "skill" or "quest". Books are never consumed either way. */
     public String infusingCurrency = "skill";
     /** Enchantments whose shelved BOOK is consumed when infused, each "&lt;enchantment&gt;:&lt;minLevel&gt;".

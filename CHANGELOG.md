@@ -1,5 +1,10 @@
 # VanillaSkills Changelog
 
+## [2.1.3] - 2026-08-26
+
+### Changed
+- **Infusing gets cheaper: 2 shards per enchantment level, down from 3.** A level V book drops 15 → 10, a full sword loadout ~42 → ~28. The books were already permanent, so this was the only recurring cost on enchanting, and it priced a full kit at more than a whole run of goal advancements. Existing worlds keep whatever `infusingCostPerLevel` their gameplay.json stores — set it to 2 (and `/skill reload`) to adopt the new rate.
+
 ## [2.1.2] - 2026-08-26
 
 ### Fixed
