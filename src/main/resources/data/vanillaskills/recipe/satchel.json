@@ -14,7 +14,7 @@
     "id": "minecraft:brown_shulker_box",
     "count": 1,
     "components": {
-      "minecraft:item_name": {
+      "minecraft:custom_name": {
         "translate": "vanillaskills.item.satchel",
         "fallback": "Satchel",
         "color": "#B98A5A",

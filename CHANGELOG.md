@@ -1,5 +1,15 @@
 # VanillaSkills Changelog
 
+## [2.1.4] - 2026-08-26
+
+### Added
+- **The repair-less vanilla items get repair materials**: Trident ← Prismarine, Bow / Crossbow / Fishing Rod ← String, Flint and Steel / Shears ← Iron Ingot, Brush ← Copper Ingot. Vanilla ships all of these combine-only — a trident could only ever be mended with a second trident. The `repairable` component is stamped per stack (so vanilla clients preview the repair correctly), and repairs price as usual: 1 shard per material. The two "on a stick" rods stay combine-only, deliberately. Toggle: `vanillaRepairMaterials`.
+
+### Fixed
+- **A free anvil result can now actually be taken.** Vanilla treats cost 0 as "no operation" and refuses the pickup — so the free rename that 2.0.2 introduced showed a result that could not be removed from the anvil.
+- **Renaming VanillaSkills gear sticks.** The legacy-gear sweep demoted any custom name off marked gear, which silently reverted a player's anvil rename moments after it was paid for. Only the mod's own legacy branding (text identical to the item's intrinsic name) is demoted now.
+- **The Satchel keeps its name for life.** It was named through `item_name`, which placement throws away — so a placed Satchel became a plain brown shulker box and never got its name back. It is now named through `custom_name` (styled identically, and shown as the container title too), which vanilla carries through placing, the block entity, and mining. A Satchel crafted before this fix can be re-branded with a plain anvil rename, which is free.
+
 ## [2.1.3] - 2026-08-26
 
 ### Changed

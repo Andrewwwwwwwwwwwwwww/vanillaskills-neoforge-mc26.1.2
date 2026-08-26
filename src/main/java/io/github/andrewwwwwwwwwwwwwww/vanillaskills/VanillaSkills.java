@@ -169,6 +169,7 @@ public class VanillaSkills {
             if (!(e.getEntity() instanceof ServerPlayer player)) return;
             PLAYERS.onJoin(player);
             io.github.andrewwwwwwwwwwwwwww.vanillaskills.armor.LegacyGear.sweep(player); // repoint pre-2.0 gear models
+            io.github.andrewwwwwwwwwwwwwww.vanillaskills.tool.RepairMaterials.sweep(player);
             // Our data recipes appear in the book only once the matching skill is unlocked.
             io.github.andrewwwwwwwwwwwwwww.vanillaskills.recipe.RecipeUnlocks.sync(player);
             io.github.andrewwwwwwwwwwwwwww.vanillaskills.shard.ShardBar.push(player, true);
@@ -484,6 +485,7 @@ public class VanillaSkills {
                 // Catches pre-2.0 gear picked up from a chest after the join sweep. Costs one
                 // component lookup per slot once a world has been migrated.
                 io.github.andrewwwwwwwwwwwwwww.vanillaskills.armor.LegacyGear.sweep(player);
+                io.github.andrewwwwwwwwwwwwwww.vanillaskills.tool.RepairMaterials.sweep(player);
                 // Reveal recipes for ingredients picked up since the last check. Only awarding on join
                 // meant finding your first shard showed nothing until you relogged.
                 io.github.andrewwwwwwwwwwwwwww.vanillaskills.recipe.RecipeUnlocks.sync(player);

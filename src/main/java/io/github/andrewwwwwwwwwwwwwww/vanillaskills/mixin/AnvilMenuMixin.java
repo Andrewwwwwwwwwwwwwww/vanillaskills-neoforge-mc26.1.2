@@ -143,7 +143,14 @@ public class AnvilMenuMixin {
         if (io.github.andrewwwwwwwwwwwwwww.vanillaskills.config.GameplayConfig.EXPERIENCE_ENABLED) return;
 
         int price = this.cost.get();
-        if (price <= 0) return; // nothing to pay for — leave vanilla's own judgement alone
+        if (price <= 0) {
+            // Our pricing can make an operation legitimately free — a plain rename is, by default.
+            // Vanilla reads cost 0 as "no operation here" and refuses the pickup, which left a free
+            // rename showing a result that could not be taken. A stack sitting in the result slot IS
+            // the proof of a valid operation, so a free one is simply allowed.
+            if (hasStack) cir.setReturnValue(true);
+            return;
+        }
         if (player.hasInfiniteMaterials()) {
             cir.setReturnValue(true);
             return;
