@@ -1,5 +1,11 @@
 # VanillaSkills Changelog
 
+## [2.1.5] - 2026-08-26
+
+### Changed
+- **The crate ladder now climbs itself.** Every crate has a small chance of an Unboxing book, tiered to the crate: **Wooden → Unboxing I (3%)**, **Copper → Unboxing II (3%)**, **Iron (5%) / Diamond (7%) / Frozen / Lush / Desert (4%) → Unboxing III**. The bottom of the ladder previously offered no way up it — without Unboxing, wooden crates stayed the only crates most players ever saw.
+- **A crate can never drop two identical Unboxing books.** Iron and Diamond used to roll their Unboxing entry inside the multi-roll loot pool (at generous odds — Diamond handed out doubles regularly); every Unboxing book now sits in its own single-roll pool, so it is at most one per crate, at deliberately small odds. All of it is datapack loot, retunable like any other crate entry.
+
 ## [2.1.4] - 2026-08-26
 
 ### Added
