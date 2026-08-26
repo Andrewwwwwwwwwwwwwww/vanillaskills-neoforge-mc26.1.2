@@ -61,6 +61,21 @@
         },
         { "type": "minecraft:item", "name": "minecraft:name_tag", "weight": 3 }
       ]
+    },
+    {
+      "rolls": 1.0,
+      "conditions": [
+        { "condition": "minecraft:random_chance", "chance": 0.03 }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:book",
+          "functions": [
+            { "function": "minecraft:set_enchantments", "enchantments": { "vanillaskills:unboxing": 1 } }
+          ]
+        }
+      ]
     }
   ]
 }

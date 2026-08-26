@@ -59,15 +59,22 @@
             { "function": "minecraft:enchant_randomly", "options": "#minecraft:on_random_loot" }
           ]
         },
+        { "type": "minecraft:item", "name": "minecraft:golden_apple", "weight": 5 }
+      ]
+    },
+    {
+      "rolls": 1.0,
+      "conditions": [
+        { "condition": "minecraft:random_chance", "chance": 0.05 }
+      ],
+      "entries": [
         {
           "type": "minecraft:item",
           "name": "minecraft:book",
-          "weight": 6,
           "functions": [
-            { "function": "minecraft:enchant_randomly", "options": ["vanillaskills:unboxing"] }
+            { "function": "minecraft:set_enchantments", "enchantments": { "vanillaskills:unboxing": 3 } }
           ]
-        },
-        { "type": "minecraft:item", "name": "minecraft:golden_apple", "weight": 5 }
+        }
       ]
     }
   ]
