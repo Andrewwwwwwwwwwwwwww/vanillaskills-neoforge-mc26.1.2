@@ -201,7 +201,14 @@ public class VanillaSkills {
         });
 
         NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerRespawnEvent e) -> {
-            if (e.getEntity() instanceof ServerPlayer player) PLAYERS.applyAll(player);
+            if (e.getEntity() instanceof ServerPlayer player) {
+                PLAYERS.applyAll(player);
+                // Vanilla fills the fresh body to its BASE max (20) before our max-health modifiers are
+                // reapplied, so a Vitality player came back at a fraction of their bar. A death respawn
+                // means full health — but only a death respawn: an end-portal return keeps its health,
+                // where topping up would be a free heal.
+                if (!e.isEndConquered()) player.setHealth(player.getMaxHealth());
+            }
         });
 
         // Right-click a bounty board's floating-text interaction entity to open the quest GUI.

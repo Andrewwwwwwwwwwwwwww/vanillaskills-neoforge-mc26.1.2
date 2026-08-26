@@ -1,5 +1,10 @@
 # VanillaSkills Changelog
 
+## [2.1.2] - 2026-08-26
+
+### Fixed
+- **Respawning restores your whole health bar.** Vanilla fills the fresh body to its base 20 HP before the Vitality lane's max-health modifiers are re-applied, so a player with extra hearts came back at a fraction of their bar. A death respawn now comes back at full health; returning through the End portal still keeps the health you left with.
+
 ## [2.1.1] - 2026-08-24
 
 ### Changed
