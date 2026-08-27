@@ -460,6 +460,106 @@ public class GameplayConfig {
      */
     public long advancementLoginGraceMs = 5000L;
 
+    /**
+     * Written into gameplay.json as {@code "#option-guide"} so anyone reading the file knows what each
+     * option does without opening the source. JSON has no comments; an extra key is the next best thing.
+     * Regenerated on every save, so hand-edits to it are harmless and stale text never survives.
+     */
+    @com.google.gson.annotations.SerializedName("#option-guide")
+    public java.util.Map<String, String> optionGuide = buildOptionGuide();
+
+    static java.util.Map<String, String> buildOptionGuide() {
+        java.util.Map<String, String> g = new java.util.LinkedHashMap<>();
+        g.put("mendingEnabled", "true = Mending exists as normal; false (default) = the mod strips Mending everywhere.");
+        g.put("experienceEnabled", "true = vanilla XP returns; false (default) = XP is removed and anvils/infusing charge Skill Shards.");
+        g.put("bountyRefreshHours", "Hours between bounty-board rotations.");
+        g.put("shopRefreshHours", "Hours between Quest Shop rotations.");
+        g.put("convertRatio", "Quest Shards needed to buy 1 Skill Shard at the shop converter.");
+        g.put("graduateAt", "LEGACY, ignored - graduation is now 'finish every starter quest'.");
+        g.put("toolCraftingRequirements", "Gate tool crafting behind the Toolsmith lane; false removes the gate and hides the lane.");
+        g.put("armorCraftingRequirements", "Gate armor crafting behind the Armorsmith lane; false removes the gate and hides the lane.");
+        g.put("deepslateGate", "Deepslate needs a Steel-tier-or-better pickaxe; false = vanilla rules.");
+        g.put("fortuneBoost", "Fortune IV/V grant extra base ore drops; false = vanilla Fortune.");
+        g.put("fortuneBonusChance", "Chance (0-1) of one extra base drop per Fortune level above III.");
+        g.put("feats", "Enable Feats - one-time achievement rewards paid in Quest Shards.");
+        g.put("skillTreeTitle", "Title shown on the skill tree screen.");
+        g.put("skillTreeRows", "Rows in the skill tree GUI (1-6).");
+        g.put("horseStats", "Show a horse's real speed, jump and health in its inventory screen.");
+        g.put("shardsInXpBar", "Show banked Skill Shards on the XP bar (cosmetic packet; the server stays level 0).");
+        g.put("copperHelmetLight", "A worn Copper Helmet lights the area - CLIENT-SIDE, modded clients only.");
+        g.put("copperHelmetLightLevel", "Brightness of that light, 0-15.");
+        g.put("infusingEnabled", "Right-clicking an enchanting table opens the Infusing Table; false keeps the vanilla screen.");
+        g.put("infusingCostPerLevel", "Skill Shards per level of the enchantment being applied.");
+        g.put("infusingCurrency", "'skill' or 'quest' - which shard the Infusing Table charges.");
+        g.put("infusingConsumedBooks", "Enchantments whose shelved book IS consumed, each '<enchantment>:<minLevel>'. Empty = every book permanent.");
+        g.put("netherRoofDamage", "Hurt players on the Nether roof, like the world border does.");
+        g.put("netherRoofY", "Y level at or above which the roof rule applies.");
+        g.put("netherRoofDamageAmount", "Damage per pulse above the roof.");
+        g.put("starterQuests", "New players begin on the fixed starter board; false = straight to the rotating board.");
+        g.put("questsPerRotation", "Quests the rotating board deals per rotation (1-6).");
+        g.put("questShopSlots", "Offers the Quest Shop shows per rotation.");
+        g.put("anvilMaterialPricing", "Price anvil work by what it consumes; false = vanilla's level formula charged in shards.");
+        g.put("anvilRepairCostPerMaterial", "Shards per repair material consumed.");
+        g.put("anvilEnchantCostPerLevel", "Shards per enchantment level on the sacrificed item in a combine.");
+        g.put("anvilRenameCost", "Flat shards for a plain rename (0 = free).");
+        g.put("anvilCombineRepairCost", "Flat shards when a same-item combine restores durability.");
+        g.put("anvilTooExpensiveCap", "Restore vanilla's 40-level 'Too Expensive' cap.");
+        g.put("anvilBooksOnItems", "Allow enchanted books directly onto gear at the anvil (the Infusing Table's job since 2.0).");
+        g.put("dragonRepairCost", "Flat shards for the one-scale full repair of a Dragon piece.");
+        g.put("shardAuraRadius", "Stable Skill Shard Block aura reach, in blocks.");
+        g.put("shardAuraDamage", "Damage per pulse to hostiles inside the aura.");
+        g.put("shardAuraIntervalTicks", "Ticks between aura pulses (20 = once a second).");
+        g.put("shardMaxMerge", "How many Stable blocks can merge into one.");
+        g.put("shardBeaconRangeMultiplier", "Beacon range multiplier on a Stable Skill Shard Block base.");
+        g.put("shardBeaconAmplifierBonus", "Extra beacon amplifier levels on a Stable base.");
+        g.put("shardWithdrawAmount", "Shards withdrawn as items per click of the withdraw button.");
+        g.put("shardMiningGate", "Shard blocks need a Crystalline-or-better pickaxe (plain diamond does NOT qualify).");
+        g.put("spawnerDropsShardBlock", "Broken spawners drop an Unstable Skill Shard Block.");
+        g.put("shardChestWeight", "Structure-chest shard odds, weight vs shardChestEmptyWeight (1v60 = ~1.6% per chest; 0 disables).");
+        g.put("shardChestEmptyWeight", "The 'nothing' side of the structure-chest roll.");
+        g.put("shardBarterWeight", "Piglin-barter shard odds, weight vs shardBarterEmptyWeight (1v120 = ~0.8%; 0 disables).");
+        g.put("shardBarterEmptyWeight", "The 'nothing' side of the barter roll.");
+        g.put("crateFishingWeight", "Crate catch odds, weight vs crateFishingEmptyWeight (1v40 = ~2.4% per catch; 0 disables). WHICH crate is datapack loot.");
+        g.put("crateFishingEmptyWeight", "The 'no crate' side of the fishing roll.");
+        g.put("crateReelEnabled", "Show the slot-machine reel on crate open (the reward is identical either way).");
+        g.put("crateReelTicks", "How long the reel spins, in ticks.");
+        g.put("crateReelRadius", "Radius of the reel ring, in blocks.");
+        g.put("crateReelDistance", "How far in front of the player the ring floats.");
+        g.put("crateReelPool", "Distinct possibilities the ring shows.");
+        g.put("crateReelScale", "Item size on the ring (1.0 = a full block).");
+        g.put("crateReelSpacing", "Gap between reel cells, as a multiple of item scale.");
+        g.put("crateReelHold", "Ticks the winning item is held before payout.");
+        g.put("shardOreOverworldMinY", "Bottom of the Overworld band where generated shard ore is recognised - spawn RATE lives in the worldgen datapack.");
+        g.put("shardOreOverworldMaxY", "Top of that Overworld band.");
+        g.put("shardOreNetherMaxY", "Nether ceiling for recognised shard ore.");
+        g.put("shardOreDrop", "Unstable Skill Shards dropped per generated ore block.");
+        g.put("taskShardChance", "Chance (0-1) that mining/placing/harvesting drops a shard (0.002 = 1 in 500; 0 disables).");
+        g.put("taskShardCooldownSeconds", "After a task shard drops, seconds before that player can earn another.");
+        g.put("taskShardLuckBonus", "Task-shard odds bonus per point of luck: chance x (1 + luck x this).");
+        g.put("vanillaRepairMaterials", "Give repair-less vanilla items a repair material (trident<-prismarine, bow/crossbow/rod<-string, flint-and-steel/shears<-iron, brush<-copper).");
+        g.put("crateFishingLuckQuality", "Crate-rate bonus per point of fishing luck (~+10% relative per point at 1; 0 ignores luck).");
+        g.put("dragonScaleDrop", "Dragon Scales per player dragon kill.");
+        g.put("dragonScaleFirstKillDrop", "Scales for the world's FIRST player kill, one time.");
+        g.put("gear", "Per-tier gear balance - armor, toughness, speed, durability, tool stats. Rewrites reach existing gear at login (see gearRestamp).");
+        g.put("crystalReflectFraction", "Fraction of melee damage a full Crystalline set reflects.");
+        g.put("crystalSetEffects", "Full Crystalline set grants Strength + Resistance.");
+        g.put("crystalSetAmplifier", "Those effects' amplifier: 0 = level I.");
+        g.put("roseGoldFireResistance", "Full Rose Gold set grants Fire Resistance.");
+        g.put("dragonDashSpeed", "Dragon set dash speed (0 disables the dash).");
+        g.put("dragonDashDownBias", "Downward pull on the dash so it reads as a swoop.");
+        g.put("dragonDashCooldownTicks", "Ticks between dashes.");
+        g.put("steelShieldDurability", "Steel Shield durability (a vanilla shield is 336).");
+        g.put("steelShieldSlowdown", "Movement penalty while holding the Steel Shield, as a fraction of walk speed.");
+        g.put("steelShieldThorns", "Damage the Steel Shield returns to melee attackers.");
+        g.put("gearRestamp", "Bring existing gear onto the current tier numbers at login (enchants, damage and renames untouched).");
+        g.put("serverResourcePack", "Push the VanillaSkills texture pack to joining clients.");
+        g.put("resourcePackUrl", "Pack download URL pushed to clients.");
+        g.put("resourcePackSha1", "SHA-1 of that pack, for client caching - update it alongside the URL.");
+        g.put("guideUrl", "Where the Guide icon sends players; blank = the built-in written book.");
+        g.put("advancementLoginGraceMs", "Ms after login during which advancements completing pay nothing (anti-windfall when adding a mod's namespace). 0 disables.");
+        return g;
+    }
+
     private static Path path() {
         Path dir = VanillaSkills.worldDir();
         return dir == null ? null : dir.resolve("gameplay.json");
@@ -476,6 +576,7 @@ public class GameplayConfig {
                     GameplayConfig loaded = GSON.fromJson(raw, GameplayConfig.class);
                     if (loaded != null) {
                         cfg = loaded;
+                        cfg.optionGuide = buildOptionGuide(); // never let stale on-disk help text win
                         boolean rewrite = cfg.migrateStalePack(); // servers pinned to a superseded pack
                         rewrite |= cfg.migrateSupersededDefaults(); // defaults that changed between releases
                         // A file written by an older version has none of the options added since. They work
@@ -672,6 +773,7 @@ public class GameplayConfig {
         // Fill the gear table in before writing, so a freshly-created gameplay.json documents every tier's
         // numbers instead of an unhelpful "gear": null. save() runs before apply() on a brand-new world.
         if (gear == null) gear = GearTuning.defaults();
+        optionGuide = buildOptionGuide(); // the written guide always matches this build's options
         try {
             Files.createDirectories(path.getParent());
             Files.writeString(path, GSON.toJson(this));
