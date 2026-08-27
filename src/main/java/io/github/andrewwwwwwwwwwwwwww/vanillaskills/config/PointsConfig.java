@@ -53,6 +53,22 @@ public class PointsConfig {
         };
     }
 
+    /**
+     * Payout defaults that changed between releases follow their default to the new value. A stored
+     * value equal to any OLD default is what the mod wrote, not an admin's decision, so it upgrades —
+     * same policy as the superseded pack URLs in gameplay.json. A custom value is never touched.
+     * The per-frame history: task 1 → 2 → 5, goal 5 → 12 → 20, challenge 20 → 45 → 50,
+     * frameless 1 → 2 (2.1.1 raised the current set).
+     */
+    private boolean migrateSupersededDefaults() {
+        boolean changed = false;
+        if (perAdvancement == 1) { perAdvancement = 2; changed = true; }
+        if (valueTask == 1 || valueTask == 2) { valueTask = 5; changed = true; }
+        if (valueGoal == 5 || valueGoal == 12) { valueGoal = 20; changed = true; }
+        if (valueChallenge == 20 || valueChallenge == 45) { valueChallenge = 50; changed = true; }
+        return changed;
+    }
+
     private static Path path() {
         Path dir = VanillaSkills.worldDir();
         return dir == null ? null : dir.resolve("points.json");
@@ -67,6 +83,7 @@ public class PointsConfig {
                     PointsConfig cfg = GSON.fromJson(json, PointsConfig.class);
                     if (cfg == null) cfg = new PointsConfig();
                     if (cfg.advancementOverrides == null) cfg.advancementOverrides = new HashMap<>();
+                    if (cfg.migrateSupersededDefaults()) cfg.save();
                     return cfg;
                 }
             } catch (Exception e) {

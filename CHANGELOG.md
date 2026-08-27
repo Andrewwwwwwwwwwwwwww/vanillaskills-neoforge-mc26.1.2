@@ -1,5 +1,11 @@
 # VanillaSkills Changelog
 
+## [2.1.7] - 2026-08-26
+
+### Changed
+- **Updating actually updates the prices now.** The self-upgrading configs only ever added missing options — a stored value was always respected, so existing worlds silently kept the old infusing cost and advancement payouts forever. Stored values that exactly match a superseded default now follow the default to its new value (infusing 3 → 2/level; advancement payouts task 1/2 → 5, goal 5/12 → 20, challenge 20/45 → 50), the same policy the superseded texture-pack URLs already use. A hand-tuned value that matches no old default is never touched.
+- **Repricing reaches balances automatically.** When payouts rise, every player now gets one automatic recalc on their next join — no more `/skill recalc <player>` per player. Spent shards are preserved, exactly as with the manual command.
+
 ## [2.1.6] - 2026-08-26
 
 ### Fixed

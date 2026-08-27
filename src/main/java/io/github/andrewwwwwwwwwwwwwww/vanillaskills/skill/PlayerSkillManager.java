@@ -28,6 +28,9 @@ public class PlayerSkillManager {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     private final Map<UUID, PlayerSkillData> cache = new ConcurrentHashMap<>();
+    /** Bump when the default advancement payouts change; players below it are repriced once on join. */
+    private static final int POINTS_REVISION = 2;
+
     private PointsConfig points = new PointsConfig();
     private int totalEarnable = 0; // P = total points a completionist can earn (computed at start)
 
@@ -78,6 +81,15 @@ public class PlayerSkillManager {
 
         applyAll(player);
         reevaluateAdvancements(player); // retroactively grant path/completion rewards
+
+        // When a release raises the advancement payouts, every player gets ONE automatic recalc, on
+        // their next join — so a config migration actually reaches balances without the op running
+        // /skill recalc per player. Spent shards are preserved; recalc only reprices what was earned.
+        if (data.pointsRevision != POINTS_REVISION) {
+            recalc(player);
+            data.pointsRevision = POINTS_REVISION;
+            save(player.getUUID());
+        }
 
         // Restore health AFTER max-health modifiers are reapplied — vanilla clamps it to the base
         // max during load (before our transient modifiers exist), which would shrink the health bar.

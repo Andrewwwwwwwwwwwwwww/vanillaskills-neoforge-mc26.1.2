@@ -21,6 +21,9 @@ public class PlayerSkillData {
     public boolean stepUpDisabled = false;      // /skill toggle stepup — also auto-suppressed while sneaking
     public Set<String> creditedAdvancements = new LinkedHashSet<>();
     public boolean initialized = false;
+    /** The advancement-payout revision this player was last repriced against. When the mod raises the
+     *  payout defaults, everyone below the current revision gets one automatic recalc on join. */
+    public int pointsRevision = 0;
 
     // Bounty board progress for the current rotation, keyed by QUEST ID (was the board slot number
     // before 2.0 — see QUEST_ID_VERSION). Cleared on every rotation.

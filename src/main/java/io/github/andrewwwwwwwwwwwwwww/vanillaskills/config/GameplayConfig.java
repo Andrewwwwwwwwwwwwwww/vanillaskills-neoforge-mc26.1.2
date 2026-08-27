@@ -471,6 +471,7 @@ public class GameplayConfig {
                     if (loaded != null) {
                         cfg = loaded;
                         boolean rewrite = cfg.migrateStalePack(); // servers pinned to a superseded pack
+                        rewrite |= cfg.migrateSupersededDefaults(); // defaults that changed between releases
                         // A file written by an older version has none of the options added since. They work
                         // — Gson leaves them at their defaults — but an option nobody can see in the file is
                         // an option nobody can change, so write the full set back with existing values kept.
@@ -487,6 +488,18 @@ public class GameplayConfig {
         }
         cfg.apply();
         return cfg;
+    }
+
+    /**
+     * Defaults that changed between releases follow their default to the new value. A stored value
+     * equal to the OLD default is almost certainly not a deliberate choice — it is what the mod wrote
+     * for the admin — so it upgrades, exactly like the superseded pack URLs below. A value that
+     * matches neither old nor new default is a real decision and is never touched.
+     */
+    private boolean migrateSupersededDefaults() {
+        boolean changed = false;
+        if (infusingCostPerLevel == 3) { infusingCostPerLevel = 2; changed = true; } // 2.1.3: 3 -> 2
+        return changed;
     }
 
     /** URLs of packs we've shipped as the default before; a config pinned to one of these predates the
