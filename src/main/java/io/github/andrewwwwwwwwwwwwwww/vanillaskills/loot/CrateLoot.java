@@ -43,12 +43,19 @@ public final class CrateLoot {
 
             // A pool of our own, so a crate is a bonus on top of the normal catch rather than replacing it.
             // Weighted against empty, which is what keeps crates rare.
+            //
+            // Both weights are scaled ×10 so `quality` — vanilla's "add this per point of fishing luck to
+            // the entry's weight" — nudges the odds by ~10% relative per point instead of doubling them.
+            // Fishing luck is Luck of the Sea's level plus the luck attribute, so the Fortune Finder lane
+            // counts too: at defaults, 2.4% base → ~3.2% with LotS III → ~4.3% with a maxed lane on top.
+            // Unboxing deliberately stays out of this roll: it decides WHICH crate, not how often.
             event.getTable().addPool(LootPool.lootPool()
                     .setRolls(ConstantValue.exactly(1.0f))
                     .add(EmptyLootItem.emptyItem()
-                            .setWeight(Math.max(1, GameplayConfig.CRATE_FISHING_EMPTY_WEIGHT)))
+                            .setWeight(Math.max(1, GameplayConfig.CRATE_FISHING_EMPTY_WEIGHT) * 10))
                     .add(NestedLootTable.lootTableReference(CRATE_FISHING)
-                            .setWeight(GameplayConfig.CRATE_FISHING_WEIGHT))
+                            .setWeight(GameplayConfig.CRATE_FISHING_WEIGHT * 10)
+                            .setQuality(GameplayConfig.CRATE_FISHING_LUCK_QUALITY))
                     .build());
         });
     }

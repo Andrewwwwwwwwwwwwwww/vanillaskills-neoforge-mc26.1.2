@@ -293,7 +293,7 @@
   "vanillaskills.points.trader": "流浪商人",
   "vanillaskills.points.trader.desc": "向你收購原料並以技能碎片支付 — 鐵錠、\n地獄合金碎塊、作物與方塊。\n每項交易僅供應一次，不會補貨。",
   "vanillaskills.points.crates": "箱子",
-  "vanillaskills.points.crates.desc": "約 %s 的漁獲會額外釣起箱子。\n部分箱內含有技能碎片，\n你所在的生態域決定箱子的種類。",
+  "vanillaskills.points.crates.desc": "約 %s 的漁獲會額外釣起箱子。\n部分箱內含有技能碎片，\n你所在的生態域決定箱子的種類。\n海之眷顧可略增釣起箱子的機率；\n開箱樂則提升釣起箱子的等級。",
   "vanillaskills.points.bounties": "每日懸賞",
   "vanillaskills.points.bounties.desc": "懸賞板提供任務碎片，\n可在商店以 (%d:1) 轉換為技能碎片\n— 每天都能取得額外進度。",
   "vanillaskills.stats.available": "尚有 %d 個可用",
