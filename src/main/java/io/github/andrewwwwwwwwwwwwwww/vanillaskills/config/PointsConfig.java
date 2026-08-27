@@ -39,6 +39,24 @@ public class PointsConfig {
     public int startingPoints = 0;
     public Map<String, Integer> advancementOverrides = new HashMap<>();
 
+    /** Written into points.json as {@code "#option-guide"} — same idea as gameplay.json's: JSON has no
+     *  comments, so an extra key explains the options in place. Regenerated on every save. */
+    @com.google.gson.annotations.SerializedName("#option-guide")
+    public Map<String, String> optionGuide = buildOptionGuide();
+
+    static Map<String, String> buildOptionGuide() {
+        Map<String, String> g = new java.util.LinkedHashMap<>();
+        g.put("perAdvancement", "Skill Shards for an advancement with no display frame.");
+        g.put("valueTask", "Shards per common (square-frame) advancement.");
+        g.put("valueGoal", "Shards per goal (rounded-frame) advancement.");
+        g.put("valueChallenge", "Shards per purple challenge advancement.");
+        g.put("ignoreRecipeAdvancements", "Recipe advancements pay nothing.");
+        g.put("countedNamespaces", "Only advancements from these namespaces pay shards (guards against 300-advancement datapacks printing money).");
+        g.put("startingPoints", "Shards granted when a player first joins.");
+        g.put("advancementOverrides", "Per-advancement prices that REPLACE the frame value, keyed by advancement id. Roots are 0 - they complete on sight.");
+        return g;
+    }
+
     /** Value for an advancement: explicit override first, else by its frame type (task/goal/challenge). */
     public int pointsFor(net.minecraft.advancements.AdvancementHolder holder) {
         Integer override = advancementOverrides.get(holder.id().toString());
@@ -83,7 +101,10 @@ public class PointsConfig {
                     PointsConfig cfg = GSON.fromJson(json, PointsConfig.class);
                     if (cfg == null) cfg = new PointsConfig();
                     if (cfg.advancementOverrides == null) cfg.advancementOverrides = new HashMap<>();
-                    if (cfg.migrateSupersededDefaults()) cfg.save();
+                    cfg.optionGuide = buildOptionGuide(); // never let stale on-disk help text win
+                    boolean rewrite = cfg.migrateSupersededDefaults();
+                    rewrite |= !json.contains("\"#option-guide\""); // older file: write the guide in once
+                    if (rewrite) cfg.save();
                     return cfg;
                 }
             } catch (Exception e) {
@@ -98,6 +119,7 @@ public class PointsConfig {
     public void save() {
         Path path = path();
         if (path == null) return; // no world loaded
+        optionGuide = buildOptionGuide(); // the written guide always matches this build's options
         try {
             Files.createDirectories(path.getParent());
             Files.writeString(path, GSON.toJson(this));

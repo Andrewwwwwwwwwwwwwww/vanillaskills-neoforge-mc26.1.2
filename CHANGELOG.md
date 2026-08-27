@@ -1,5 +1,10 @@
 # VanillaSkills Changelog
 
+## [2.1.9] - 2026-08-26
+
+### Added
+- **The config files now explain themselves.** `gameplay.json` and `points.json` gain a `#option-guide` block with a one-line description of every option, written by the mod into its own per-world files (JSON has no comments, so an extra key is the next best thing). It regenerates on every save, so it always matches the installed version, and editing it is harmless. Existing files pick it up automatically on first load.
+
 ## [2.1.8] - 2026-08-26
 
 ### Changed
