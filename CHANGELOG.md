@@ -1,5 +1,10 @@
 # VanillaSkills Changelog
 
+## [2.1.6] - 2026-08-26
+
+### Fixed
+- **Repairing by combine is no longer free when the spare is unenchanted.** The material-based pricing charged a combine only for the enchantment levels on the sacrificed item — so feeding an enchanted fishing rod a plain spare restored its durability for nothing, while the mirrored arrangement charged per level. A same-item combine that restores durability now costs a flat fee (default **2 shards**, new option `anvilCombineRepairCost`), on top of any enchantment levels on the sacrifice. Material repairs are unaffected — those already price per unit.
+
 ## [2.1.5] - 2026-08-26
 
 ### Changed
