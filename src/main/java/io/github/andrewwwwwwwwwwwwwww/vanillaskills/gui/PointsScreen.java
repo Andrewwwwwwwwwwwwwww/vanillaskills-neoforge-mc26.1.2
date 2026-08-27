@@ -117,7 +117,9 @@ public final class PointsScreen {
                     "vanillaskills.points.crates.desc",
                     "About %s of catches pull up a crate alongside\n"
                     + "the fish. Some contain Skill Shards, and the\n"
-                    + "biome you fish in decides which crate you get.",
+                    + "biome you fish in decides which crate you get.\n"
+                    + "Luck of the Sea reels in a few more;\n"
+                    + "Unboxing upgrades which crate bites.",
                     pct(GameplayConfig.CRATE_FISHING_WEIGHT, GameplayConfig.CRATE_FISHING_EMPTY_WEIGHT))));
         }
 

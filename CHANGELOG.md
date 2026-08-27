@@ -1,5 +1,10 @@
 # VanillaSkills Changelog
 
+## [2.1.8] - 2026-08-26
+
+### Changed
+- **Luck of the Sea now reels in a few more crates.** Each point of fishing luck — Luck of the Sea's level plus the luck attribute, so the Fortune Finder lane counts — raises the crate catch rate by roughly +10% relative: at defaults, 2.4% base → ~3.2% with Luck of the Sea III → ~4.3% with a maxed Fortune Finder on top. Unboxing deliberately keeps its own job: it upgrades *which* crate bites (the Diamond bonus draw), not how often. New option `crateFishingLuckQuality` (0 makes the rate ignore luck). The Earning Skill Shards screen now spells out both roles.
+
 ## [2.1.7] - 2026-08-26
 
 ### Changed

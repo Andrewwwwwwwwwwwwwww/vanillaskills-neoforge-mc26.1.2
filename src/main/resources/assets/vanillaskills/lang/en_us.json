@@ -293,7 +293,7 @@
   "vanillaskills.points.trader": "Wandering Trader",
   "vanillaskills.points.trader.desc": "Buys raw materials from you and pays in Skill\nShards — iron, netherite scrap, crops and blocks.\nEach offer stocks once and does not restock.",
   "vanillaskills.points.crates": "Crates",
-  "vanillaskills.points.crates.desc": "About %s of catches pull up a crate alongside\nthe fish. Some contain Skill Shards, and the\nbiome you fish in decides which crate you get.",
+  "vanillaskills.points.crates.desc": "About %s of catches pull up a crate alongside\nthe fish. Some contain Skill Shards, and the\nbiome you fish in decides which crate you get.\nLuck of the Sea reels in a few more;\nUnboxing upgrades which crate bites.",
   "vanillaskills.points.bounties": "Daily Bounties",
   "vanillaskills.points.bounties.desc": "The bounty board gives Quest Shards,\nwhich you can convert to Skill Shards\n(%d:1) at the shop — extra progress every day.",
   "vanillaskills.stats.available": "%d available",

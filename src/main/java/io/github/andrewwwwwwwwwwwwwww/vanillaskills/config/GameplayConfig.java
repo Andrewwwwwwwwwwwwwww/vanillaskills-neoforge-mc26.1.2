@@ -194,6 +194,9 @@ public class GameplayConfig {
     /** Give the vanilla items that ship with no repair material one that fits (trident ← prismarine,
      *  bow/crossbow/rod ← string, flint-and-steel/shears ← iron, brush ← copper). */
     public static volatile boolean VANILLA_REPAIR_MATERIALS = true;
+    /** Loot `quality` on the crate catch: ~+10% relative crate odds per point of fishing luck
+     *  (Luck of the Sea level + the luck attribute). 0 makes the crate rate ignore luck. */
+    public static volatile int CRATE_FISHING_LUCK_QUALITY = 1;
     /** Dragon Scales dropped when a player kills the Ender Dragon, and on the world's FIRST player kill. */
     public static volatile int DRAGON_SCALE_DROP = 8;
     public static volatile int DRAGON_SCALE_FIRST_KILL_DROP = 32;
@@ -398,6 +401,9 @@ public class GameplayConfig {
     /** Give the vanilla items with no repair material one that fits: trident ← prismarine,
      *  bow/crossbow/fishing rod ← string, flint-and-steel/shears ← iron ingot, brush ← copper ingot. */
     public boolean vanillaRepairMaterials = true;
+    /** How much fishing luck (Luck of the Sea + the luck attribute) raises the crate catch rate:
+     *  roughly +10% relative odds per point at 1 (default). 0 makes the rate ignore luck. */
+    public int crateFishingLuckQuality = 1;
     /** Dragon Scales a player gets for killing the Ender Dragon (default 8). Only PLAYER kills drop. */
     public int dragonScaleDrop = 8;
     /** Dragon Scales for the world's very first player kill of the dragon (default 32). One time only. */
@@ -634,6 +640,7 @@ public class GameplayConfig {
         TASK_SHARD_COOLDOWN_SECONDS = Math.max(0, taskShardCooldownSeconds);
         TASK_SHARD_LUCK_BONUS = Math.max(0.0, taskShardLuckBonus);
         VANILLA_REPAIR_MATERIALS = vanillaRepairMaterials;
+        CRATE_FISHING_LUCK_QUALITY = Math.max(0, crateFishingLuckQuality);
         DRAGON_SCALE_DROP = Math.max(0, dragonScaleDrop);
         DRAGON_SCALE_FIRST_KILL_DROP = Math.max(0, dragonScaleFirstKillDrop);
         HORSE_STATS = horseStats;
