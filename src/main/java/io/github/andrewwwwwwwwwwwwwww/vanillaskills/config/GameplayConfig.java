@@ -122,6 +122,8 @@ public class GameplayConfig {
     public static volatile int ANVIL_REPAIR_PER_MATERIAL = 1;
     public static volatile int ANVIL_ENCHANT_PER_LEVEL = 1;
     public static volatile int ANVIL_RENAME_COST = 0;
+    /** Flat shards for a same-item combine that restores durability (the sacrifice is consumed for it). */
+    public static volatile int ANVIL_COMBINE_REPAIR_COST = 2;
     /** Read by {@code AnvilMenuMixin}: true = restore the vanilla 40-level "Too Expensive" cap. */
     public static volatile boolean ANVIL_TOO_EXPENSIVE_CAP = false;
     /** Read by {@code AnvilMenuMixin}: true restores letting an enchanted book be applied straight to a
@@ -305,6 +307,9 @@ public class GameplayConfig {
     public int anvilRepairCostPerMaterial = 1;
     public int anvilEnchantCostPerLevel = 1;
     public int anvilRenameCost = 0;
+    /** Flat shards for a same-item combine that restores durability (default 2). The durability comes
+     *  from consuming a whole second item, which per-material pricing otherwise never sees. */
+    public int anvilCombineRepairCost = 2;
     /** Restore vanilla's 40-level "Too Expensive" anvil cap (default false = no cap, costs still scale). */
     public boolean anvilTooExpensiveCap = false;
     /** Allow an enchanted book to be applied directly to a tool/armor piece in the anvil (default false).
@@ -579,6 +584,7 @@ public class GameplayConfig {
         ANVIL_REPAIR_PER_MATERIAL = Math.max(0, anvilRepairCostPerMaterial);
         ANVIL_ENCHANT_PER_LEVEL = Math.max(0, anvilEnchantCostPerLevel);
         ANVIL_RENAME_COST = Math.max(0, anvilRenameCost);
+        ANVIL_COMBINE_REPAIR_COST = Math.max(0, anvilCombineRepairCost);
         ANVIL_TOO_EXPENSIVE_CAP = anvilTooExpensiveCap;
         ANVIL_BOOKS_ON_ITEMS = anvilBooksOnItems;
         DRAGON_REPAIR_COST = Math.max(0, dragonRepairCost);

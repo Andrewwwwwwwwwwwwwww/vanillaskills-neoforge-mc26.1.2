@@ -280,6 +280,16 @@ public class AnvilMenuMixin {
         price += vanillaskills$enchantmentLevels(sacrifice)
                 * io.github.andrewwwwwwwwwwwwwww.vanillaskills.config.GameplayConfig.ANVIL_ENCHANT_PER_LEVEL;
 
+        // A same-item combine that restores durability consumed a whole item to do it, and that transfer
+        // was previously free whenever the sacrifice carried no enchantments — so repairing by feeding an
+        // enchanted rod a plain spare cost nothing, while the mirrored arrangement charged per level.
+        // Material repairs are excluded (repairItemCountCost prices those per unit above).
+        ItemStack left = self.getSlot(AnvilMenu.INPUT_SLOT).getItem();
+        if (this.repairItemCountCost <= 0 && !sacrifice.isEmpty()
+                && result.isDamageableItem() && result.getDamageValue() < left.getDamageValue()) {
+            price += io.github.andrewwwwwwwwwwwwwww.vanillaskills.config.GameplayConfig.ANVIL_COMBINE_REPAIR_COST;
+        }
+
         if (price <= 0) {
             // Nothing consumed and nothing merged: this is a rename.
             price = io.github.andrewwwwwwwwwwwwwww.vanillaskills.config.GameplayConfig.ANVIL_RENAME_COST;
