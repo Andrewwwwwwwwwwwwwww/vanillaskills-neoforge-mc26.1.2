@@ -1,5 +1,13 @@
 # VanillaSkills Changelog
 
+## [2.1.10] - 2026-08-27
+
+### Changed
+- **Infusing now costs exactly the level: 1 shard for a level-I enchantment, 2 for II, 5 for V** (`infusingCostPerLevel` drops from 2 to 1). With every other price in the economy now material-shaped, per-level was the last place a flat multiplier made things lumpy. Existing worlds on a stored default migrate automatically.
+
+### Fixed
+- **The shard count on the XP bar no longer vanishes on a dimension change (or respawn).** The client silently resets its XP display when the player entity is rebuilt, but the server's send-only-on-change reconcile believed the client was current — so the readout stayed blank until the balance next moved. Portal trips and respawns now force a refresh.
+
 ## [2.1.9] - 2026-08-26
 
 ### Added

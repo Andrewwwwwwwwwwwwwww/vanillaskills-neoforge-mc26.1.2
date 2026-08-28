@@ -209,6 +209,17 @@ public class VanillaSkills {
                 // means full health — but only a death respawn: an end-portal return keeps its health,
                 // where topping up would be a free heal.
                 if (!e.isEndConquered()) player.setHealth(player.getMaxHealth());
+                // The fresh client entity resets its XP display to zero, and the reconcile loop skips
+                // players whose number "hasn't changed" — so the shard readout stayed blank. Force it.
+                io.github.andrewwwwwwwwwwwwwww.vanillaskills.shard.ShardBar.push(player, true);
+            }
+        });
+
+        // Same client-side reset happens on a portal trip (nether or otherwise) without any respawn
+        // event firing, so the shard readout vanished until the balance next changed. Force it here too.
+        NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerChangedDimensionEvent e) -> {
+            if (e.getEntity() instanceof ServerPlayer player) {
+                io.github.andrewwwwwwwwwwwwwww.vanillaskills.shard.ShardBar.push(player, true);
             }
         });
 

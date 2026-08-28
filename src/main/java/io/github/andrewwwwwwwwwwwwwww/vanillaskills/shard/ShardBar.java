@@ -28,8 +28,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * experience mixins keep it there. The server remains the sole authority on what anything costs.
  *
  * <p>Sent on a throttle and only when the number actually changes, so a full server is a handful of tiny
- * packets rather than a per-tick stream. Re-sending on a timer also covers the cases where the client resets
- * its own copy — joining, respawning, changing dimension — without needing a hook for each.
+ * packets rather than a per-tick stream. ⚠ The throttle CANNOT cover the client silently resetting its own
+ * copy — join, respawn, dimension change — because the cached "last sent" still matches and the reconcile
+ * skips the player. Every such reset needs an explicit {@code push(player, true)} from its event hook.
  */
 public final class ShardBar {
     private ShardBar() {}
