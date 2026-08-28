@@ -263,8 +263,8 @@ public class GameplayConfig {
     /** Right-clicking an enchanting table opens the Infusing Table (default true). Set false to leave the
      *  vanilla enchanting screen in place — though with experience removed it cannot be paid for. */
     public boolean infusingEnabled = true;
-    /** Shards charged per level of the enchantment being applied (default 2, so Efficiency IV costs 8). */
-    public int infusingCostPerLevel = 2;
+    /** Shards charged per level of the enchantment being applied (default 1, so Efficiency IV costs 4). */
+    public int infusingCostPerLevel = 1;
     /** Which currency the Infusing Table charges: "skill" or "quest". Books are never consumed either way. */
     public String infusingCurrency = "skill";
     /** Enchantments whose shelved BOOK is consumed when infused, each "&lt;enchantment&gt;:&lt;minLevel&gt;".
@@ -605,7 +605,8 @@ public class GameplayConfig {
      */
     private boolean migrateSupersededDefaults() {
         boolean changed = false;
-        if (infusingCostPerLevel == 3) { infusingCostPerLevel = 2; changed = true; } // 2.1.3: 3 -> 2
+        // 2.1.3 took the default 3 -> 2; 2.1.10 took it to 1, so a level-N enchantment costs N shards.
+        if (infusingCostPerLevel == 3 || infusingCostPerLevel == 2) { infusingCostPerLevel = 1; changed = true; }
         return changed;
     }
 
