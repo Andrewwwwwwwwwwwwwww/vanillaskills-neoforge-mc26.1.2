@@ -1,4 +1,6 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": { "layer0": "vanillaskills:item/crate_wooden" }
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "vanillaskills:item/crate_wooden"
+  }
 }

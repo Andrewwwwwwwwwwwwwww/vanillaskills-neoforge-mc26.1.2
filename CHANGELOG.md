@@ -1,5 +1,13 @@
 # VanillaSkills Changelog
 
+## [2.1.14] - 2026-08-28
+
+### Fixed
+- **Crates were flat sprites in single player and cubes on servers; the shard blocks were slightly oversized.** The same jar-versus-pack drift that 2.1.13 fixed for textures also existed in the models — eight files where the mod carried `item/generated` (a flat 2D sprite) while the pack carried `block/cube_all` (a proper cube). The mod now ships the pack's models, so a crate looks the same wherever you play.
+
+### Changed
+- `tools/check-assets.js` now compares the **whole** shared asset tree rather than only `textures/`, which is why the model drift above went unnoticed when the tool was written. `lang/` stays excluded, since the pack's copy is regenerated at build time.
+
 ## [2.1.13] - 2026-08-28
 
 ### Fixed
