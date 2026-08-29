@@ -1,5 +1,10 @@
 # VanillaSkills Changelog
 
+## [2.1.11] - 2026-08-27
+
+### Fixed
+- **The shard readout really survives dimension changes now.** 2.1.10's fix pushed the count immediately on the change — and lost a race: vanilla marks its own experience state stale on the entity rebuild and re-sends the player's real level (0) a tick later, wiping the pushed value. The hooks now clear the send-cache instead, so the regular reconcile re-sends the count safely *after* vanilla's zero. Worst case the bar is blank for half a second instead of forever.
+
 ## [2.1.10] - 2026-08-27
 
 ### Changed

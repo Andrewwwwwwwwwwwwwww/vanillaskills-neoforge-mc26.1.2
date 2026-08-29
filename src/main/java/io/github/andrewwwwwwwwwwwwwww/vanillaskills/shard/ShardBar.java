@@ -29,8 +29,11 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * <p>Sent on a throttle and only when the number actually changes, so a full server is a handful of tiny
  * packets rather than a per-tick stream. ⚠ The throttle CANNOT cover the client silently resetting its own
- * copy — join, respawn, dimension change — because the cached "last sent" still matches and the reconcile
- * skips the player. Every such reset needs an explicit {@code push(player, true)} from its event hook.
+ * copy — respawn and dimension change — because the cached "last sent" still matches and the reconcile
+ * skips the player. And an immediate {@code push(force=true)} from those hooks LOSES anyway: vanilla marks
+ * its own lastSentExp stale on the entity rebuild and re-sends the real level (0) a tick later, wiping
+ * whatever was pushed first. The working recipe is {@code forget(player)} from the hook — the next
+ * reconcile (≤10 ticks) then re-sends, safely after vanilla's zero.
  */
 public final class ShardBar {
     private ShardBar() {}
