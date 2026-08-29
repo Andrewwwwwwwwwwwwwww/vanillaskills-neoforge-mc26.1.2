@@ -209,17 +209,19 @@ public class VanillaSkills {
                 // means full health — but only a death respawn: an end-portal return keeps its health,
                 // where topping up would be a free heal.
                 if (!e.isEndConquered()) player.setHealth(player.getMaxHealth());
-                // The fresh client entity resets its XP display to zero, and the reconcile loop skips
-                // players whose number "hasn't changed" — so the shard readout stayed blank. Force it.
-                io.github.andrewwwwwwwwwwwwwww.vanillaskills.shard.ShardBar.push(player, true);
+                // The rebuilt client resets its XP display, so the shard readout went blank. An immediate
+                // forced push LOSES here: vanilla marks its own lastSentExp stale on the rebuild and re-sends
+                // the player's REAL experience (level 0) on the next tick, wiping anything we sent first.
+                // Clearing our cache instead makes the ~10-tick reconcile re-send AFTER vanilla's zero.
+                io.github.andrewwwwwwwwwwwwwww.vanillaskills.shard.ShardBar.forget(player);
             }
         });
 
         // Same client-side reset happens on a portal trip (nether or otherwise) without any respawn
-        // event firing, so the shard readout vanished until the balance next changed. Force it here too.
+        // event firing. Same race, same fix: clear the cache and let the reconcile outlast vanilla's zero.
         NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerChangedDimensionEvent e) -> {
             if (e.getEntity() instanceof ServerPlayer player) {
-                io.github.andrewwwwwwwwwwwwwww.vanillaskills.shard.ShardBar.push(player, true);
+                io.github.andrewwwwwwwwwwwwwww.vanillaskills.shard.ShardBar.forget(player);
             }
         });
 
