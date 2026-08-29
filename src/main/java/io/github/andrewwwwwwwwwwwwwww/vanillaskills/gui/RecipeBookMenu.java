@@ -24,6 +24,7 @@ public class RecipeBookMenu extends ChestMenu {
     private static final int RESULT_SLOT = 24;
     private static final int TITLE_SLOT = 4;
     private static final int BACK_SLOT = 45;
+    private static final int SKILLS_SLOT = 46;
     private static final int PREV_SLOT = 48;
     private static final int INFO_SLOT = 49;
     private static final int NEXT_SLOT = 50;
@@ -54,7 +55,7 @@ public class RecipeBookMenu extends ChestMenu {
     }
 
     /** Stable recipe key: "Rose Gold Ingot (x4)" -> vanillaskills.recipe.rose_gold_ingot_x4 */
-    private static String recipeKey(String title) {
+    static String recipeKey(String title) {
         return "vanillaskills.recipe." + title.toLowerCase().replaceAll("[^a-z0-9]+","_").replaceAll("^_+|_+$","");
     }
 
@@ -71,7 +72,8 @@ public class RecipeBookMenu extends ChestMenu {
         container.setItem(ARROW_SLOT, button(Items.SPECTRAL_ARROW, "→", ChatFormatting.WHITE, null));
         container.setItem(RESULT_SLOT, rec.result().copy());
 
-        container.setItem(BACK_SLOT, button(Items.ARROW, t("vanillaskills.menu.recipe.back","Back to Skills"), ChatFormatting.YELLOW, null));
+        container.setItem(BACK_SLOT, button(Items.BOOK, t("vanillaskills.menu.recipe.list","Back to the recipe list"), ChatFormatting.YELLOW, null));
+        container.setItem(SKILLS_SLOT, button(Items.ARROW, t("vanillaskills.menu.recipe.skills","Back to Skills"), ChatFormatting.YELLOW, null));
         container.setItem(INFO_SLOT, button(Items.PAPER, t("vanillaskills.menu.recipe.page","Recipe %d / %d", page + 1, recipes.size()),
                 ChatFormatting.GRAY, null));
         if (page > 0) container.setItem(PREV_SLOT, button(Items.ARROW, t("vanillaskills.menu.recipe.prev","◀ Previous"), ChatFormatting.YELLOW, null));
@@ -110,7 +112,8 @@ public class RecipeBookMenu extends ChestMenu {
         if (!(clicker instanceof ServerPlayer sp)) { sendAllDataToRemote(); return; }
         switch (slotId) {
             case CLOSE_SLOT -> { sp.closeContainer(); return; }
-            case BACK_SLOT -> { SkillTreeMenu.open(sp); return; }
+            case BACK_SLOT -> { RecipeIndexMenu.open(sp, RecipeIndexMenu.pageOf(page)); return; }
+            case SKILLS_SLOT -> { SkillTreeMenu.open(sp); return; }
             case PREV_SLOT -> { if (page > 0) open(sp, page - 1); return; }
             case NEXT_SLOT -> { if (page < recipes.size() - 1) open(sp, page + 1); return; }
             default -> sendAllDataToRemote();

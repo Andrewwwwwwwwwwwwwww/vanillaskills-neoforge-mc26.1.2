@@ -1,5 +1,13 @@
 # VanillaSkills Changelog
 
+## [2.1.12] - 2026-08-27
+
+### Added
+- **The recipe book opens on a contents page.** Every custom recipe is listed as its finished item in one clickable grid — click an item to see its crafting grid, then go back to the list or straight to the skill tree from the same row of buttons. Thirty-odd recipes previously had to be reached by clicking "Next" until the right one appeared.
+
+### Fixed
+- **The Skill Shard count on the XP bar is now self-healing.** The readout was only re-sent when the balance changed, so any moment the client silently dropped its copy left the bar blank indefinitely. Two releases tried to enumerate those moments (respawn, dimension change) and both missed cases. The count is now simply re-sent twice a second — a dozen bytes per player — so it repairs itself within half a second no matter what caused the loss.
+
 ## [2.1.11] - 2026-08-27
 
 ### Fixed

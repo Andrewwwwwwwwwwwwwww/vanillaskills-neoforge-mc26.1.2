@@ -569,7 +569,7 @@ public class SkillTreeMenu extends ChestMenu {
                 return false; // lane hidden by config — its slot is empty for players
             }
             if ("recipes".equals(cat.id)) {
-                RecipeBookMenu.open(sp, 0);
+                RecipeIndexMenu.open(sp);
                 return true;
             }
             if ("guide".equals(cat.id)) {

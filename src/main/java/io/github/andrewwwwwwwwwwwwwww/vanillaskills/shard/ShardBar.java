@@ -27,13 +27,11 @@ import java.util.concurrent.ConcurrentHashMap;
  * <p><b>Display only.</b> Nothing here touches {@code ServerPlayer.experienceLevel}, which stays 0 — the
  * experience mixins keep it there. The server remains the sole authority on what anything costs.
  *
- * <p>Sent on a throttle and only when the number actually changes, so a full server is a handful of tiny
- * packets rather than a per-tick stream. ⚠ The throttle CANNOT cover the client silently resetting its own
- * copy — respawn and dimension change — because the cached "last sent" still matches and the reconcile
- * skips the player. And an immediate {@code push(force=true)} from those hooks LOSES anyway: vanilla marks
- * its own lastSentExp stale on the entity rebuild and re-sends the real level (0) a tick later, wiping
- * whatever was pushed first. The working recipe is {@code forget(player)} from the hook — the next
- * reconcile (≤10 ticks) then re-sends, safely after vanilla's zero.
+ * <p>Re-sent unconditionally twice a second rather than only when the balance changes. That is deliberate:
+ * the client drops its copy on respawn and dimension change (vanilla re-sends the player's real level, 0,
+ * once its own send-tracking is reset by the entity rebuild), and trying to enumerate those moments failed
+ * twice — a cached "already sent" turns any missed case into a permanently blank bar. An unconditional
+ * refresh is self-healing whatever the cause, and the packet is a dozen bytes.
  */
 public final class ShardBar {
     private ShardBar() {}
@@ -48,7 +46,14 @@ public final class ShardBar {
         if (!GameplayConfig.SHARDS_IN_XP_BAR) return;
         if (tickCount % INTERVAL != 0) return;
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
-            push(player, false);
+            // Unconditional re-send, NOT "only when the number changed".
+            //
+            // Two releases tried to enumerate the moments a client silently drops our value (respawn,
+            // dimension change) and refresh at exactly those points. Both missed: the client can reset
+            // its own copy for reasons the server cannot observe, and any cached "already sent" then
+            // hides the loss forever. Re-sending every half second is self-healing whatever the cause —
+            // and the packet is a dozen bytes, so even a full server is a rounding error of bandwidth.
+            push(player, true);
         }
     }
 
