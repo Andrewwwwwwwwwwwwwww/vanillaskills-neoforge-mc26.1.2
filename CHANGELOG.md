@@ -1,5 +1,14 @@
 # VanillaSkills Changelog
 
+## [2.1.13] - 2026-08-28
+
+### Fixed
+- **Skill Shards, the shard blocks and six of the seven crates showed the purple-and-black missing-texture square in single player.** The 2.0 art drop went into the pushed texture pack but was never copied back into the mod's own resources, so the jar still carried 155-byte placeholders for those nine items. Servers hid it — every client gets the pack on join — but single player pushes no pack, leaving the jar as the only source of art. The real textures now ship inside the mod as well.
+- **The language file failed to load entirely, in every language.** A second `vanillaskills.points.tasks` key was added for the Hard Work entry while the original (the advancement frame type) still existed. Gson rejects a duplicate key by throwing on the whole file, so every string fell back to its hardcoded English and Traditional Chinese did not work at all. The new entry is now `vanillaskills.points.hardwork`.
+
+### Added
+- `tools/check-assets.js` — fails the build ritual on either of the above: any mod texture that differs from the pack's copy, any duplicate language key, and any key present in one language but not another. Both bugs were invisible to `check-parity.js`, which compares the four editions against each other and so cannot see a fault copied into all of them.
+
 ## [2.1.12] - 2026-08-27
 
 ### Added

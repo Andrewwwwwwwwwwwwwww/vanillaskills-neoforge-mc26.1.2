@@ -94,8 +94,8 @@ public final class PointsScreen {
 
         if (GameplayConfig.TASK_SHARD_CHANCE > 0) {
             items.add(item(Items.IRON_PICKAXE,
-                    Lang.tr(player, "vanillaskills.points.tasks", "Hard Work"), ChatFormatting.GOLD, lines(player,
-                    "vanillaskills.points.tasks.desc",
+                    Lang.tr(player, "vanillaskills.points.hardwork", "Hard Work"), ChatFormatting.GOLD, lines(player,
+                    "vanillaskills.points.hardwork.desc",
                     "Mining, building and harvesting crops each\n"
                     + "have about a %s chance to shake a shard\n"
                     + "loose — at most one every %d minutes.\n"
