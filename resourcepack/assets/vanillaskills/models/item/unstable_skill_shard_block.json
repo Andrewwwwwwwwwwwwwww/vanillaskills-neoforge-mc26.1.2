@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "vanillaskills:item/unstable_skill_shard_block"
+  }
+}

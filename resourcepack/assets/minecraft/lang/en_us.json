@@ -1,0 +1,11 @@
+{
+  "block.minecraft.enchanting_table": "Infusing Table",
+  "item.minecraft.enchanting_table": "Infusing Table",
+  "container.enchant": "Infusing Table",
+  "container.repair.cost": "Skill Shard Cost: %1$s",
+  "container.repair.expensive": "Not enough Skill Shards!",
+  "block.minecraft.reinforced_deepslate": "Unstable Skill Shard Block",
+  "item.minecraft.reinforced_deepslate": "Unstable Skill Shard Block",
+  "block.minecraft.lodestone": "Stable Skill Shard Block",
+  "item.minecraft.lodestone": "Stable Skill Shard Block"
+}

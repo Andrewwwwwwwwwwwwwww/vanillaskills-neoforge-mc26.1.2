@@ -1,0 +1,11 @@
+{
+  "block.minecraft.enchanting_table": "灌注台",
+  "item.minecraft.enchanting_table": "灌注台",
+  "container.enchant": "灌注台",
+  "container.repair.cost": "技能碎片消耗：%1$s",
+  "container.repair.expensive": "技能碎片不足！",
+  "block.minecraft.reinforced_deepslate": "不穩定技能碎片方塊",
+  "item.minecraft.reinforced_deepslate": "不穩定技能碎片方塊",
+  "block.minecraft.lodestone": "穩定技能碎片方塊",
+  "item.minecraft.lodestone": "穩定技能碎片方塊"
+}

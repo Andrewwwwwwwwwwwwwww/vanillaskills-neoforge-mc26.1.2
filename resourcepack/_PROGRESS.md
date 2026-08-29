@@ -10,15 +10,19 @@ Working pack (populated copy of `../texturepack-template/`). Item icons **16×16
   `<tier>_spear_in_hand.png`. Item override on the base spear selects by `display_context`.
 - Tiers: `hardwood`, `rose_gold`, `steel`, `crystal`, `dragon`
 
-## STATUS: COMPLETE (58/58 icons · 10/10 worn)
+## STATUS: COMPLETE (68/68 icons · 10/10 worn)
 
 ### Worn armor — 10/10 ✅
 - [x] hardwood · [x] rose_gold · [x] steel · [x] crystal · [x] dragon  (humanoid + leggings each)
 - Pack ships `equipment/<tier>.json` for all 5 tiers (override the mod jar's base-material fallback).
 
-### Item icons — 58/58 ✅ COMPLETE
+### Item icons — 68/68 ✅ COMPLETE
 All armor (4×5), all tools incl. spears (6×5), all ingots/materials, dragon scale+template, steel_shield.
 - [x] Dragon (13) · [x] Hardwood (10) · [x] Rose Gold (11) · [x] Steel (12) · [x] Crystalline (11)
+- [x] **Crates (7)** and **shard items (3)** — supplied 2026-08-15, completing 2.0.
+  The 7 crates and both shard BLOCKS are full-cube models (`minecraft:block/cube_all`): one 16x16
+  drawn on all six faces, so they render as real blocks in the inventory and in hand. Only
+  `unstable_skill_shard` is a flat `item/generated` sprite.
 - [x] **fortune_template** — supplied 2026-06-23 (from Downloads `fortune_upgrade.png`, 16×16);
   wiring restored (`minecraft/items/echo_shard.json` + `models/item/fortune_template.json`).
 
