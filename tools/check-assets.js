@@ -24,9 +24,16 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
-const MOD_TEX = path.join(ROOT, 'src/main/resources/assets/vanillaskills/textures');
-const PACK_TEX = path.join(ROOT, 'resourcepack/assets/vanillaskills/textures');
-const LANG = path.join(ROOT, 'src/main/resources/assets/vanillaskills/lang');
+// Compare the WHOLE shared asset tree, not just textures/. The first version of this check only
+// walked textures/ and therefore missed that models/ had drifted exactly the same way: the crates
+// were `item/generated` (a flat sprite) in the jar and `block/cube_all` (a cube) in the pack, so a
+// crate looked different in single player than on a server. Any subtree common to both must match.
+const MOD_ASSETS = path.join(ROOT, 'src/main/resources/assets/vanillaskills');
+const PACK_ASSETS = path.join(ROOT, 'resourcepack/assets/vanillaskills');
+// lang/ is the one deliberate exception: tools/build-pack.sh regenerates the pack's copy from the
+// mod's at build time, so a difference here is staleness in the built zip, not a source-tree fault.
+const SHARED_SKIP = new Set(['lang']);
+const LANG = path.join(MOD_ASSETS, 'lang');
 
 let problems = 0;
 const fail = (msg) => { console.error('  ✗ ' + msg); problems++; };
@@ -41,21 +48,31 @@ function walk(dir, base = dir, out = []) {
   return out;
 }
 
-// --- 1. mod textures must match the pack, byte for byte -------------------------------------
-console.log('Textures: mod jar vs pushed pack');
-if (!fs.existsSync(PACK_TEX)) {
-  fail('resourcepack textures not found at ' + PACK_TEX);
+// --- 1. shared assets must match the pack, byte for byte ------------------------------------
+console.log('Shared assets: mod jar vs pushed pack');
+if (!fs.existsSync(PACK_ASSETS)) {
+  fail('resourcepack assets not found at ' + PACK_ASSETS);
 } else {
-  for (const rel of walk(MOD_TEX)) {
-    const a = path.join(MOD_TEX, rel);
-    const b = path.join(PACK_TEX, rel);
-    if (!fs.existsSync(b)) { fail(`pack is missing ${rel} (mod has it)`); continue; }
-    if (!fs.readFileSync(a).equals(fs.readFileSync(b))) {
-      fail(`${rel} differs between the mod and the pack — single player would show the mod's copy`);
+  const shared = (root) =>
+    fs.readdirSync(root, { withFileTypes: true })
+      .filter((e) => e.isDirectory() && !SHARED_SKIP.has(e.name))
+      .map((e) => e.name);
+
+  for (const sub of shared(MOD_ASSETS)) {
+    const modDir = path.join(MOD_ASSETS, sub);
+    const packDir = path.join(PACK_ASSETS, sub);
+    if (!fs.existsSync(packDir)) continue; // mod-only subtree (e.g. items/ definitions) — fine
+    for (const rel of walk(modDir)) {
+      const a = path.join(modDir, rel);
+      const b = path.join(packDir, rel);
+      if (!fs.existsSync(b)) { fail(`pack is missing ${sub}/${rel} (mod has it)`); continue; }
+      if (!fs.readFileSync(a).equals(fs.readFileSync(b))) {
+        fail(`${sub}/${rel} differs — single player shows the mod's copy, servers show the pack's`);
+      }
     }
-  }
-  for (const rel of walk(PACK_TEX)) {
-    if (!fs.existsSync(path.join(MOD_TEX, rel))) fail(`mod is missing ${rel} (pack has it)`);
+    for (const rel of walk(packDir)) {
+      if (!fs.existsSync(path.join(modDir, rel))) fail(`mod is missing ${sub}/${rel} (pack has it)`);
+    }
   }
 }
 
