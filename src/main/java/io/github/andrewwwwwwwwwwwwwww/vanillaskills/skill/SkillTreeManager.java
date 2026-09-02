@@ -289,10 +289,10 @@ public class SkillTreeManager {
                 new String[]{"Step up taller ledges (sneak to walk normally)", "Step up a full block",
                         "Step up 1.1 blocks — /skill toggle stepup"});
 
-        // Aquatic: 9 nodes spreading three underwater perks — breath, swim speed, underwater mining.
+        // Aquatic: 6 nodes spreading two underwater perks — breath and swim speed.
         // Costs ramp up steeply so reaching full underwater capability is a real investment.
         addLaneNodes(t, "aquatic", "Aquatic", "minecraft:heart_of_the_sea", 8,
-                gridSlots(9), new int[]{3, 5, 7, 9, 12, 15, 19, 25, 30},
+                gridSlots(6), new int[]{3, 5, 7, 9, 12, 15},
                 new SkillEffect[][]{
                         {SkillEffect.attribute("minecraft:oxygen_bonus", "add_value", 1.0)},
                         {SkillEffect.attribute("minecraft:oxygen_bonus", "add_value", 1.0)},
@@ -305,16 +305,12 @@ public class SkillTreeManager {
                         {SkillEffect.attribute("minecraft:water_movement_efficiency", "add_value", 0.33),
                                 SkillEffect.status("minecraft:dolphins_grace", 1)},
                         {SkillEffect.attribute("minecraft:water_movement_efficiency", "add_value", 0.33),
-                                SkillEffect.status("minecraft:dolphins_grace", 2)},
-                        {SkillEffect.attribute("minecraft:submerged_mining_speed", "add_value", 0.27)},
-                        {SkillEffect.attribute("minecraft:submerged_mining_speed", "add_value", 0.27)},
-                        {SkillEffect.attribute("minecraft:submerged_mining_speed", "add_value", 0.26)}
+                                SkillEffect.status("minecraft:dolphins_grace", 2)}
                 },
                 new String[]{"+1 breath", "+1 breath (+2)", "+1 breath (+3)",
                         "Faster swimming — Dolphin's Grace, stacks with Depth Strider",
                         "Faster swimming + walk through water at land speed",
-                        "Full swim speed & water movement",
-                        "+27% underwater mining", "+54% underwater mining", "Full underwater mining"});
+                        "Full swim speed & water movement"});
 
         // Armorsmith: a 10-tier ladder (paid in QUEST SHARDS) that gates crafting each armour tier,
         // climbing Hardwood → Copper → Gold → Rose Gold → Iron → Steel → Diamond → Crystalline →

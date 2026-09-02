@@ -1,5 +1,10 @@
 # VanillaSkills Changelog
 
+## [2.1.16] - 2026-08-28
+
+### Changed
+- Aquatic lane rebalanced.
+
 ## [2.1.15] - 2026-08-28
 
 ### Changed
