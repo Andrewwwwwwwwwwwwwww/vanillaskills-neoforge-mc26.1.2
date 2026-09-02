@@ -79,6 +79,11 @@ public class PlayerSkillManager {
             data.unlocked.add(SkillTree.ROOT_ID);
         }
 
+        // Hand back the shards spent on any node a later version deleted, before anything reads the
+        // balance. Their ids linger in the unlocked set doing nothing, so without this the spend is
+        // simply lost. Pays once and drops the ids as it goes.
+        RemovedNodes.reconcile(player, data);
+
         applyAll(player);
         reevaluateAdvancements(player); // retroactively grant path/completion rewards
 

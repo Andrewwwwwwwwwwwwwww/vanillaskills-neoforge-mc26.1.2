@@ -427,6 +427,23 @@ public class SkillTreeManager {
         }
     }
 
+    /**
+     * Total authored weight of the nodes the economy actually scales — the divisor {@link #applyEconomy}
+     * prices against. Exposed so {@link RemovedNodes} can reconstruct what a since-deleted node used to
+     * cost: add its weight back to this and the old scale factor falls out.
+     */
+    public static int scalableWeight(SkillTree t) {
+        int sum = 0;
+        for (SkillNode n : t.nodes) {
+            if (isFixedOrQuestLane(n)) continue;
+            sum += Math.max(1, n.weight);
+        }
+        return sum;
+    }
+
+    /** Night Vision fixed price, held outside the scaled budget. */
+    public static final int NIGHT_VISION_COST = 75;
+
     private static boolean isFixedOrQuestLane(SkillNode n) {
         return "nightvision".equals(n.category) || "armorsmith".equals(n.category) || "toolsmith".equals(n.category);
     }
