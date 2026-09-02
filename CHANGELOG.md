@@ -3,7 +3,7 @@
 ## [2.1.16] - 2026-08-28
 
 ### Changed
-- Aquatic lane rebalanced.
+- Aquatic lane rebalanced. Shards spent on any node the rebalance dropped are refunded automatically on the next join — priced from the economy that was in force when they were bought, so the figure is right whatever a server total earnable happens to be.
 
 ## [2.1.15] - 2026-08-28
 

@@ -673,6 +673,7 @@
   "vanillaskills.menu.infuse.cant_afford": "%s 不足",
   "vanillaskills.menu.infuse.go": "點擊以灌注",
   "vanillaskills.menu.infuse.item_changed": "你手持的物品變更了 — 正在重新開啟。",
+  "vanillaskills.msg.node_refund": "已退還 %d 技能碎片（來自已不存在於技能樹的技能）。",
   "vanillaskills.msg.infuse_no_books": "附近沒有上架的附魔書。請放進灌注台周圍的雕紋書架。",
   "vanillaskills.msg.infused": "已灌注 %d 項附魔，花費 %d %s。",
   "vanillaskills.menu.infuse.nothing_to_do": "這些都不會改變此物品。",

@@ -673,6 +673,7 @@
   "vanillaskills.menu.infuse.cant_afford": "Not enough %s",
   "vanillaskills.menu.infuse.go": "Click to infuse",
   "vanillaskills.menu.infuse.item_changed": "Your held item changed — reopening.",
+  "vanillaskills.msg.node_refund": "Refunded %d Skill Shards from skills that are no longer in the tree.",
   "vanillaskills.msg.infuse_no_books": "No enchanted books shelved nearby. Put them in chiseled bookshelves around the table.",
   "vanillaskills.msg.infused": "Infused %d enchantment(s) for %d %s.",
   "vanillaskills.menu.infuse.nothing_to_do": "Nothing there would change this item.",
