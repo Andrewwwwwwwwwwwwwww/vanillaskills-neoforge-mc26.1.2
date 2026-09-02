@@ -1,5 +1,13 @@
 # VanillaSkills Changelog
 
+## [2.1.15] - 2026-08-28
+
+### Changed
+- **The Infusing Table pages instead of truncating.** It has 21 slots and simply stopped drawing after the 21st offer, so anything past that was unreachable — no scrolling, no sign it existed. Previous/Next buttons flank Confirm when there is more than one page, and selections are held per enchantment, so picking something on one page and paying on another works as expected.
+- **Enchantments the held item can take are listed first.** The order is worked out against whatever you are holding the moment the screen opens, so what fits is on page one and in shelf order, with the rest behind it.
+- **An applicable enchantment now shows as an Enchanted Book, an inapplicable one as a plain Book.** Colour alone was carrying that distinction; the icon carries it now, with the selection glint on top, so the three states — cannot use, can use, picked — read at a glance.
+- New option `infusingHideIncompatible`: leave enchantments the item cannot take out of the list entirely rather than greying them out. Off by default, since seeing what your shelves hold is usually worth the clutter.
+
 ## [2.1.14] - 2026-08-28
 
 ### Fixed

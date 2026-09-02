@@ -47,6 +47,8 @@ public class InfusingMenu extends ChestMenu {
             28, 29, 30, 31, 32, 33, 34};
     private static final int ITEM_SLOT = 4;
     private static final int CONFIRM_SLOT = 49;
+    private static final int PREV_SLOT = 48;
+    private static final int NEXT_SLOT = 50;
     private static final int CLOSE_SLOT = 53;
 
     private final ServerPlayer player;
@@ -57,6 +59,9 @@ public class InfusingMenu extends ChestMenu {
     private final Set<Holder<Enchantment>> selected = new LinkedHashSet<>();
     /** The item this screen was opened against — used to notice a swap mid-session. */
     private final ItemStack boundItem;
+    /** Which page of {@link #ENCHANT_SLOTS} is on screen. Selections are held per enchantment rather
+     *  than per page, so paging never disturbs the basket or what it costs. */
+    private int page;
 
     public static void open(ServerPlayer player, BlockPos tablePos) {
         if (!(player.level() instanceof ServerLevel level)) return;
@@ -83,6 +88,32 @@ public class InfusingMenu extends ChestMenu {
         populate();
     }
 
+    /**
+     * Lay the shelves' offer out for the item in hand: everything that fits first, in the order the
+     * shelves gave them, then everything that does not.
+     *
+     * <p>Done ONCE, against the item the screen is bound to, rather than on every redraw. Re-sorting as
+     * selections change would make icons jump out from under the cursor, and the screen already reopens
+     * when the held item changes — so the order always matches what is being infused.
+     *
+     * <p>It also decides what lands on page one. Overflow now pages rather than being dropped, but a
+     * well-stocked library can still run to several pages, and the enchantments that actually fit the
+     * item should never be the ones you have to go looking for.
+     */
+    private static List<Map.Entry<Holder<Enchantment>, Integer>> order(
+            Map<Holder<Enchantment>, Integer> available, ItemStack held) {
+        Set<Holder<Enchantment>> none = Set.of();
+        List<Map.Entry<Holder<Enchantment>, Integer>> all = new ArrayList<>(available.entrySet());
+        if (GameplayConfig.INFUSING_HIDE_INCOMPATIBLE) {
+            all.removeIf(e -> !InfusingTable.canApply(held, e.getKey(), e.getValue(), none));
+            return all;
+        }
+        // List.sort is stable, so entries that fit equally well keep the order the shelves offered them in.
+        all.sort(java.util.Comparator.comparingInt(
+                e -> InfusingTable.canApply(held, e.getKey(), e.getValue(), none) ? 0 : 1));
+        return all;
+    }
+
     private String t(String key, String fallback, Object... args) {
         return Lang.tr(player, key, fallback, args);
     }
@@ -90,8 +121,13 @@ public class InfusingMenu extends ChestMenu {
     private void populate() {
         for (int i = 0; i < container.getContainerSize(); i++) container.setItem(i, ItemStack.EMPTY);
         container.setItem(ITEM_SLOT, targetDisplay());
-        for (int i = 0; i < offered.size() && i < ENCHANT_SLOTS.length; i++) {
-            container.setItem(ENCHANT_SLOTS[i], enchantIcon(offered.get(i)));
+        int start = page * ENCHANT_SLOTS.length;
+        for (int i = 0; i < ENCHANT_SLOTS.length && start + i < offered.size(); i++) {
+            container.setItem(ENCHANT_SLOTS[i], enchantIcon(offered.get(start + i)));
+        }
+        if (pageCount() > 1) {
+            if (page > 0) container.setItem(PREV_SLOT, pageButton(false));
+            if (page < pageCount() - 1) container.setItem(NEXT_SLOT, pageButton(true));
         }
         container.setItem(CONFIRM_SLOT, confirmButton());
         container.setItem(CLOSE_SLOT, button(Items.BARRIER, t("vanillaskills.menu.close", "Close"), ChatFormatting.RED));
@@ -121,7 +157,9 @@ public class InfusingMenu extends ChestMenu {
         // something else currently picked — so a conflict is visible before it costs anything.
         boolean applicable = chosen || InfusingTable.canApply(held, enchantment, level, selected);
 
-        ItemStack icon = new ItemStack(chosen ? Items.ENCHANTED_BOOK : Items.BOOK);
+        // The icon carries the verdict at a glance: an Enchanted Book is one this item can take, a plain
+        // Book is one it cannot. Selection adds the glint on top, so the three states never blur together.
+        ItemStack icon = new ItemStack(applicable ? Items.ENCHANTED_BOOK : Items.BOOK);
         Guis.hideStats(icon);
         icon.set(DataComponents.CUSTOM_NAME, Component.empty()
                 .append(Enchantment.getFullname(enchantment, level))
@@ -148,6 +186,23 @@ public class InfusingMenu extends ChestMenu {
         icon.set(DataComponents.LORE, new ItemLore(lore));
         if (chosen) icon.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true);
         return icon;
+    }
+
+    /** Pages needed to show every offer, never fewer than one (an empty screen is still page 1 of 1). */
+    private int pageCount() {
+        return Math.max(1, (offered.size() + ENCHANT_SLOTS.length - 1) / ENCHANT_SLOTS.length);
+    }
+
+    private ItemStack pageButton(boolean forward) {
+        ItemStack stack = new ItemStack(Items.ARROW);
+        Guis.hideStats(stack);
+        stack.set(DataComponents.CUSTOM_NAME, styled(forward
+                ? t("vanillaskills.menu.infuse.next", "Next ▶")
+                : t("vanillaskills.menu.infuse.prev", "◀ Previous"), ChatFormatting.YELLOW));
+        stack.set(DataComponents.LORE, new ItemLore(List.of(styled(
+                t("vanillaskills.menu.infuse.page", "Page %d / %d — %d enchantments",
+                        page + 1, pageCount(), offered.size()), ChatFormatting.GRAY))));
+        return stack;
     }
 
     private ItemStack confirmButton() {
@@ -216,10 +271,23 @@ public class InfusingMenu extends ChestMenu {
             confirm(sp);
             return;
         }
-        for (int i = 0; i < ENCHANT_SLOTS.length && i < offered.size(); i++) {
+        if (slotId == PREV_SLOT && page > 0) {
+            page--;
+            populate();
+            sendAllDataToRemote();
+            return;
+        }
+        if (slotId == NEXT_SLOT && page < pageCount() - 1) {
+            page++;
+            populate();
+            sendAllDataToRemote();
+            return;
+        }
+        int start = page * ENCHANT_SLOTS.length;
+        for (int i = 0; i < ENCHANT_SLOTS.length && start + i < offered.size(); i++) {
             if (slotId != ENCHANT_SLOTS[i]) continue;
-            Holder<Enchantment> enchantment = offered.get(i).getKey();
-            int level = offered.get(i).getValue();
+            Holder<Enchantment> enchantment = offered.get(start + i).getKey();
+            int level = offered.get(start + i).getValue();
             // Deselecting is always allowed. Selecting is checked against the item AND everything else
             // already picked, so a conflicting pair can never both end up in the basket.
             if (!selected.remove(enchantment)) {

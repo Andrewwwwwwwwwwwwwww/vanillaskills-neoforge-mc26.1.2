@@ -102,6 +102,9 @@ public class GameplayConfig {
     /** Infusing Table — replaces the enchanting table now that experience is gone. */
     public static volatile boolean INFUSING_ENABLED = true;
     public static volatile int INFUSING_COST_PER_LEVEL = 2;
+    /** Leave enchantments the held item cannot take out of the Infusing Table entirely, instead of
+     *  listing them greyed out after the ones that fit. */
+    public static volatile boolean INFUSING_HIDE_INCOMPATIBLE = false;
     /** "skill" or "quest" — which shard the table charges. */
     public static volatile String INFUSING_CURRENCY = "skill";
     /** Enchantments whose BOOK is burned when infused, as "<enchantment>:<minLevel>". */
@@ -267,6 +270,9 @@ public class GameplayConfig {
     public int infusingCostPerLevel = 1;
     /** Which currency the Infusing Table charges: "skill" or "quest". Books are never consumed either way. */
     public String infusingCurrency = "skill";
+    /** Hide enchantments the held item cannot take, rather than listing them greyed out below the ones
+     *  that fit (default false — greyed out, so players can still see what their shelves hold). */
+    public boolean infusingHideIncompatible = false;
     /** Enchantments whose shelved BOOK is consumed when infused, each "&lt;enchantment&gt;:&lt;minLevel&gt;".
      *  Books are normally permanent, which is the point of the table, so this is the deliberate exception.
      *  Fortune IV/V are minted rather than enchanted, and a reusable source would devalue every other route
@@ -491,6 +497,7 @@ public class GameplayConfig {
         g.put("infusingEnabled", "Right-clicking an enchanting table opens the Infusing Table; false keeps the vanilla screen.");
         g.put("infusingCostPerLevel", "Skill Shards per level of the enchantment being applied.");
         g.put("infusingCurrency", "'skill' or 'quest' - which shard the Infusing Table charges.");
+        g.put("infusingHideIncompatible", "Hide enchantments the held item cannot take, instead of listing them greyed out after the ones that fit.");
         g.put("infusingConsumedBooks", "Enchantments whose shelved book IS consumed, each '<enchantment>:<minLevel>'. Empty = every book permanent.");
         g.put("netherRoofDamage", "Hurt players on the Nether roof, like the world border does.");
         g.put("netherRoofY", "Y level at or above which the roof rule applies.");
@@ -751,6 +758,7 @@ public class GameplayConfig {
         COPPER_HELMET_LIGHT_LEVEL = Math.max(0, Math.min(15, copperHelmetLightLevel));
         INFUSING_ENABLED = infusingEnabled;
         INFUSING_COST_PER_LEVEL = Math.max(0, infusingCostPerLevel);
+        INFUSING_HIDE_INCOMPATIBLE = infusingHideIncompatible;
         INFUSING_CONSUMED_BOOKS = infusingConsumedBooks == null ? java.util.List.of() : java.util.List.copyOf(infusingConsumedBooks);
         INFUSING_CURRENCY = "quest".equalsIgnoreCase(infusingCurrency) ? "quest" : "skill";
         NETHER_ROOF_DAMAGE = netherRoofDamage;
