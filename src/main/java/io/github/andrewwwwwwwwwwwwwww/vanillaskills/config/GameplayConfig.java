@@ -197,6 +197,8 @@ public class GameplayConfig {
     /** Give the vanilla items that ship with no repair material one that fits (trident ← prismarine,
      *  bow/crossbow/rod ← string, flint-and-steel/shears ← iron, brush ← copper). */
     public static volatile boolean VANILLA_REPAIR_MATERIALS = true;
+    /** Bone meal on a spore blossom grows another on a ceiling nearby, making them renewable. */
+    public static volatile boolean BONEMEAL_SPORE_BLOSSOMS = true;
     /** Loot `quality` on the crate catch: ~+10% relative crate odds per point of fishing luck
      *  (Luck of the Sea level + the luck attribute). 0 makes the crate rate ignore luck. */
     public static volatile int CRATE_FISHING_LUCK_QUALITY = 1;
@@ -407,6 +409,9 @@ public class GameplayConfig {
     /** Give the vanilla items with no repair material one that fits: trident ← prismarine,
      *  bow/crossbow/fishing rod ← string, flint-and-steel/shears ← iron ingot, brush ← copper ingot. */
     public boolean vanillaRepairMaterials = true;
+    /** Bone meal on a spore blossom grows another on a nearby ceiling — the one lush-cave plant vanilla
+     *  gives no way to make more of. */
+    public boolean bonemealSporeBlossoms = true;
     /** How much fishing luck (Luck of the Sea + the luck attribute) raises the crate catch rate:
      *  roughly +10% relative odds per point at 1 (default). 0 makes the rate ignore luck. */
     public int crateFishingLuckQuality = 1;
@@ -544,6 +549,7 @@ public class GameplayConfig {
         g.put("taskShardCooldownSeconds", "After a task shard drops, seconds before that player can earn another.");
         g.put("taskShardLuckBonus", "Task-shard odds bonus per point of luck: chance x (1 + luck x this).");
         g.put("vanillaRepairMaterials", "Give repair-less vanilla items a repair material (trident<-prismarine, bow/crossbow/rod<-string, flint-and-steel/shears<-iron, brush<-copper).");
+        g.put("bonemealSporeBlossoms", "Bone meal on a spore blossom grows another on a ceiling nearby, so they are renewable.");
         g.put("crateFishingLuckQuality", "Crate-rate bonus per point of fishing luck (~+10% relative per point at 1; 0 ignores luck).");
         g.put("dragonScaleDrop", "Dragon Scales per player dragon kill.");
         g.put("dragonScaleFirstKillDrop", "Scales for the world's FIRST player kill, one time.");
@@ -749,6 +755,7 @@ public class GameplayConfig {
         TASK_SHARD_COOLDOWN_SECONDS = Math.max(0, taskShardCooldownSeconds);
         TASK_SHARD_LUCK_BONUS = Math.max(0.0, taskShardLuckBonus);
         VANILLA_REPAIR_MATERIALS = vanillaRepairMaterials;
+        BONEMEAL_SPORE_BLOSSOMS = bonemealSporeBlossoms;
         CRATE_FISHING_LUCK_QUALITY = Math.max(0, crateFishingLuckQuality);
         DRAGON_SCALE_DROP = Math.max(0, dragonScaleDrop);
         DRAGON_SCALE_FIRST_KILL_DROP = Math.max(0, dragonScaleFirstKillDrop);

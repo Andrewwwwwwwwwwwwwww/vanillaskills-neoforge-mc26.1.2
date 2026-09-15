@@ -241,6 +241,13 @@ public class VanillaSkills {
                 return;
             }
 
+            // Bone meal on a spore blossom spreads it; vanilla does nothing at all here.
+            if (io.github.andrewwwwwwwwwwwwwww.vanillaskills.world.SporeBlossoms.tryBoneMeal(
+                    level, e.getPos(), sp, sp.getItemInHand(e.getHand()))) {
+                e.setCanceled(true);
+                return;
+            }
+
             ItemStack held = e.getItemStack();
             boolean stable = io.github.andrewwwwwwwwwwwwwww.vanillaskills.shard.ShardItems.isStableBlock(held);
             boolean unstable = io.github.andrewwwwwwwwwwwwwww.vanillaskills.shard.ShardItems.isUnstableBlock(held);

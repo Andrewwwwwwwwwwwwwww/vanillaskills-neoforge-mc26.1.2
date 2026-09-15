@@ -59,6 +59,10 @@ public final class DragonSet {
 
     private static void tryDash(ServerPlayer player) {
         if (player.onGround() || !player.isShiftKeyDown()) return;
+        // Not in a fluid. Nothing is "on the ground" while swimming, and sneaking is how you sink, so a
+        // wearer holding sneak to descend was being fired across the water once per cooldown, for as long
+        // as they held it. The dash is a dive through the air and says so on the armour.
+        if (player.isInWater() || player.isInLava()) return;
 
         long now = player.level().getGameTime();
         Long last = lastDashTick.get(player.getUUID());

@@ -1,5 +1,24 @@
 # VanillaSkills Changelog
 
+## [2.2.0] - 2026-09-14
+
+### Added
+- **Netherite Scrap repairs netherite gear.** An ingot is four scrap and four gold, and the gold does nothing
+  for the repair, so mending a netherite tool was the most expensive repair in the game. Scrap works now, and
+  the ingot still does. The Dragon tier is untouched: it is built on netherite items but repairs with Dragon
+  Ingots, and scrap has no business there.
+- **Bone meal spreads spore blossoms.** They are the one lush-cave plant vanilla gives you no way to make more
+  of — they grow nowhere and spread to nothing, so the only supply is what the world generated. Bone meal on one
+  now grows another on a ceiling within a few blocks, which makes a lush cave something to tend rather than
+  strip. If there is nowhere for one to hang, the bone meal is not spent. Turn it off with
+  `bonemealSporeBlossoms`.
+
+### Fixed
+- **The Dragon set no longer fires you across the water.** Its dive-dash triggers on holding sneak while off
+  the ground — and while swimming you are never on the ground, and sneak is how you sink. So wearing the full
+  set and holding sneak underwater launched you at dash speed, once per cooldown, for as long as you held it.
+  The dash is a dive through the air, as the armour says, and it stays out of water and lava now.
+
 ## [2.1.16] - 2026-08-28
 
 ### Changed

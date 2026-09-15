@@ -12,6 +12,7 @@ import net.minecraft.world.item.enchantment.Repairable;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Gives the vanilla items that ship with no repair material one that fits, so they stop being
@@ -41,6 +42,19 @@ public final class RepairMaterials {
             Items.SHEARS, Items.IRON_INGOT,
             Items.BRUSH, Items.COPPER_INGOT);
 
+    /**
+     * Vanilla netherite gear, which repairs with an ingot and nothing else.
+     *
+     * <p>An ingot is four scrap and four gold, so repairing with one is the most expensive way to mend
+     * anything in the game — and the gold in it does nothing for the repair. Scrap is added alongside the
+     * ingot rather than replacing it, so both work.
+     */
+    private static final Set<Item> NETHERITE_GEAR = Set.of(
+            Items.NETHERITE_SWORD, Items.NETHERITE_PICKAXE, Items.NETHERITE_AXE,
+            Items.NETHERITE_SHOVEL, Items.NETHERITE_HOE, Items.NETHERITE_SPEAR,
+            Items.NETHERITE_HELMET, Items.NETHERITE_CHESTPLATE,
+            Items.NETHERITE_LEGGINGS, Items.NETHERITE_BOOTS);
+
     /** Stamps every matching item in the player's inventory and ender chest. */
     public static void sweep(ServerPlayer player) {
         if (!GameplayConfig.VANILLA_REPAIR_MATERIALS) return;
@@ -53,10 +67,46 @@ public final class RepairMaterials {
 
     private static void stamp(ItemStack stack) {
         if (stack.isEmpty()) return;
+        if (addNetheriteScrap(stack)) return;
         Item material = MATERIALS.get(stack.getItem());
         if (material == null) return;
         if (stack.has(DataComponents.REPAIRABLE)) return;
         stack.set(DataComponents.REPAIRABLE,
                 new Repairable(HolderSet.direct(List.of(material.builtInRegistryHolder()))));
+    }
+
+    /**
+     * Adds Netherite Scrap to a piece of vanilla netherite gear's repair materials.
+     *
+     * @return true if this stack is netherite gear, whether or not anything needed changing
+     */
+    private static boolean addNetheriteScrap(ItemStack stack) {
+        if (!NETHERITE_GEAR.contains(stack.getItem())) return false;
+        // The mod's own Dragon tier is built on netherite items but repairs with Dragon Ingots. Its stacks
+        // carry the tier's marker, and leaving them alone keeps scrap out of a tier it was never meant for.
+        for (io.github.andrewwwwwwwwwwwwwww.vanillaskills.tool.ToolTier tier
+                : io.github.andrewwwwwwwwwwwwwww.vanillaskills.tool.ToolTiers.TIERS) {
+            if (io.github.andrewwwwwwwwwwwwwww.vanillaskills.armor.Markers.has(stack, tier.markerKey)) {
+                return true;
+            }
+        }
+        for (io.github.andrewwwwwwwwwwwwwww.vanillaskills.armor.ArmorTier tier
+                : io.github.andrewwwwwwwwwwwwwww.vanillaskills.armor.ArmorTiers.TIERS) {
+            if (tier.isWorn(stack)) return true;
+        }
+
+        Repairable current = stack.get(DataComponents.REPAIRABLE);
+        List<net.minecraft.core.Holder<Item>> materials = new java.util.ArrayList<>();
+        if (current != null) {
+            for (net.minecraft.core.Holder<Item> holder : current.items()) {
+                if (holder.value() == Items.NETHERITE_SCRAP) return true; // already done
+                materials.add(holder);
+            }
+        } else {
+            materials.add(Items.NETHERITE_INGOT.builtInRegistryHolder());
+        }
+        materials.add(Items.NETHERITE_SCRAP.builtInRegistryHolder());
+        stack.set(DataComponents.REPAIRABLE, new Repairable(HolderSet.direct(materials)));
+        return true;
     }
 }
