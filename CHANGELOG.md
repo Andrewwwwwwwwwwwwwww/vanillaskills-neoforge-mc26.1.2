@@ -1,5 +1,23 @@
 # VanillaSkills Changelog
 
+## [2.4.2] - 2026-09-15
+
+### Fixed
+- **The 26.3 build still could not start a server.** 2.4.1 rewrote the Skill Shard ore feature in the new block
+  state form, but Minecraft 26.3 also moved where it reads features from and how it lays them out:
+  `worldgen/configured_feature/` is now `worldgen/feature/`, and the settings that used to sit inside a
+  `config` object now sit next to `type`. The file was still in the old place in the old shape, so 26.3 never
+  read it, the three placed features pointed at a feature that did not exist, and the server stopped at the
+  same "Failed to load datapacks" line as before.
+  - Only the 26.3 build was affected. The 26.2 and 26.1.2 builds keep the old path and shape, which is what
+    those versions read.
+- **And once past that, the recipe removal stopped it instead.** Since 26.3 recipes are a registry, and the
+  recipe map is built from that registry's lookup rather than from a list of recipes. The hook that drops the
+  vanilla lodestone recipe still expected the list, so it could not attach, and Minecraft then refused to load
+  the recipe map at all — which ends at the same "Failed to load datapacks" line. It now filters the lookup.
+  - Only the 26.3 build again. Found by actually booting a 26.3 server with the jar this time, which is how
+    2.4.2 was verified before it went out.
+
 ## [2.4.1] - 2026-09-15
 
 ### Fixed
