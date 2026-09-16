@@ -199,6 +199,7 @@ public class VanillaSkills {
             DragonSet.onPlayerLeave(player.getUUID());
             io.github.andrewwwwwwwwwwwwwww.vanillaskills.skill.StepHeight.onLeave(player.getUUID());
             io.github.andrewwwwwwwwwwwwwww.vanillaskills.shard.ShardBar.forget(player);
+            io.github.andrewwwwwwwwwwwwwww.vanillaskills.skill.SwimSpeed.forget(player);
         });
 
         NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerRespawnEvent e) -> {
@@ -214,6 +215,7 @@ public class VanillaSkills {
                 // the player's REAL experience (level 0) on the next tick, wiping anything we sent first.
                 // Clearing our cache instead makes the ~10-tick reconcile re-send AFTER vanilla's zero.
                 io.github.andrewwwwwwwwwwwwwww.vanillaskills.shard.ShardBar.forget(player);
+            io.github.andrewwwwwwwwwwwwwww.vanillaskills.skill.SwimSpeed.forget(player);
             }
         });
 
@@ -222,6 +224,7 @@ public class VanillaSkills {
         NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerChangedDimensionEvent e) -> {
             if (e.getEntity() instanceof ServerPlayer player) {
                 io.github.andrewwwwwwwwwwwwwww.vanillaskills.shard.ShardBar.forget(player);
+            io.github.andrewwwwwwwwwwwwwww.vanillaskills.skill.SwimSpeed.forget(player);
             }
         });
 
@@ -487,6 +490,8 @@ public class VanillaSkills {
         DragonSet.tick(srv);
         // Every tick: suppress the Mountaineer step-up bonus while sneaking / toggled off (safety).
         io.github.andrewwwwwwwwwwwwwww.vanillaskills.skill.StepHeight.tick(srv, TREE.tree());
+        // Every tick: the Aquatic lane's swim bonus goes on entering water and comes off leaving it.
+        io.github.andrewwwwwwwwwwwwwww.vanillaskills.skill.SwimSpeed.tick(srv);
         // Throttled (every ~2s, internally): discovery/dimension Feats + STAT-quest baselines.
         io.github.andrewwwwwwwwwwwwwww.vanillaskills.skill.Feats.serverTick(srv);
         if (tickCounter % ELYTRA_FORGE_INTERVAL == 0) {
