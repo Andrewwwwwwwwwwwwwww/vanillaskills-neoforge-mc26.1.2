@@ -73,7 +73,7 @@ lane and node description is translatable. See [TRANSLATING.md](TRANSLATING.md).
 Run `./gradlew build`. The jar lands in `build/libs/`.
 
 The pushed texture pack is built from the **26.2 Fabric** repo
-(`tools/build-pack.sh <tag>`), which patches its SHA-1 into all four editions at once —
+(`tools/build-pack.sh <tag>`), which patches its SHA-1 into all six editions at once —
 they have to be produced together or the client rejects the download.
 
 ## Documentation
