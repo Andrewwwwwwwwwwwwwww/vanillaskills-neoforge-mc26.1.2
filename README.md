@@ -31,7 +31,7 @@ installed by hand. A client-side install is optional.
 ## Requirements
 
 - Minecraft **26.1.2**
-- **NeoForge** 26.2.0.7-beta or newer
+- **NeoForge** 26.1.2.71 or newer
 - Installed on the **server**
 
 ## Configuration
@@ -72,7 +72,7 @@ lane and node description is translatable. See [TRANSLATING.md](TRANSLATING.md).
 
 Run `./gradlew build`. The jar lands in `build/libs/`.
 
-The pushed texture pack is built from the **26.2 Fabric** repo
+The pushed texture pack is built from the **26.3 Fabric** repo
 (`tools/build-pack.sh <tag>`), which patches its SHA-1 into all six editions at once —
 they have to be produced together or the client rejects the download.
 
